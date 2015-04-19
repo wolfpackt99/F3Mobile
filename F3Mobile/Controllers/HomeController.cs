@@ -6,21 +6,21 @@ using System.Web.Mvc;
 
 namespace F3Mobile.Controllers
 {
-    public class HomeController : Controller
+    public partial class HomeController : Controller
     {
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult About()
+        public virtual ActionResult FNG()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "FNG Signup";
 
             return View();
         }
 
-        public ActionResult Contact()
+        public virtual ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
 
