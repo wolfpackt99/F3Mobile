@@ -9,13 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F3.ViewModels", "F3.ViewMod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F3.Business", "F3.Business\F3.Business.csproj", "{5752D4DC-E2B7-4E5C-A296-C72C642FF792}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{10C4D26C-BA2B-4300-84D1-F20CBAB219E2}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F3Mobile", "F3Mobile\F3Mobile.csproj", "{41C00C1A-6077-492A-9114-D441F9C7CFB0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1F558B1D-0408-486B-9484-12745827379D}"
