@@ -8,7 +8,7 @@ namespace F3.Business.Tests
     [TestClass]
     public class GoogleContactFixture
     {
-        [TestMethod]
+        //[TestMethod]
         public async Task GetContactsTest()
         {
             var x = new GoogleContactBusiness();
