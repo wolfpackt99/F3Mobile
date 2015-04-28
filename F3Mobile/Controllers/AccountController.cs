@@ -5,7 +5,9 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using F3Mobile.Models;
@@ -22,7 +24,7 @@ namespace F3Mobile.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -34,9 +36,9 @@ namespace F3Mobile.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -120,7 +122,7 @@ namespace F3Mobile.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -153,10 +155,11 @@ namespace F3Mobile.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -317,6 +320,12 @@ namespace F3Mobile.Controllers
             return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
         }
 
+
+        [AllowAnonymous]
+        public virtual ActionResult ExternalLoginCallbackRedirect(string returnUrl)
+        {
+            return RedirectPermanent("/Account/ExternalLoginCallback");
+        }
         //
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
@@ -327,7 +336,7 @@ namespace F3Mobile.Controllers
             {
                 return RedirectToAction("Login");
             }
-
+            await RefreshContextAndDb(loginInfo);
             // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
             switch (result)
@@ -345,6 +354,17 @@ namespace F3Mobile.Controllers
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
                     return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
             }
+        }
+
+        private async Task RefreshContextAndDb(ExternalLoginInfo loginInfo)
+        {
+            var user = await UserManager.FindByEmailAsync(loginInfo.Email);
+
+            user.AccessToken =
+                loginInfo.ExternalIdentity.Claims.FirstOrDefault(
+                    c => c.Type.Equals("urn:googleplus:access_token")).Value;
+
+            await UserManager.UpdateAsync(user);
         }
 
         //
@@ -367,7 +387,9 @@ namespace F3Mobile.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var accesstoken =
+                    info.ExternalIdentity.Claims.FirstOrDefault(c => c.Type.Equals("urn:googleplus:access_token"));
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, AccessToken = accesstoken != null ? accesstoken.Value : string.Empty };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

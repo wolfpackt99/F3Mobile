@@ -75,11 +75,19 @@ namespace F3Mobile.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = ("Index").ToLowerInvariant();
-            public readonly string FNG = ("FNG").ToLowerInvariant();
+            public readonly string Fng = ("Fng").ToLowerInvariant();
             public readonly string Contact = ("Contact").ToLowerInvariant();
         }
 
 
+        static readonly ActionParamsClass_Fng s_params_Fng = new ActionParamsClass_Fng();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Fng FngParams { get { return s_params_Fng; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Fng
+        {
+            public readonly string contact = ("contact").ToLowerInvariant();
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -91,10 +99,12 @@ namespace F3Mobile.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Contact = "Contact";
+                public readonly string ContactAsnyc = "ContactAsnyc";
                 public readonly string fng = "fng";
                 public readonly string Index = "Index";
             }
             public readonly string Contact = "~/Views/Home/Contact.cshtml";
+            public readonly string ContactAsnyc = "~/Views/Home/ContactAsnyc.cshtml";
             public readonly string fng = "~/Views/Home/fng.cshtml";
             public readonly string Index = "~/Views/Home/Index.cshtml";
         }
@@ -111,20 +121,32 @@ namespace F3Mobile.Controllers
         [NonAction]
         public override System.Web.Mvc.ActionResult Index()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index, "https");
             IndexOverride(callInfo);
             return callInfo;
         }
 
         [NonAction]
-        partial void FNGOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void FngOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult FNG()
+        public override System.Web.Mvc.ActionResult Fng()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FNG);
-            FNGOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Fng, "https");
+            FngOverride(callInfo);
             return callInfo;
+        }
+
+        [NonAction]
+        partial void FngOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, F3.ViewModels.Contact contact);
+
+        [NonAction]
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Fng(F3.ViewModels.Contact contact)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Fng, "https");
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "contact", contact);
+            FngOverride(callInfo, contact);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
         [NonAction]
@@ -133,7 +155,7 @@ namespace F3Mobile.Controllers
         [NonAction]
         public override System.Web.Mvc.ActionResult Contact()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Contact);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Contact, "https");
             ContactOverride(callInfo);
             return callInfo;
         }

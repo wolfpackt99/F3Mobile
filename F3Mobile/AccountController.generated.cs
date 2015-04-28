@@ -96,6 +96,12 @@ namespace F3Mobile.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ExternalLoginCallbackRedirect()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLoginCallbackRedirect);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ExternalLoginCallback()
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLoginCallback);
@@ -134,6 +140,7 @@ namespace F3Mobile.Controllers
             public readonly string ResetPasswordConfirmation = ("ResetPasswordConfirmation").ToLowerInvariant();
             public readonly string ExternalLogin = ("ExternalLogin").ToLowerInvariant();
             public readonly string SendCode = ("SendCode").ToLowerInvariant();
+            public readonly string ExternalLoginCallbackRedirect = ("ExternalLoginCallbackRedirect").ToLowerInvariant();
             public readonly string ExternalLoginCallback = ("ExternalLoginCallback").ToLowerInvariant();
             public readonly string ExternalLoginConfirmation = ("ExternalLoginConfirmation").ToLowerInvariant();
             public readonly string LogOff = ("LogOff").ToLowerInvariant();
@@ -213,6 +220,14 @@ namespace F3Mobile.Controllers
             public readonly string returnUrl = ("returnUrl").ToLowerInvariant();
             public readonly string rememberMe = ("rememberMe").ToLowerInvariant();
             public readonly string model = ("model").ToLowerInvariant();
+        }
+        static readonly ActionParamsClass_ExternalLoginCallbackRedirect s_params_ExternalLoginCallbackRedirect = new ActionParamsClass_ExternalLoginCallbackRedirect();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ExternalLoginCallbackRedirect ExternalLoginCallbackRedirectParams { get { return s_params_ExternalLoginCallbackRedirect; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ExternalLoginCallbackRedirect
+        {
+            public readonly string returnUrl = ("returnUrl").ToLowerInvariant();
         }
         static readonly ActionParamsClass_ExternalLoginCallback s_params_ExternalLoginCallback = new ActionParamsClass_ExternalLoginCallback();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -466,6 +481,18 @@ namespace F3Mobile.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             SendCodeOverride(callInfo, model);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        [NonAction]
+        partial void ExternalLoginCallbackRedirectOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string returnUrl);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ExternalLoginCallbackRedirect(string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLoginCallbackRedirect);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            ExternalLoginCallbackRedirectOverride(callInfo, returnUrl);
+            return callInfo;
         }
 
         [NonAction]
