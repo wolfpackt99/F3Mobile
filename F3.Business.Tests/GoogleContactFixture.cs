@@ -13,7 +13,7 @@ namespace F3.Business.Tests
         {
             var x = new GoogleContactBusiness();
             var list = await x.GetContacts();
-            list.Should().NotBeNull("Should be able to get contacts.");
+            list.Should().NotBeNull("Should be able to get list of contacts.");
         }
     }
 }
