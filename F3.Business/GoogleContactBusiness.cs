@@ -39,6 +39,8 @@ namespace F3.Business
 
         public async Task<ViewModels.Contact> AddContact(ViewModels.Contact contact)
         {
+            var cSvc = new ContactsService("F3Test").Credentials;
+
             var rs = new RequestSettings("F3Test", Token.AccessToken);
             // AutoPaging results in automatic paging in order to retrieve all contacts
             rs.AutoPaging = true;

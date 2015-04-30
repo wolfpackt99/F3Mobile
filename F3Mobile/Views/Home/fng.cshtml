@@ -3,9 +3,16 @@
 @using F3Mobile.Code
 @{
     ViewBag.Title = "FNG";
+    var success = ViewBag.Success;
 }
 <h2>@ViewBag.Message</h2>
 <div>
+    @if (!string.IsNullOrEmpty(success))
+    {
+        <div class="alert alert-success" role="alert">
+            @success
+        </div>
+    }
     @if (!ViewData.ModelState.IsValid)
     {
         <div class="alert alert-danger" role="alert">

@@ -10,14 +10,13 @@ namespace F3Mobile.Controllers
     public partial class HomeController : Controller
     {
         [Inject]
-        public IContactBusiness ContactBiz { get; set; }
+        public ISubscribe ContactBiz { get; set; }
 
         public virtual ActionResult Index()
         {
             return View();
         }
 
-        [Authorize]
         public virtual ActionResult Fng()
         {
             ViewBag.Message = "FNG Signup";
@@ -25,14 +24,14 @@ namespace F3Mobile.Controllers
             return View();
         }
 
-        [Authorize]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public virtual async Task<ActionResult> Fng(Contact contact)
         {
             if (ModelState.IsValid)
             {
-                contact = await ContactBiz.AddContact(contact);
+                var subscribed = await ContactBiz.Add(contact);
+                ViewBag.Success = "FNG Added.";
             }
             return View(contact);
         }
