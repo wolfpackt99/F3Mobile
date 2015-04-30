@@ -6,7 +6,6 @@ using System.Web.Mvc;
 
 namespace F3Mobile.Controllers
 {
-    [RequireHttps]
     public partial class HomeController : Controller
     {
         [Inject]
