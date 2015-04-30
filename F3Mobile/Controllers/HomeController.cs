@@ -8,6 +8,7 @@ namespace F3Mobile.Controllers
 {
     public partial class HomeController : Controller
     {
+        private const string Alert = "Alert";
         [Inject]
         public ISubscribe ContactBiz { get; set; }
 
@@ -19,7 +20,7 @@ namespace F3Mobile.Controllers
         public virtual ActionResult Fng()
         {
             ViewBag.Message = "FNG Signup";
-
+            ViewBag.Alert = TempData[Alert];
             return View();
         }
 
@@ -30,7 +31,8 @@ namespace F3Mobile.Controllers
             if (ModelState.IsValid)
             {
                 var subscribed = await ContactBiz.Add(contact);
-                ViewBag.Success = "FNG Added.";
+                TempData[Alert] = "FNG Added";
+                return RedirectToAction(MVC.Home.Actions.Fng());
             }
             return View(contact);
         }
@@ -41,41 +43,5 @@ namespace F3Mobile.Controllers
 
             return View();
         }
-
-       
-        //[Authorize]
-        //public virtual async Task<ActionResult> ContactAsnyc(CancellationToken cancellationToken)
-        //{
-            
-        //    var externalidentity =
-        //        await this.HttpContext.GetOwinContext()
-        //            .Authentication.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
-            
-
-        //    //if (result.Credential == null)
-        //    //    return new RedirectResult(result.RedirectUri);
-        //    var accessToken =
-        //        ((ClaimsIdentity) this.HttpContext.User.Identity).Claims.FirstOrDefault(
-        //            atk => atk.Type.Equals("urn:googleplus:access_token"));
-
-        //    if (accessToken == null)
-        //    {
-        //        throw new Exception("Access Token is null");
-        //    }
-
-        //    var rs = new RequestSettings("F3Test", accessToken.Value );
-        //    rs.AutoPaging = true;
-        //    var cr = new ContactsRequest(rs);
-
-        //    var f = cr.GetContacts();
-        //    var c = f.Entries.Select(e => new F3.ViewModels.Contact
-        //    {
-        //        Email = e.Emails.Any() ? e.Emails.First().Address : string.Empty, 
-        //        FirstName = e.Name.GivenName, 
-        //        LastName = e.Name.FamilyName, 
-        //        Id = e.Id
-        //    }).ToList();
-        //    return View(c);
-        //}
     }
 }

@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "FNG";
     var success = ViewBag.Success;
+    var alert = ViewBag.Alert;
 }
 <h2>@ViewBag.Message</h2>
 <div>
@@ -37,3 +38,14 @@
         <button type="submit" class="btn btn-default">Submit</button>
     }
 </div>
+@section scripts
+{
+    <script>
+        $(function () {
+            var alert = "@alert";
+            if (alert.length > 0) {
+                toastr.success(alert);
+            }
+        });
+    </script>
+}
