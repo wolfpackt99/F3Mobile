@@ -1,4 +1,5 @@
-﻿using F3.Business;
+﻿using System;
+using F3.Business;
 using F3.ViewModels;
 using Ninject;
 using System.Threading.Tasks;
@@ -30,9 +31,16 @@ namespace F3Mobile.Controllers
         {
             if (ModelState.IsValid)
             {
-                var subscribed = await ContactBiz.Add(contact);
-                TempData[Alert] = "FNG Added";
-                return RedirectToAction(MVC.Home.Actions.Fng());
+                try
+                {
+                    var subscribed = await ContactBiz.Add(contact);
+                    TempData[Alert] = "FNG Added";
+                    return RedirectToAction(MVC.Home.Actions.Fng());
+                }
+                catch (Exception exp)
+                {
+                    ModelState.AddModelError("",exp.Message);
+                }
             }
             return View(contact);
         }
