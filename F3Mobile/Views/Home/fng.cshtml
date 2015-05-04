@@ -33,7 +33,49 @@
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.Email)
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type="Email" })
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "Email" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.F3Name)
+            @Html.TextBoxFor(m => m.F3Name, new { @class = "form-control"})
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Workout)
+            <select id='Workout' name='Workout' class="form-control">
+                <option value="">Select a workout</option>
+                <option name='Anvil'>Anvil</option>
+                <option name='Area51'>Area51</option>
+                <option name='Ascent'>Ascent</option>
+                <option name='Bagpipe'>Bagpipe</option>
+                <option name='Base Camp'>Base Camp</option>
+                <option name='Centurion'>Centurion</option>
+                <option name='Committment'>Committment</option>
+                <option name='Day Zero'>Day Zero</option>
+                <option name='Death Valley'>Death Valley</option>
+                <option name='DMZ'>DMZ</option>
+                <option name='Dromedary'>Dromedary</option>
+                <option name='Fast Twitch'>Fast Twitch</option>
+                <option name='Fight Club'>Fight Club</option>
+                <option name='Foxhole'>Foxhole</option>
+                <option name='Hydra'>Hydra</option>
+                <option name='Joust'>Joust</option>
+                <option name='Kevlar'>Kevlar</option>
+                <option name='Meathead'>Meathead</option>
+                <option name='Olympus'>Olympus</option>
+                <option name='Outland'>Outland</option>
+                <option name='Overdrive'>Overdrive</option>
+                <option name='Peak 51'>Peak 51</option>
+                <option name='Rebel Yell'>Rebel Yell</option>
+                <option name='Skunk Works'>Skunk Works</option>
+                <option name='Stonehenge'>Stonehenge</option>
+                <option name='Swift'>Swift</option>
+                <option name='The Brave'>The Brave</option>
+                <option name='The Charge'>The Charge</option>
+                <option name='The Devils Turn'>The Devil's Turn</option>
+                <option name='The Matrix'>The Matrix</option>
+                <option name='The Maul'>The Maul</option>
+                <option name='The Rock'>The Rock</option>
+            </select>
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
     }

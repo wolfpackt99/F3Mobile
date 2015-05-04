@@ -15,6 +15,10 @@ namespace F3.ViewModels
         [EmailAddress]
         public string Email { get; set; }
 
+        [Display(ResourceType = typeof(ResourceStrings), Name = "F3Name")]
+        public string F3Name { get; set; }
+        [Display(ResourceType = typeof(ResourceStrings), Name = "Workout")]
+        public string Workout { get; set; }
         
     }
 }

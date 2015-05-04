@@ -14,5 +14,10 @@ namespace F3.Business.Fng
         public string FirstName { get; set; }
         [System.Runtime.Serialization.DataMember(Name = "LNAME")]
         public string LastName { get; set; }
+
+        [System.Runtime.Serialization.DataMember(Name = "F3NAME")]
+        public string F3Name { get; set; }
+        [System.Runtime.Serialization.DataMember(Name = "WORKOUT")]
+        public string Workout { get; set; }
     }
 }

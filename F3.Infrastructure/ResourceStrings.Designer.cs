@@ -70,6 +70,15 @@ namespace F3.Infrastructure {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to F3 Name.
+        /// </summary>
+        public static string F3Name {
+            get {
+                return ResourceManager.GetString("F3Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to First Name.
         /// </summary>
         public static string FirstName {
@@ -84,6 +93,15 @@ namespace F3.Infrastructure {
         public static string LastName {
             get {
                 return ResourceManager.GetString("LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Workout.
+        /// </summary>
+        public static string Workout {
+            get {
+                return ResourceManager.GetString("Workout", resourceCulture);
             }
         }
     }

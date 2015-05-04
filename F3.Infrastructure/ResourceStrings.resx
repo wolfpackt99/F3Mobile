@@ -120,10 +120,16 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="F3Name" xml:space="preserve">
+    <value>F3 Name</value>
+  </data>
   <data name="FirstName" xml:space="preserve">
     <value>First Name</value>
   </data>
   <data name="LastName" xml:space="preserve">
     <value>Last Name</value>
+  </data>
+  <data name="Workout" xml:space="preserve">
+    <value>Workout</value>
   </data>
 </root>
