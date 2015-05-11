@@ -45,6 +45,11 @@ namespace F3Mobile.Controllers
             return View(contact);
         }
 
+        public ActionResult Schedule()
+        {
+            return View();
+        }
+
         public virtual ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

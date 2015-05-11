@@ -1,0 +1,26 @@
+﻿@using F3Mobile.Code
+@{
+    ViewBag.Title = "Schedule";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Q Schedule</h2>
+<div id="authorize-div" style="display: none">
+    <span>Authorize access to calendar</span>
+    <!--Button for the user to click to initiate auth sequence -->
+    <button id="authorize-button" ng-click="handleAuthClick()">
+        Authorize
+    </button>
+</div>
+<div id="itemHolder">
+</div>
+
+@section scripts
+{
+
+    <script>
+        var CLIENT_ID = '@WebConfig.ClientId';
+    </script>
+    @Scripts.Render("~/scripts/calendar.js");
+    <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+}

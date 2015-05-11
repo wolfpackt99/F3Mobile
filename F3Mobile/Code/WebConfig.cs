@@ -13,5 +13,9 @@ namespace F3Mobile.Code
             get { return ConfigurationManager.AppSettings.Get("MailChimpUrl") ?? string.Empty; }
         }
 
+        public static string ClientId
+        {
+            get { return ConfigurationManager.AppSettings.Get("ClientId") ?? string.Empty; }
+        }
     }
 }

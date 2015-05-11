@@ -289,8 +289,15 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
+    <Content Include="Scripts\calendar.js" />
+    <Content Include="Scripts\calendar.min.js">
+      <DependentUpon>calendar.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\custom.min.js.map">
       <DependentUpon>custom.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\calendar.min.js.map">
+      <DependentUpon>calendar.min.js</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Icon.png" />
@@ -369,6 +376,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\ContactAsnyc.cshtml" />
+    <Content Include="Views\Home\Schedule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
