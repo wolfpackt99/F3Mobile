@@ -76,7 +76,7 @@ namespace F3Mobile.Controllers
         {
             public readonly string Index = ("Index").ToLowerInvariant();
             public readonly string Fng = ("Fng").ToLowerInvariant();
-            public readonly string Contact = ("Contact").ToLowerInvariant();
+            public readonly string Schedule = ("Schedule").ToLowerInvariant();
         }
 
 
@@ -102,11 +102,13 @@ namespace F3Mobile.Controllers
                 public readonly string ContactAsnyc = "ContactAsnyc";
                 public readonly string fng = "fng";
                 public readonly string Index = "Index";
+                public readonly string Schedule = "Schedule";
             }
             public readonly string Contact = "~/Views/Home/Contact.cshtml";
             public readonly string ContactAsnyc = "~/Views/Home/ContactAsnyc.cshtml";
             public readonly string fng = "~/Views/Home/fng.cshtml";
             public readonly string Index = "~/Views/Home/Index.cshtml";
+            public readonly string Schedule = "~/Views/Home/Schedule.cshtml";
         }
     }
 
@@ -121,7 +123,7 @@ namespace F3Mobile.Controllers
         [NonAction]
         public override System.Web.Mvc.ActionResult Index()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index, "https");
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
             return callInfo;
         }
@@ -132,7 +134,7 @@ namespace F3Mobile.Controllers
         [NonAction]
         public override System.Web.Mvc.ActionResult Fng()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Fng, "https");
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Fng);
             FngOverride(callInfo);
             return callInfo;
         }
@@ -143,20 +145,20 @@ namespace F3Mobile.Controllers
         [NonAction]
         public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Fng(F3.ViewModels.Contact contact)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Fng, "https");
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Fng);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "contact", contact);
             FngOverride(callInfo, contact);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
         [NonAction]
-        partial void ContactOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void ScheduleOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Contact()
+        public override System.Web.Mvc.ActionResult Schedule()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Contact, "https");
-            ContactOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Schedule);
+            ScheduleOverride(callInfo);
             return callInfo;
         }
 

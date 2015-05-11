@@ -74,6 +74,12 @@ namespace Links
         public static readonly string _references_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_references.min.js") ? Url("_references.min.js") : Url("_references.js");
         public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.js") ? Url("bootstrap.min.js") : Url("bootstrap.js");
         public static readonly string bootstrap_min_js = Url("bootstrap.min.js");
+        public static readonly string calendar_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/calendar.min.js") ? Url("calendar.min.js") : Url("calendar.js");
+        public static readonly string calendar_min_js = Url("calendar.min.js");
+        public static readonly string calendar_min_js_map = Url("calendar.min.js.map");
+        public static readonly string custom_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/custom.min.js") ? Url("custom.min.js") : Url("custom.js");
+        public static readonly string custom_min_js = Url("custom.min.js");
+        public static readonly string custom_min_js_map = Url("custom.min.js.map");
         public static readonly string jquery_2_1_3_intellisense_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.1.3.intellisense.min.js") ? Url("jquery-2.1.3.intellisense.min.js") : Url("jquery-2.1.3.intellisense.js");
         public static readonly string jquery_2_1_3_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.1.3.min.js") ? Url("jquery-2.1.3.min.js") : Url("jquery-2.1.3.js");
         public static readonly string jquery_2_1_3_min_js = Url("jquery-2.1.3.min.js");
@@ -100,6 +106,8 @@ namespace Links
             public static readonly string T4MvcJs_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/T4MvcJs.min.js") ? Url("T4MvcJs.min.js") : Url("T4MvcJs.js");
         }
     
+        public static readonly string toastr_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/toastr.min.js") ? Url("toastr.min.js") : Url("toastr.js");
+        public static readonly string toastr_min_js = Url("toastr.min.js");
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -117,6 +125,11 @@ namespace Links
         public static readonly string bootstrap_min_css = Url("bootstrap.min.css");
         public static readonly string Site_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Site.min.css") ? Url("Site.min.css") : Url("Site.css");
              
+        public static readonly string toastr_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/toastr.min.css") ? Url("toastr.min.css") : Url("toastr.css");
+             
+        public static readonly string toastr_less = Url("toastr.less");
+        public static readonly string toastr_min_css = Url("toastr.min.css");
+        public static readonly string toastr_scss = Url("toastr.scss");
     }
 
     
@@ -136,6 +149,8 @@ namespace Links
                 public const string _references_js = "~/Scripts/_references.js"; 
                 public const string bootstrap_js = "~/Scripts/bootstrap.js"; 
                 public const string bootstrap_min_js = "~/Scripts/bootstrap.min.js"; 
+                public const string calendar_js = "~/Scripts/calendar.js"; 
+                public const string custom_js = "~/Scripts/custom.js"; 
                 public const string jquery_2_1_3_intellisense_js = "~/Scripts/jquery-2.1.3.intellisense.js"; 
                 public const string jquery_2_1_3_js = "~/Scripts/jquery-2.1.3.js"; 
                 public const string jquery_2_1_3_min_js = "~/Scripts/jquery-2.1.3.min.js"; 
@@ -149,6 +164,8 @@ namespace Links
                 public const string respond_matchmedia_addListener_js = "~/Scripts/respond.matchmedia.addListener.js"; 
                 public const string respond_matchmedia_addListener_min_js = "~/Scripts/respond.matchmedia.addListener.min.js"; 
                 public const string respond_min_js = "~/Scripts/respond.min.js"; 
+                public const string toastr_js = "~/Scripts/toastr.js"; 
+                public const string toastr_min_js = "~/Scripts/toastr.min.js"; 
             }
         }
         public static partial class Content 
@@ -160,6 +177,8 @@ namespace Links
                 public const string bootstrap_css = "~/Content/bootstrap.css";
                 public const string bootstrap_min_css = "~/Content/bootstrap.min.css";
                 public const string Site_css = "~/Content/Site.css";
+                public const string toastr_css = "~/Content/toastr.css";
+                public const string toastr_min_css = "~/Content/toastr.min.css";
             }
         }
     }
