@@ -5,8 +5,9 @@ namespace F3.ViewModels
 {
     public class Contact
     {
-        [Required]
         public string Id { get; set; }
+        
+        [Required]
         [Display(ResourceType = typeof(ResourceStrings), Name="FirstName")]
         public string FirstName { get; set; }
 
