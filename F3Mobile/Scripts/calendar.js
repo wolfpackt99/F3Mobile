@@ -16,7 +16,8 @@
             'name': 'The Maul',
             id: 'sn0n3fk13inesa7cju33fpejg4@group.calendar.google.com'
         }
-    ];
+    ],
+    token = "";
 
 function checkAuth() {
     logger('checkAuth');
@@ -41,18 +42,38 @@ $("#authorize-button").on('click', function () {
     return false;
 });
 
+$("#logout-button").on('click', function () {
+    gapi.auth.signOut();
+    $.ajax({
+        url: 'https://accounts.google.com/o/oauth2/revoke?token=' + token,
+        type: "get",
+        dataType: 'jsonp'
+    }).success(function() {
+        document.location.reload();
+    });
+    
+});
+
 function handleAuthResult(authResult) {
     //logger('begin handleAuthResult: ' + authResult);
     var authorizeDiv = document.getElementById('authorize-div');
     if (authResult && !authResult.error) {
         // Hide auth UI, then load Calendar client library.
         authorizeDiv.style.display = 'none';
+        token = authResult['access_token'];
         loadCalendarApi();
+        showLogout(true);
     } else {
+        showLogout(false);
         // Show auth UI, allowing the user to initiate authorization by
         // clicking authorize button.
         authorizeDiv.style.display = 'inline';
     }
+}
+
+function showLogout(visible) {
+
+    $('#logout-div').toggle(visible);
 }
 
 function loadCalendarApi() {
