@@ -25,9 +25,18 @@
 @section scripts
 {
 
+    <script src="~/Scripts/require.js"></script>
+    <script src="https://apis.google.com/js/client.js"></script>
     <script>
-        var CLIENT_ID = '@WebConfig.ClientId';
+        require(['@Url.Content("~/scripts/config.js")'], function (config) {
+            config.initialize({
+                baseUrl: "@Url.Content("~/scripts")"
+            });
+            require(['calendar'], function (cal) {
+                cal.initialize({
+                    client_id: '@WebConfig.ClientId'
+                });
+            });
+        });
     </script>
-    @Scripts.Render("~/scripts/calendar.js");
-    <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
 }
