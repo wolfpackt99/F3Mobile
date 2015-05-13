@@ -83,11 +83,13 @@
 @section scripts
 {
     <script>
-        $(function () {
-            var alert = "@alert";
-            if (alert.length > 0) {
-                toastr.success(alert);
-            }
+        $(function() {
+            require(['toastr'], function(toastr) {
+                var alert = "@alert";
+                if (alert.length > 0) {
+                    toastr.success(alert);
+                }
+            });
         });
     </script>
 }

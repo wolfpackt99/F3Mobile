@@ -6,6 +6,9 @@
 *.user
 *.sln.docstates
 
+# Config file for testing
+Web.config
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/

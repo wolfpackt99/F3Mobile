@@ -1,7 +1,5 @@
-﻿define(function() {
-
+﻿var F3MobileConfig = (function() {
     function initialize(options) {
-
         require.config({
             baseUrl: options.baseUrl,
             paths: {
@@ -17,11 +15,13 @@
                     "https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap",
                     "bootstrap"
                 ],
+                'toastr': 'toastr',
                 'underscore': "//rawgithub.com/jashkenas/underscore/master/underscore",
                 'text': [
                     "https://rawgithub.com/requirejs/text/latest/text",
                     "text"
                 ],
+                'momemnt':'momment',
                 'app': ".."
             },
             shim: {
@@ -40,4 +40,4 @@
     return {
         initialize: initialize
     }
-});
+}());

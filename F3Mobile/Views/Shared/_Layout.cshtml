@@ -7,7 +7,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @RenderSection("css", false)
-    @RenderSection("headscripts",false);
+    @RenderSection("headscripts", false);
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -38,6 +38,13 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/require.js"></script>
+    <script src="~/Scripts/config.js"></script>
+    <script>
+        F3MobileConfig.initialize({
+            baseUrl: "@Url.Content("~/scripts")"
+        });
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

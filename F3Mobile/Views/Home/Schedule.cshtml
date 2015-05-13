@@ -5,33 +5,48 @@
 }
 
 <h2>Q Schedule - Beta</h2>
-<div id="authorize-div" style="display: none">
-    <span>Authorize access to calendar</span>
+<div id="authorize-div" class="pull-right" style="display: none">
     <!--Button for the user to click to initiate auth sequence -->
     <button id="authorize-button" ng-click="handleAuthClick()">
         Authorize
     </button>
 </div>
-<div id="logout-div" style="display: none">
-    <span>Logout of application</span>
+<div id="logout-div" class="pull-right" style="display: none">
     <!--Button for the user to click to initiate auth sequence -->
     <button id="logout-button" ng-click="handleLogoutClick()">
         Logout
     </button>
 </div>
-<div id="itemHolder">
+<div role="tabpanel">
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#current" aria-controls="current" role="tab" data-toggle="tab">This Week</a></li>
+        <li role="presentation"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="current">
+            <p></p>
+            <div><p class='lead'>This Week</div>
+            <ul class="list-group" id="currentWeekItems"></ul>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="all">
+            <p></p>
+            <div id="itemHolder">
+            </div>
+        </div>
+    </div>
+
 </div>
+
 
 @section scripts
 {
-
-    <script src="~/Scripts/require.js"></script>
     <script src="https://apis.google.com/js/client.js"></script>
     <script>
-        require(['@Url.Content("~/scripts/config.js")'], function (config) {
-            config.initialize({
-                baseUrl: "@Url.Content("~/scripts")"
-            });
+        $(function () {
             require(['calendar'], function (cal) {
                 cal.initialize({
                     client_id: '@WebConfig.ClientId'
