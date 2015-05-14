@@ -188,7 +188,8 @@
             request.execute(function (resp) {
                 logger('get: ' + calendar.name);
                 allEvents.push({
-                    name: resp.summary,
+                    summary: resp.summary,
+                    name: calendar.name,
                     items: resp.items
                 });
                 callback();
