@@ -17,6 +17,10 @@
                 {
                     'name': 'The Maul',
                     id: 'sn0n3fk13inesa7cju33fpejg4@group.calendar.google.com'
+                },
+                {
+                    'name': 'The Foxhole',
+                    id: 'foxholef3@gmail.com'
                 }
             ],
             token = "",
