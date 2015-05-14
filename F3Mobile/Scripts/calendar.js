@@ -107,7 +107,7 @@
             var sorted = _.sortBy(allEvents, 'name');
             $.each(sorted, function (j, event) {
                 var holder = $("#itemHolder");
-                holder.append("<div><p class='lead'>" + event.name + "</p></div>");
+                holder.append("<div><p class='lead'>" + event.summary + "</p></div>");
                 var html = "<ul class='list-group'>";
                 var curItem = {
                     name: event.name,
