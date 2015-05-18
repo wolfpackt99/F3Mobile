@@ -57,8 +57,8 @@
 
         function isBetween(date) {
             var d = moment();
-            var startOf = moment().startOf('isoweek');
-            var endOf = moment().endOf('isoweek');
+            var startOf = moment().startOf('week');
+            var endOf = moment().endOf('week');
 
             return date.isBetween(startOf, endOf);
         }
@@ -178,7 +178,7 @@
 
             var request = gapi.client.calendar.events.list({
                 'calendarId': calendar.id,
-                'timeMin': (moment().startOf('isoweek')).toISOString(),
+                'timeMin': (moment().startOf('week')).toISOString(),
                 'showDeleted': false,
                 'singleEvents': true,
                 'maxResults': 10,
