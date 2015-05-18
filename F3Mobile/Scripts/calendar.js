@@ -111,31 +111,40 @@
                 var html = "<ul class='list-group'>";
                 var curItem = {
                     name: event.name,
-                    items: []
+                    description: '',
+                    date: {}
                 };
                 $.each(event.items, function (i, item) {
                     var theD = item.start.date == null ? moment(item.start.dateTime) : moment(item.start.date);
                     if (isBetween(theD)) {
-                        thisWeek({
+                        curItem = {
                             name: event.name,
                             description: item.summary,
                             date: theD.format("MM/DD/YYYY")
-                        });
+                        };
+                        //thisWeek({
+                        //    name: event.name,
+                        //    description: item.summary,
+                        //    date: theD.format("MM/DD/YYYY")
+                        //});
+                        current.push(curItem);
                     }
                     var displayDate = moment(((item.start.date != null ? item.start.date : item.start.dateTime)));
                     html += '<li class="list-group-item">' + displayDate.format("MM/DD/YYYY") + ' - ' + item.summary + '</li>';
                 });
-                current.push(curItem);
                 html += "</ul>";
                 holder.append(html);
             });
-
+            thisWeek();
         }
 
-        function thisWeek(data) {
-
-            var html = mustache.to_html(itemTemplate, data);
-            $("#currentWeekItems").append(html);
+        function thisWeek() {
+            var sorted = _.sortBy(current, 'date');
+            $.each(sorted, function(s, item) {
+                var html = mustache.to_html(itemTemplate, item);
+                $("#currentWeekItems").append(html);
+            });
+            
 
         }
 
