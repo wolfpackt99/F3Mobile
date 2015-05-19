@@ -125,7 +125,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CalenderFixture.cs" />
+    <Compile Include="CalenderFixture.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="MailChimpFixture.cs" />
