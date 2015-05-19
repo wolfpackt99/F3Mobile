@@ -9,7 +9,7 @@ namespace F3.Business.Tests
     [TestClass]
     public class MailChimpFixture
     {
-        [TestMethod]
+        //[TestMethod]
         public async Task TestSubscribe()
         {
             var mc = new MailChimpBusiness();

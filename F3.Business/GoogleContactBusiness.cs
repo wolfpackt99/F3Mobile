@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
-using F3.Infrastructure;
-using Google.Apis.Services;
+﻿using F3.Infrastructure;
 using Google.Contacts;
 using Google.GData.Client;
 using Google.GData.Contacts;
 using Google.GData.Extensions;
 using Ninject;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace F3.Business
 {

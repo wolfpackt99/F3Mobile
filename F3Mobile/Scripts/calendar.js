@@ -1,5 +1,6 @@
-﻿define(['jquery', 'toastr', 'moment', 'text!templates/currentweekitem.html', 'mustache', 'underscore'],
-    function ($, toastr, moment, itemTemplate, mustache, _) {
+﻿define(['jquery', 'toastr', 'moment', 'text!templates/currentweekitem.html', 'mustache', 'underscore', 'calendarService'],
+    function ($, toastr, moment, itemTemplate, mustache, _, calSvc) {
+
         var scopes = ['https://www.googleapis.com/auth/calendar.readonly'],
             calendars = [
                 {
@@ -30,29 +31,34 @@
 
         function initialize(options) {
 
-            client_id = options.client_id;
-            checkAuth();
-            $("#authorize-button").on('click', function () {
-                gapi.auth.authorize({
-                    client_id: client_id,
-                    scope: scopes,
-                    immediate: false
-                },
-                    handleAuthResult);
-                return false;
+            calSvc.initialize({
+                calSvcUrl: options.calSvcUrl
             });
+            getAllEvents();
 
-            $("#logout-button").on('click', function () {
-                gapi.auth.signOut();
-                $.ajax({
-                    url: 'https://accounts.google.com/o/oauth2/revoke?token=' + token,
-                    type: "get",
-                    dataType: 'jsonp'
-                }).success(function () {
-                    document.location.reload();
-                });
+            //client_id = options.client_id;
+            //checkAuth();
+            //$("#authorize-button").on('click', function () {
+            //    gapi.auth.authorize({
+            //        client_id: client_id,
+            //        scope: scopes,
+            //        immediate: false
+            //    },
+            //        handleAuthResult);
+            //    return false;
+            //});
 
-            });
+            //$("#logout-button").on('click', function () {
+            //    gapi.auth.signOut();
+            //    $.ajax({
+            //        url: 'https://accounts.google.com/o/oauth2/revoke?token=' + token,
+            //        type: "get",
+            //        dataType: 'jsonp'
+            //    }).success(function () {
+            //        document.location.reload();
+            //    });
+
+            //});
         }
 
         function isBetween(date) {
@@ -114,8 +120,8 @@
                     description: '',
                     date: {}
                 };
-                $.each(event.items, function (i, item) {
-                    var theD = item.start.date == null ? moment(item.start.dateTime) : moment(item.start.date);
+                $.each(_.sortBy(event.items,'Start.Date'), function (i, item) {
+                    var theD = item.Start.Date === null ? moment(item.Start.DateTime) : moment(item.Start.Date);
                     if (isBetween(theD)) {
                         curItem = {
                             name: event.name,
@@ -129,8 +135,8 @@
                         //});
                         current.push(curItem);
                     }
-                    var displayDate = moment(((item.start.date != null ? item.start.date : item.start.dateTime)));
-                    html += '<li class="list-group-item">' + displayDate.format("MM/DD/YYYY") + ' - ' + item.summary + '</li>';
+                    var displayDate = moment(((item.Start.Date != null ? item.Start.Date : item.Start.DateTime)));
+                    html += '<li class="list-group-item">' + displayDate.format("MM/DD/YYYY") + ' - ' + item.Summary + '</li>';
                 });
                 html += "</ul>";
                 holder.append(html);
@@ -139,12 +145,12 @@
         }
 
         function thisWeek() {
-            var sorted = _.sortBy(current, 'date');
-            $.each(sorted, function(s, item) {
+            var sorted = _.sortBy(current, 'Date');
+            $.each(sorted, function (s, item) {
                 var html = mustache.to_html(itemTemplate, item);
                 $("#currentWeekItems").append(html);
             });
-            
+
 
         }
 
@@ -152,20 +158,20 @@
             if (console && console.log)
                 console.log(message);
         }
-        if (jQuery.when.all === undefined) {
-            jQuery.when.all = function (deferreds) {
-                var deferred = new jQuery.Deferred();
-                $.when.apply(jQuery, deferreds).then(
-                    function () {
-                        deferred.resolve(Array.prototype.slice.call(arguments));
-                    },
-                    function () {
-                        deferred.fail(Array.prototype.slice.call(arguments));
-                    });
+        //if (jQuery.when.all === undefined) {
+        //    jQuery.when.all = function (deferreds) {
+        //        var deferred = new jQuery.Deferred();
+        //        $.when.apply(jQuery, deferreds).then(
+        //            function () {
+        //                deferred.resolve(Array.prototype.slice.call(arguments));
+        //            },
+        //            function () {
+        //                deferred.fail(Array.prototype.slice.call(arguments));
+        //            });
 
-                return deferred;
-            }
-        }
+        //        return deferred;
+        //    }
+        //}
 
         function getAllEvents() {
             var deferred = [];
@@ -176,33 +182,47 @@
                     d.resolve();
                 });
             });
-            
-            $.when.apply(this, deferred).done(function() {
+
+            $.when.apply(this, deferred).done(function () {
                 displayEvents();
                 logger('all done');
+                $("#loading").remove();
+                $("#current").addClass("active");
             });
         }
 
         function listUpcomingEvents(calendar, callback) {
 
-            var request = gapi.client.calendar.events.list({
-                'calendarId': calendar.id,
-                'timeMin': (moment().startOf('week')).toISOString(),
-                'showDeleted': false,
-                'singleEvents': true,
-                'maxResults': 10,
-                'orderBy': 'startTime'
-            });
+            //var request = gapi.client.calendar.events.list({
+            //    'calendarId': calendar.id,
+            //    'timeMin': (moment().startOf('week')).toISOString(),
+            //    'showDeleted': false,
+            //    'singleEvents': true,
+            //    'maxResults': 10,
+            //    'orderBy': 'startTime'
+            //});
 
-            request.execute(function (resp) {
-                logger('get: ' + calendar.name);
+            calSvc.getEvents(calendar.id, function (resp) {
+                logger('success get: ' + calendar.name);
                 allEvents.push({
-                    summary: resp.summary,
+                    summary: resp.Summary,
                     name: calendar.name,
-                    items: resp.items
+                    items: resp.Items
                 });
                 callback();
+            }, function () {
+                callback();
             });
+
+            //request.execute(function (resp) {
+            //    logger('get: ' + calendar.name);
+            //    allEvents.push({
+            //        summary: resp.summary,
+            //        name: calendar.name,
+            //        items: resp.items
+            //    });
+            //    callback();
+            //});
         }
 
 

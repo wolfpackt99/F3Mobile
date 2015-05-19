@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentDateTime, Version=1.11.0.0, Culture=neutral, PublicKeyToken=6ccbc613702e6c71, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentDateTime.1.11.0\Lib\NET35\FluentDateTime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Google.Apis">
       <HintPath>..\packages\Google.Apis.1.9.1\lib\net40\Google.Apis.dll</HintPath>
       <Private>True</Private>
@@ -42,6 +46,10 @@
     </Reference>
     <Reference Include="Google.Apis.Auth.PlatformServices">
       <HintPath>..\packages\Google.Apis.Auth.1.9.1\lib\net40\Google.Apis.Auth.PlatformServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Google.Apis.Calendar.v3, Version=1.9.0.125, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Calendar.v3.1.9.0.1250\lib\portable-net40+sl50+win+wpa81+wp80\Google.Apis.Calendar.v3.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Google.Apis.Core">
@@ -141,6 +149,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calendar\CalendarBusiness.cs" />
+    <Compile Include="Calendar\ICalendarBusiness.cs" />
     <Compile Include="Fng\NameVar.cs" />
     <Compile Include="GoogleContactBusiness.cs" />
     <Compile Include="IContactBusiness.cs" />

@@ -1,6 +1,5 @@
-using System.Security.Claims;
-using System.Security.Principal;
 using F3.Business;
+using F3.Business.Calendar;
 using F3.Infrastructure;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(F3Mobile.App_Start.NinjectWebCommon), "Start")]
@@ -67,9 +66,9 @@ namespace F3Mobile.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IContactBusiness>().To<GoogleContactBusiness>();
+            kernel.Bind<ICalendarBusiness>().To<CalendarBusiness>();
             kernel.Bind<ISubscribe>().To<MailChimpBusiness>();
             kernel.Bind<IAccessToken>().To<AuthAccessToken>();
-
         }        
     }
 }

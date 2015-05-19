@@ -27,7 +27,15 @@
 
     <!-- Tab panes -->
     <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="current">
+        <div role="tabpanel" class="tab-pane active" id="loading">
+            <div>
+                <p class="center-block text-center" style="margin-top: 30px;">
+                    <img src="~/Content/loading-image.gif" />
+                </p>
+            </div>
+
+        </div>
+        <div role="tabpanel" class="tab-pane" id="current">
             <p></p>
             <div><p class='lead'>This Week</div>
             <ul class="list-group" id="currentWeekItems"></ul>
@@ -49,7 +57,8 @@
         $(function () {
             require(['calendar'], function (cal) {
                 cal.initialize({
-                    client_id: '@WebConfig.ClientId'
+                    client_id: '@WebConfig.ClientId',
+                    calSvcUrl: '@Url.Action("Get","Calendar")'
                 });
             });
         });

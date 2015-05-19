@@ -12,39 +12,33 @@ using System.Threading.Tasks;
 
 using Google.Apis;
 using Google.Apis.Auth.OAuth2;
+using Google.Apis.Calendar.v3;
 using Google.Apis.Util.Store;
 
 namespace F3.Infrastructure.GoogleAuth
 {
-    public class ServiceAccountToken : IAccessToken
-    {
-        public string AccessToken
-        {
-            get
-            {
-                var b = ServiceAccount.Instance.Credential.RequestAccessTokenAsync(new CancellationToken());
-                var x = b.Result;
-                return ServiceAccount.Instance.Credential.Token.AccessToken;
-            }
-        }
-    }
-
     public class ServiceAccount
     {
 
-        public static string[] Scopes = new[] { "https://www.google.com/m8/feeds" };
+        public static string[] Scopes = new[]
+        {
+            CalendarService.Scope.Calendar,
+            CalendarService.Scope.CalendarReadonly
+        };
 
         private static readonly Lazy<ServiceAccount> LazyAccount = new Lazy<ServiceAccount>(() => new ServiceAccount());
+
         public static ServiceAccount Instance { get { return LazyAccount.Value; } }
+
         private ServiceAccount()
         {
-            string certificateFile = string.Format("{0}\\{1}",Environment.CurrentDirectory, ConfigurationManager.AppSettings.Get("CertificateName"));
-            string serviceAccountEmail = ConfigurationManager.AppSettings.Get("ClientId");
-            var certificate = new X509Certificate2(certificateFile, "notasecret", X509KeyStorageFlags.Exportable);
+            string serviceAccountEmail = ConfigurationManager.AppSettings.Get("ServiceAccountEmail");
+            var certificate = LoadCertificate(ConfigurationManager.AppSettings.Get("CertificateName"));
+
             var credential = new ServiceAccountCredential(
                new ServiceAccountCredential.Initializer(serviceAccountEmail)
                {
-                   User = ConfigurationManager.AppSettings.Get("UserToImpersonate"),
+                   //User = ConfigurationManager.AppSettings.Get("UserToImpersonate"),
                    Scopes = Scopes
                }.FromCertificate(certificate));
 
@@ -52,5 +46,11 @@ namespace F3.Infrastructure.GoogleAuth
         }
 
         public ServiceAccountCredential Credential { get; set; }
+
+        private X509Certificate2 LoadCertificate(string certificateName)
+        {
+            var certificate = new X509Certificate2(Properties.Resources.F3Test_c745d0ff8c8e, "notasecret", X509KeyStorageFlags.Exportable);
+            return certificate;
+        }
     }
 }
