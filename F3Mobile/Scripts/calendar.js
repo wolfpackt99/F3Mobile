@@ -22,6 +22,10 @@
                 {
                     'name': 'The Foxhole',
                     id: 'foxholef3@gmail.com'
+                },
+                {
+                    'name': 'Rebel Yell',
+                    id: 'clkjm5a176r66ng4q5sddreaug@group.calendar.google.com'
                 }
             ],
             token = "",
@@ -125,7 +129,7 @@
                     if (isBetween(theD)) {
                         curItem = {
                             name: event.name,
-                            description: item.summary,
+                            description: item.Summary,
                             date: theD.format("MM/DD/YYYY")
                         };
                         //thisWeek({
