@@ -39,30 +39,15 @@
                 calSvcUrl: options.calSvcUrl
             });
             getAllEvents();
-
-            //client_id = options.client_id;
-            //checkAuth();
-            //$("#authorize-button").on('click', function () {
-            //    gapi.auth.authorize({
-            //        client_id: client_id,
-            //        scope: scopes,
-            //        immediate: false
-            //    },
-            //        handleAuthResult);
-            //    return false;
-            //});
-
-            //$("#logout-button").on('click', function () {
-            //    gapi.auth.signOut();
-            //    $.ajax({
-            //        url: 'https://accounts.google.com/o/oauth2/revoke?token=' + token,
-            //        type: "get",
-            //        dataType: 'jsonp'
-            //    }).success(function () {
-            //        document.location.reload();
-            //    });
-
-            //});
+            $("#workout").change(function() {
+                var selected = $(this).find("option:selected").val();
+                if (selected === "All") {
+                    $("div.ao").show();
+                } else {
+                    $("div.ao").hide();
+                    $("div.ao[data-name='" + selected + "']").show();
+                }
+            });
         }
 
         function isBetween(date) {
@@ -170,6 +155,7 @@
             calSvc.getEvents(calendar.id, function (resp) {
                 logger('success get: ' + calendar.name);
                 allEvents.push({
+                    id: calendar.id,
                     summary: resp.Summary,
                     name: calendar.name,
                     items: resp.Items

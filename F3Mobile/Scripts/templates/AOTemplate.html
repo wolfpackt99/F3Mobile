@@ -1,8 +1,13 @@
 ﻿{{#.}}
-<div><p class='lead'>{{summary}}</p></div>
-<ul class='list-group'>
-    {{#items}}
-    <li class="list-group-item">{{displayDate}} - {{Summary}}</li>
-    {{/items}}
-</ul>
+<div data-name="{{name}}" class="ao">
+    <p class='lead'>{{summary}}</p>
+    <ul class='list-group'>
+        {{#items}}
+        <li class="list-group-item">{{displayDate}} - {{Summary}}</li>
+        {{/items}}
+        {{^items.0}}
+        <li class="list-group-item">Upcoming Q schedule is empty</li>
+        {{/items.0}}
+    </ul>
+</div>
 {{/.}}
