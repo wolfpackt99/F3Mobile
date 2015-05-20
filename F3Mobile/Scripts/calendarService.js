@@ -2,7 +2,7 @@
     var settings = {};
     function initialize(options) {
         $.extend(settings, options);
-    };
+    }
     function getEvents(id, success, error) {
         $.ajax({
             url: settings.calSvcUrl  + "?id=" + id,

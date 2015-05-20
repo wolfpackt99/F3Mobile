@@ -1,5 +1,5 @@
-﻿define(['jquery', 'toastr', 'moment', 'text!templates/currentweekitem.html', 'mustache', 'underscore', 'calendarService'],
-    function ($, toastr, moment, itemTemplate, mustache, _, calSvc) {
+﻿define(['jquery', 'toastr', 'moment', 'text!templates/currentweekitem.html', 'text!templates/aoTemplate.html', 'mustache', 'underscore', 'calendarService'],
+    function ($, toastr, moment, itemTemplate, aoTemplate, mustache, _, calSvc) {
 
         var scopes = ['https://www.googleapis.com/auth/calendar.readonly'],
             calendars = [
@@ -115,67 +115,37 @@
 
         function displayEvents() {
             var sorted = _.sortBy(allEvents, 'name');
+            var holder = $("#itemHolder");
             $.each(sorted, function (j, event) {
-                var holder = $("#itemHolder");
-                holder.append("<div><p class='lead'>" + event.summary + "</p></div>");
-                var html = "<ul class='list-group'>";
-                var curItem = {
-                    name: event.name,
-                    description: '',
-                    date: {}
-                };
-                $.each(_.sortBy(event.items,'Start.Date'), function (i, item) {
+                event.items = _.sortBy(event.items, 'Start.Date');
+                $.each(event.items, function (i, item) {
                     var theD = item.Start.Date === null ? moment(item.Start.DateTime) : moment(item.Start.Date);
                     if (isBetween(theD)) {
-                        curItem = {
+                        var curItem = {
                             name: event.name,
                             description: item.Summary,
                             date: theD.format("MM/DD/YYYY")
                         };
-                        //thisWeek({
-                        //    name: event.name,
-                        //    description: item.summary,
-                        //    date: theD.format("MM/DD/YYYY")
-                        //});
                         current.push(curItem);
                     }
-                    var displayDate = moment(((item.Start.Date != null ? item.Start.Date : item.Start.DateTime)));
-                    html += '<li class="list-group-item">' + displayDate.format("MM/DD/YYYY") + ' - ' + item.Summary + '</li>';
+                    item.displayDate = theD.format("MM/DD/YYYY");
                 });
-                html += "</ul>";
-                holder.append(html);
             });
+            var allHtml = mustache.to_html(aoTemplate, sorted);
+            holder.append(allHtml);
             thisWeek();
         }
 
         function thisWeek() {
-            var sorted = _.sortBy(current, 'Date');
-            $.each(sorted, function (s, item) {
-                var html = mustache.to_html(itemTemplate, item);
-                $("#currentWeekItems").append(html);
-            });
-
-
+            var sorted = _.sortBy(current, 'date');
+            var html = mustache.to_html(itemTemplate, sorted);
+            $("#currentWeekItems").append(html);
         }
 
         function logger(message) {
             if (console && console.log)
                 console.log(message);
         }
-        //if (jQuery.when.all === undefined) {
-        //    jQuery.when.all = function (deferreds) {
-        //        var deferred = new jQuery.Deferred();
-        //        $.when.apply(jQuery, deferreds).then(
-        //            function () {
-        //                deferred.resolve(Array.prototype.slice.call(arguments));
-        //            },
-        //            function () {
-        //                deferred.fail(Array.prototype.slice.call(arguments));
-        //            });
-
-        //        return deferred;
-        //    }
-        //}
 
         function getAllEvents() {
             var deferred = [];
@@ -197,15 +167,6 @@
 
         function listUpcomingEvents(calendar, callback) {
 
-            //var request = gapi.client.calendar.events.list({
-            //    'calendarId': calendar.id,
-            //    'timeMin': (moment().startOf('week')).toISOString(),
-            //    'showDeleted': false,
-            //    'singleEvents': true,
-            //    'maxResults': 10,
-            //    'orderBy': 'startTime'
-            //});
-
             calSvc.getEvents(calendar.id, function (resp) {
                 logger('success get: ' + calendar.name);
                 allEvents.push({
@@ -217,18 +178,7 @@
             }, function () {
                 callback();
             });
-
-            //request.execute(function (resp) {
-            //    logger('get: ' + calendar.name);
-            //    allEvents.push({
-            //        summary: resp.summary,
-            //        name: calendar.name,
-            //        items: resp.items
-            //    });
-            //    callback();
-            //});
         }
-
 
         return {
             initialize: initialize
