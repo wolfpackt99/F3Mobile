@@ -27,6 +27,8 @@ using T4MVC;
 public static partial class MVC
 {
     public static F3Mobile.Controllers.AccountController Account = new F3Mobile.Controllers.T4MVC_AccountController();
+    public static F3Mobile.Controllers.BackblastController Backblast = new F3Mobile.Controllers.T4MVC_BackblastController();
+    public static F3Mobile.Controllers.CalendarController Calendar = new F3Mobile.Controllers.T4MVC_CalendarController();
     public static F3Mobile.Controllers.HomeController Home = new F3Mobile.Controllers.T4MVC_HomeController();
     public static F3Mobile.Controllers.ManageController Manage = new F3Mobile.Controllers.T4MVC_ManageController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
@@ -120,6 +122,7 @@ namespace Links
             private const string URLPATH = "~/Scripts/templates";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string aoTemplate_html = Url("aoTemplate.html");
             public static readonly string currentWeekItem_html = Url("currentWeekItem.html");
         }
     
@@ -141,6 +144,7 @@ namespace Links
              
         public static readonly string bootstrap_css_map = Url("bootstrap.css.map");
         public static readonly string bootstrap_min_css = Url("bootstrap.min.css");
+        public static readonly string loading_image_gif = Url("loading-image.gif");
         public static readonly string Site_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Site.min.css") ? Url("Site.min.css") : Url("Site.css");
              
         public static readonly string toastr_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/toastr.min.css") ? Url("toastr.min.css") : Url("toastr.css");

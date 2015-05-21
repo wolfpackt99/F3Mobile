@@ -65,6 +65,7 @@ namespace F3Mobile.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<IFeed>().To<Feed>();
             kernel.Bind<IContactBusiness>().To<GoogleContactBusiness>();
             kernel.Bind<ICalendarBusiness>().To<CalendarBusiness>();
             kernel.Bind<ISubscribe>().To<MailChimpBusiness>();

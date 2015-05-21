@@ -11,13 +11,13 @@ using Ninject;
 
 namespace F3Mobile.Controllers
 {
-    public class CalendarController : Controller
+    public partial class CalendarController : Controller
     {
         [Inject]
         public ICalendarBusiness CalendarBusiness { get; set; }
         
         [HttpGet]
-        public async Task<ActionResult> Get(string id)
+        public virtual async Task<ActionResult> Get(string id)
         {
             return Json(await CalendarBusiness.GetEvents(id), JsonRequestBehavior.AllowGet);
         }

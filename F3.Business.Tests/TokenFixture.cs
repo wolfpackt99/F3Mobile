@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace F3.Business.Tests
 {
     [TestClass]
-    public class UnitTest1
+    public class TokenFixture
     {
         //[TestMethod]
         public async Task TestGetToken()
