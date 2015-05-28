@@ -7,7 +7,7 @@
 *.sln.docstates
 
 # Config file for testing
-Web.config
+[Ww]eb.[Cc]onfig
 
 # Build results
 [Dd]ebug/
