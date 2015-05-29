@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using F3.Business.Fng;
 using MailChimp;
 using MailChimp.Helper;
+using MailChimp.Lists;
 
 namespace F3.Business
 {
@@ -26,7 +27,14 @@ namespace F3.Business
                 LastName = contact.LastName,
                 F3Name = contact.F3Name,
                 Workout = contact.Workout,
-                EH = contact.EH
+                EH = contact.EH,
+                Groupings = new List<Grouping>
+                {
+                    new Grouping
+                    {
+                        Name = "Newsletter"
+                    }
+                }
             };
             var result = mc.Subscribe(ConfigurationManager.AppSettings.Get("F3List"), email, name, doubleOptIn: false,
                 sendWelcome: true);
