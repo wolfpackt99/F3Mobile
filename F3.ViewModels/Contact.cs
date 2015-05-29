@@ -27,5 +27,8 @@ namespace F3.ViewModels
         [Display(ResourceType = typeof(ResourceStrings), Name = "Workout")]
         public string Workout { get; set; }
 
+        [Display(ResourceType = typeof(ResourceStrings), Name = "EH")]
+        public string EH { get; set; }
+
     }
 }

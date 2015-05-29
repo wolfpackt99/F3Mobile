@@ -61,6 +61,15 @@ namespace F3.Infrastructure {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to EH.
+        /// </summary>
+        public static string EH {
+            get {
+                return ResourceManager.GetString("EH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string Email {
@@ -93,6 +102,15 @@ namespace F3.Infrastructure {
         public static string LastName {
             get {
                 return ResourceManager.GetString("LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notes.
+        /// </summary>
+        public static string Notes {
+            get {
+                return ResourceManager.GetString("Notes", resourceCulture);
             }
         }
         

@@ -37,7 +37,11 @@
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.F3Name)
-            @Html.TextBoxFor(m => m.F3Name, new { @class = "form-control"})
+            @Html.TextBoxFor(m => m.F3Name, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.EH)
+            @Html.TextBoxFor(m => m.EH, new { @class = "form-control" })
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.Workout)
@@ -83,8 +87,8 @@
 @section scripts
 {
     <script>
-        $(function() {
-            require(['toastr'], function(toastr) {
+        $(function () {
+            require(['toastr'], function (toastr) {
                 var alert = "@alert";
                 if (alert.length > 0) {
                     toastr.success(alert);

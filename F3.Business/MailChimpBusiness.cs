@@ -25,7 +25,8 @@ namespace F3.Business
                 FirstName = contact.FirstName,
                 LastName = contact.LastName,
                 F3Name = contact.F3Name,
-                Workout = contact.Workout
+                Workout = contact.Workout,
+                EH = contact.EH
             };
             var result = mc.Subscribe(ConfigurationManager.AppSettings.Get("F3List"), email, name, doubleOptIn: false,
                 sendWelcome: true);
