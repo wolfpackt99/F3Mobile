@@ -32,6 +32,7 @@ namespace F3.Business
                 {
                     new Grouping
                     {
+                        Id = 1,
                         Name = "Newsletter"
                     }
                 }
