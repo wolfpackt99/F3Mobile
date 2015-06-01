@@ -131,7 +131,7 @@
             });
             if (all) {
                 var allHtml = mustache.to_html(aoTemplate, sorted);
-                holder.append(allHtml);
+                holder.html(allHtml);
             } else {
                 thisWeek();
             }
