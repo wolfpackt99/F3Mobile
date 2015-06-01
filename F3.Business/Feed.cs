@@ -30,7 +30,8 @@ namespace F3.Business
                     Author = i.Author.Name,
                     Content = i.Description,
                     Title = i.Title,
-                    Date = i.PublishDate.ToString("G")
+                    Date = i.PublishDate.ToString("G"),
+                    
                 });
             }
 

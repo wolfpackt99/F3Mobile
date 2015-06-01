@@ -14,5 +14,7 @@ namespace F3.ViewModels
         public string Content { get; set; }
 
         public string Date { get; set; }
+
+        public string Workout { get; set; }
     }
 }
