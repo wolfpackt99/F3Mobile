@@ -41,6 +41,7 @@
         <div role="tabpanel" class="tab-pane active" id="current">
             <p></p>
             <div><p class='lead'>This Week</div>
+            <div class="center-block" id="loading-current"><img src="~/Content/loading-image.gif" class="center-block" /></div>
             <ul class="list-group" id="currentWeekItems"></ul>
         </div>
         <div role="tabpanel" class="tab-pane" id="all">
@@ -59,7 +60,9 @@
                 </div>
             </form>
             <p></p>
-            <div id="itemHolder"></div>
+            <div id="itemHolder">
+                <div class="center-block" id="loading-all"><img src="~/Content/loading-image.gif" class="center-block" /></div>
+            </div>
         </div>
     </div>
 

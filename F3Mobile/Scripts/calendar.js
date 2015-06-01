@@ -149,7 +149,7 @@
         }
 
         function getEvents(all) {
-            //$("#loading").show();
+            $("#loading-" + (all ? "all":"current")).show();
             var deferred = [];
             
             $.each(calendars, function (i, cal) {
@@ -163,7 +163,7 @@
             $.when.apply(this, deferred).done(function () {
                 displayEvents(all);
                 logger('all done');
-                //$("#loading").hide();
+                $("#loading-" + (all ? "all" : "current")).hide();
                 //$("#current").addClass("active");
             });
         }
