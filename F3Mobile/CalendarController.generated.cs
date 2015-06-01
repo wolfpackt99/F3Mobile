@@ -92,6 +92,7 @@ namespace F3Mobile.Controllers
         public class ActionParamsClass_Get
         {
             public readonly string id = ("id").ToLowerInvariant();
+            public readonly string all = ("all").ToLowerInvariant();
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -113,14 +114,15 @@ namespace F3Mobile.Controllers
         public T4MVC_CalendarController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void GetOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string id);
+        partial void GetOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string id, bool all);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Get(string id)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Get(string id, bool all)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Get);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            GetOverride(callInfo, id);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "all", all);
+            GetOverride(callInfo, id, all);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 

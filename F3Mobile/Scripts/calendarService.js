@@ -3,9 +3,9 @@
     function initialize(options) {
         $.extend(settings, options);
     }
-    function getEvents(id, success, error) {
+    function getEvents(id, all, success, error) {
         $.ajax({
-            url: settings.calSvcUrl  + "?id=" + id,
+            url: settings.calSvcUrl  + "?id=" + id + "&all=" + all,
             type: 'GET'
         })
         .success(function (data) {

@@ -17,9 +17,9 @@ namespace F3Mobile.Controllers
         public ICalendarBusiness CalendarBusiness { get; set; }
         
         [HttpGet]
-        public virtual async Task<ActionResult> Get(string id)
+        public virtual async Task<ActionResult> Get(string id, bool all = true)
         {
-            return Json(await CalendarBusiness.GetEvents(id), JsonRequestBehavior.AllowGet);
+            return Json(await CalendarBusiness.GetEvents(id, all), JsonRequestBehavior.AllowGet);
         }
 
     }

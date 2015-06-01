@@ -16,7 +16,7 @@ namespace F3.Business.Calendar
     public class CalendarBusiness : ICalendarBusiness
     {
 
-        public async Task<Events> GetEvents(string id)
+        public async Task<Events> GetEvents(string id, bool all = true)
         {
             var service = new CalendarService(new BaseClientService.Initializer
             {
@@ -26,6 +26,10 @@ namespace F3.Business.Calendar
 
             EventsResource.ListRequest request = service.Events.List(id);
             request.TimeMin = DateTime.Now.Previous(DayOfWeek.Sunday);
+            if (!all)
+            {
+                request.TimeMax = DateTime.Now.Next(DayOfWeek.Saturday);
+            }
             request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
             request.SingleEvents = true;
             request.MaxResults = 10;

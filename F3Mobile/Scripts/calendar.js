@@ -31,15 +31,28 @@
             token = "",
             client_id = "",
             current = [],
-            allEvents = [];
+            allEvents = [],
+            thisweek = [];
 
         function initialize(options) {
 
             calSvc.initialize({
                 calSvcUrl: options.calSvcUrl
             });
-            getAllEvents();
-            $("#workout").change(function() {
+
+            getEvents(false);
+            //default is current tab
+            $(".nav-tabs").bind('click', function (e) {
+                if (e.target.text === 'All') {
+                    getEvents(true);
+                } else {
+                    getEvents(false);
+                }
+            });
+
+            //$("#current").click();
+
+            $("#workout").change(function () {
                 var selected = $(this).find("option:selected").val();
                 if (selected === "All") {
                     $("div.ao").show();
@@ -98,8 +111,8 @@
             gapi.client.load('calendar', 'v3', getAllEvents);
         }
 
-        function displayEvents() {
-            var sorted = _.sortBy(allEvents, 'name');
+        function displayEvents(all) {
+            var sorted = _.sortBy(all ? allEvents : current, 'name');
             var holder = $("#itemHolder");
             $.each(sorted, function (j, event) {
                 event.items = _.sortBy(event.items, 'Start.Date');
@@ -111,20 +124,23 @@
                             description: item.Summary,
                             date: theD.format("MM/DD/YYYY")
                         };
-                        current.push(curItem);
+                        thisweek.push(curItem);
                     }
                     item.displayDate = theD.format("MM/DD/YYYY");
                 });
             });
-            var allHtml = mustache.to_html(aoTemplate, sorted);
-            holder.append(allHtml);
-            thisWeek();
+            if (all) {
+                var allHtml = mustache.to_html(aoTemplate, sorted);
+                holder.append(allHtml);
+            } else {
+                thisWeek();
+            }
         }
 
         function thisWeek() {
-            var sorted = _.sortBy(current, 'date');
+            var sorted = _.sortBy(thisweek, 'date');
             var html = mustache.to_html(itemTemplate, sorted);
-            $("#currentWeekItems").append(html);
+            $("#currentWeekItems").html(html);
         }
 
         function logger(message) {
@@ -132,34 +148,44 @@
                 console.log(message);
         }
 
-        function getAllEvents() {
+        function getEvents(all) {
+            //$("#loading").show();
             var deferred = [];
+            
             $.each(calendars, function (i, cal) {
                 var d = $.Deferred();
                 deferred.push(d);
-                listUpcomingEvents(cal, function () {
+                listUpcomingEvents(cal, all, function () {
                     d.resolve();
                 });
             });
 
             $.when.apply(this, deferred).done(function () {
-                displayEvents();
+                displayEvents(all);
                 logger('all done');
-                $("#loading").remove();
-                $("#current").addClass("active");
+                //$("#loading").hide();
+                //$("#current").addClass("active");
             });
         }
 
-        function listUpcomingEvents(calendar, callback) {
+        function listUpcomingEvents(calendar, all, callback) {
 
-            calSvc.getEvents(calendar.id, function (resp) {
+            allEvents = [];
+            current = [];
+            thisweek = [];
+            calSvc.getEvents(calendar.id, all, function (resp) {
                 logger('success get: ' + calendar.name);
-                allEvents.push({
+                item = {
                     id: calendar.id,
                     summary: resp.Summary,
                     name: calendar.name,
                     items: resp.Items
-                });
+                };
+                if (all) {
+                    allEvents.push(item);
+                } else {
+                    current.push(item);
+                }
                 callback();
             }, function () {
                 callback();

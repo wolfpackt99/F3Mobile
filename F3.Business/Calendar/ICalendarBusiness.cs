@@ -10,7 +10,7 @@ namespace F3.Business.Calendar
 {
     public interface ICalendarBusiness
     {
-        Task<Events> GetEvents(string id);
+        Task<Events> GetEvents(string id, bool all = true);
         Task<CalendarList> GetCalendarList();
     }
 }
