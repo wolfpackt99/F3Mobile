@@ -1,10 +1,20 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
-<div class="jumbotron">
-    <h1>Area 51 Tools</h1>
-    <p class="lead">Add FNGs, view upcoming schedules, and read most recent backblasts.</p>
-    <p>@Html.ActionLink("Add FNG", MVC.Home.Actions.Fng(),new{ @class="btn btn-primary btn-lg" }, "https")</p>
+<div class="row">
+    <div class="col-md-9">
+        <div class="jumbotron">
+            <h1>Area 51 Tools</h1>
+            <p class="lead">Add FNGs, view upcoming schedules, and read most recent backblasts.</p>
+            <p>@Html.ActionLink("Add FNG", MVC.Home.Actions.Fng(), new { @class = "btn btn-primary btn-lg" }, "https")</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <a class="twitter-timeline" href="https://twitter.com/F3Area51" data-widget-id="606565796119236608">Tweets by @@F3Area51</a>
+    </div>
 </div>
+
+@section scripts{
+    <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + "://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+}
 
