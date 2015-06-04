@@ -2,15 +2,32 @@
     ViewBag.Title = "Home Page";
 }
 <div class="row">
-    <div class="col-md-9">
-        <div class="jumbotron">
-            <h1>Area 51 Tools</h1>
-            <p class="lead">Add FNGs, view upcoming schedules, and read most recent backblasts.</p>
-            <p>@Html.ActionLink("Add FNG", MVC.Home.Actions.Fng(), new { @class = "btn btn-primary btn-lg" }, "https")</p>
+    <div class="col-xs-12 col-md-8">
+        <div class="row">
+            <div class="jumbotron">
+                <h1>Area 51 Tools</h1>
+                <p class="lead">Add FNGs, view upcoming schedules, and read most recent backblasts.</p>
+                <p>@Html.ActionLink("Add FNG", MVC.Home.Actions.Fng(), new { @class = "btn btn-primary btn-lg" }, "https")</p>
+            </div>
+        </div>
+        <div class="row body-content">
+            <div>
+                <h4>Upcoming items of interest</h4>
+
+                <ul class="list-group">
+                    <li class="list-group-item"><a href='http://f3nation.com/2015/06/02/f3-dads-pre-blast/'>A51 Dads</a></li>
+                    <li class="list-group-item"><a href='http://f3nation.com/2015/05/29/calvary-church-pantry-food-drive/'>Calvary Church Pantry Food Drive</a></li>
+                </ul>
+
+            </div>
+
         </div>
     </div>
-    <div class="col-md-3">
-        <a class="twitter-timeline" href="https://twitter.com/F3Area51" data-widget-id="606565796119236608">Tweets by @@F3Area51</a>
+    <div class="col-xs-12 col-md-4">
+        <div class="container">
+            <a class="twitter-timeline" href="https://twitter.com/F3Area51" data-widget-id="606565796119236608">Tweets by @@F3Area51</a>
+        </div>
+
     </div>
 </div>
 
