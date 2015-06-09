@@ -22,7 +22,7 @@ namespace F3.Business.Tests
             result.Should().BeTrue();
         }
 
-        [TestMethod]
+        //[TestMethod]
         public async Task GetActivityTest()
         {
             var mx = new MailChimpBusiness();
