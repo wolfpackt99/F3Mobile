@@ -1,6 +1,7 @@
 using F3.Business;
 using F3.Business.Calendar;
 using F3.Infrastructure;
+using F3Mobile.Code;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(F3Mobile.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(F3Mobile.App_Start.NinjectWebCommon), "Stop")]
@@ -70,6 +71,7 @@ namespace F3Mobile.App_Start
             kernel.Bind<ICalendarBusiness>().To<CalendarBusiness>();
             kernel.Bind<ISubscribe>().To<MailChimpBusiness>();
             kernel.Bind<IAccessToken>().To<AuthAccessToken>();
+            kernel.Bind<ICacheService>().To<CacheService>();
         }        
     }
 }

@@ -44,5 +44,23 @@ namespace F3.Business
                 sendWelcome: true);
             return true;
         }
+
+        public async Task<IEnumerable<F3.ViewModels.Contact>> Latest()
+        {
+            var mc = new MailChimpManager(ConfigurationManager.AppSettings.Get("MailChimpApiKey"));
+            var x = mc.GetAllMembersForList(ConfigurationManager.AppSettings.Get("F3List"), limit: 10, sort_field: "optin_time", sort_dir: "DESC");
+
+            var contacts = x.Data.Select(FillDetails);
+            
+            return contacts;
+        }
+
+        private F3.ViewModels.Contact FillDetails(MemberInfo arg)
+        {
+            return new F3.ViewModels.Contact
+            {
+                F3Name = (string)arg.MemberMergeInfo["F3NAME"]
+            };
+        }
     }
 }

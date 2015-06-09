@@ -7,92 +7,102 @@
     var alert = ViewBag.Alert;
 }
 <h2>@ViewBag.Message</h2>
-<div>
-    @if (!string.IsNullOrEmpty(success))
-    {
-        <div class="alert alert-success" role="alert">
+<div class="row">
+    <div class="col-sm-12 col-md-8">
+        @if (!string.IsNullOrEmpty(success))
+        { <div class="alert alert-success" role="alert">
             @success
         </div>
-    }
-    @if (!ViewData.ModelState.IsValid)
-    {
-        <div class="alert alert-danger" role="alert">
-            @Html.ValidationSummary()
+        }
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger" role="alert">
+                @Html.ValidationSummary()
+            </div>
+        }
+        @using (Html.BeginForm(new { }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                @Html.LabelFor(m => m.FirstName)
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.LastName)
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "Email" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.F3Name)
+                @Html.TextBoxFor(m => m.F3Name, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.EH)
+                @Html.TextBoxFor(m => m.EH, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Workout)
+                <select id='Workout' name='Workout' class="form-control">
+                    <option value=''>Select a workout</option>
+                    <option value='Anvil'>Anvil</option>
+                    <option value='Area51'>Area51</option>
+                    <option value='Ascent'>Ascent</option>
+                    <option value='Bagpipe'>Bagpipe</option>
+                    <option value='Base Camp'>Base Camp</option>
+                    <option value='Centurion'>Centurion</option>
+                    <option value='Committment'>Committment</option>
+                    <option value='Day Zero'>Day Zero</option>
+                    <option value='Death Valley'>Death Valley</option>
+                    <option value='DMZ'>DMZ</option>
+                    <option value='Dromedary'>Dromedary</option>
+                    <option value='Fast Twitch'>Fast Twitch</option>
+                    <option value='Fight Club'>Fight Club</option>
+                    <option value='Foxhole'>Foxhole</option>
+                    <option value='Hydra'>Hydra</option>
+                    <option value='Joust'>Joust</option>
+                    <option value='Kevlar'>Kevlar</option>
+                    <option value='Meathead'>Meathead</option>
+                    <option value='Olympus'>Olympus</option>
+                    <option value='Outland'>Outland</option>
+                    <option value='Overdrive'>Overdrive</option>
+                    <option value='Peak 51'>Peak 51</option>
+                    <option value='Rebel Yell'>Rebel Yell</option>
+                    <option value='Skunk Works'>Skunk Works</option>
+                    <option value='Stonehenge'>Stonehenge</option>
+                    <option value='Swift'>Swift</option>
+                    <option value='The Brave'>The Brave</option>
+                    <option value='The Charge'>The Charge</option>
+                    <option value='The Devils Turn'>The Devil's Turn</option>
+                    <option value='The Matrix'>The Matrix</option>
+                    <option value='The Maul'>The Maul</option>
+                    <option value='The Rock'>The Rock</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        }
+    </div>
+    <div class="col-sm-12 col-md-4">
+        <div id="recent" class="well">
+            <h4>Most Recent Adds</h4>
         </div>
-    }
-    @using (Html.BeginForm(new { }))
-    {
-        @Html.AntiForgeryToken()
-        <div class="form-group">
-            @Html.LabelFor(m => m.FirstName)
-            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.LastName)
-            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Email)
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "Email" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.F3Name)
-            @Html.TextBoxFor(m => m.F3Name, new { @class = "form-control" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.EH)
-            @Html.TextBoxFor(m => m.EH, new { @class = "form-control" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Workout)
-            <select id='Workout' name='Workout' class="form-control">
-                <option value=''>Select a workout</option>
-                <option value='Anvil'>Anvil</option>
-                <option value='Area51'>Area51</option>
-                <option value='Ascent'>Ascent</option>
-                <option value='Bagpipe'>Bagpipe</option>
-                <option value='Base Camp'>Base Camp</option>
-                <option value='Centurion'>Centurion</option>
-                <option value='Committment'>Committment</option>
-                <option value='Day Zero'>Day Zero</option>
-                <option value='Death Valley'>Death Valley</option>
-                <option value='DMZ'>DMZ</option>
-                <option value='Dromedary'>Dromedary</option>
-                <option value='Fast Twitch'>Fast Twitch</option>
-                <option value='Fight Club'>Fight Club</option>
-                <option value='Foxhole'>Foxhole</option>
-                <option value='Hydra'>Hydra</option>
-                <option value='Joust'>Joust</option>
-                <option value='Kevlar'>Kevlar</option>
-                <option value='Meathead'>Meathead</option>
-                <option value='Olympus'>Olympus</option>
-                <option value='Outland'>Outland</option>
-                <option value='Overdrive'>Overdrive</option>
-                <option value='Peak 51'>Peak 51</option>
-                <option value='Rebel Yell'>Rebel Yell</option>
-                <option value='Skunk Works'>Skunk Works</option>
-                <option value='Stonehenge'>Stonehenge</option>
-                <option value='Swift'>Swift</option>
-                <option value='The Brave'>The Brave</option>
-                <option value='The Charge'>The Charge</option>
-                <option value='The Devils Turn'>The Devil's Turn</option>
-                <option value='The Matrix'>The Matrix</option>
-                <option value='The Maul'>The Maul</option>
-                <option value='The Rock'>The Rock</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-    }
+    </div>
 </div>
+
 @section scripts
-{
+    {
     <script>
         $(function () {
-            require(['toastr'], function (toastr) {
+            require(['toastr', 'recent'], function (toastr, recent) {
                 var alert = "@alert";
                 if (alert.length > 0) {
                     toastr.success(alert);
                 }
+                recent.init({
+                    url: '@Url.Action("getrecent", "home")'
+                });
             });
         });
     </script>

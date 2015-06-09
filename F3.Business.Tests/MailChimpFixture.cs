@@ -21,5 +21,13 @@ namespace F3.Business.Tests
             });
             result.Should().BeTrue();
         }
+
+        [TestMethod]
+        public async Task GetActivityTest()
+        {
+            var mx = new MailChimpBusiness();
+            var result = await mx.Latest();
+            result.Should().NotBeNull();
+        }
     }
 }

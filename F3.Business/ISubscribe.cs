@@ -10,5 +10,6 @@ namespace F3.Business
     public interface ISubscribe
     {
         Task<bool> Add(Contact contact);
+        Task<IEnumerable<Contact>> Latest();
     }
 }

@@ -163,6 +163,7 @@
     <Reference Include="System.Net.Http.Primitives">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -251,6 +252,8 @@
     <Compile Include="CalendarController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Code\CacheService.cs" />
+    <Compile Include="Code\ICacheService.cs" />
     <Compile Include="Code\WebConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BackblastController.cs" />
@@ -342,6 +345,7 @@
     <Content Include="Scripts\mustache.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\r.js" />
+    <Content Include="Scripts\recent.js" />
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
@@ -353,6 +357,7 @@
       <DependentUpon>T4MvcJs.tt</DependentUpon>
     </Content>
     <Content Include="Scripts\templates\aoTemplate.html" />
+    <Content Include="Scripts\templates\recentTemplate.html" />
     <Content Include="Scripts\text.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />

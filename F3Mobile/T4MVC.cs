@@ -101,6 +101,7 @@ namespace Links
         public static readonly string mustache_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/mustache.min.js") ? Url("mustache.min.js") : Url("mustache.js");
         public static readonly string npm_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/npm.min.js") ? Url("npm.min.js") : Url("npm.js");
         public static readonly string r_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/r.min.js") ? Url("r.min.js") : Url("r.js");
+        public static readonly string recent_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/recent.min.js") ? Url("recent.min.js") : Url("recent.js");
         public static readonly string require_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/require.min.js") ? Url("require.min.js") : Url("require.js");
         public static readonly string respond_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/respond.min.js") ? Url("respond.min.js") : Url("respond.js");
         public static readonly string respond_matchmedia_addListener_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/respond.matchmedia.addListener.min.js") ? Url("respond.matchmedia.addListener.min.js") : Url("respond.matchmedia.addListener.js");
@@ -124,6 +125,7 @@ namespace Links
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             public static readonly string aoTemplate_html = Url("aoTemplate.html");
             public static readonly string currentWeekItem_html = Url("currentWeekItem.html");
+            public static readonly string recentTemplate_html = Url("recentTemplate.html");
         }
     
         public static readonly string text_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/text.min.js") ? Url("text.min.js") : Url("text.js");
@@ -196,6 +198,7 @@ namespace Links
                 public const string mustache_js = "~/Scripts/mustache.js"; 
                 public const string npm_js = "~/Scripts/npm.js"; 
                 public const string r_js = "~/Scripts/r.js"; 
+                public const string recent_js = "~/Scripts/recent.js"; 
                 public const string require_js = "~/Scripts/require.js"; 
                 public const string respond_js = "~/Scripts/respond.js"; 
                 public const string respond_matchmedia_addListener_js = "~/Scripts/respond.matchmedia.addListener.js"; 
