@@ -36,11 +36,12 @@ namespace F3Mobile.Controllers
 
         public virtual async Task<ActionResult> List(bool bust = false)
         {
-            if (bust)
-            {
-                Cache.Remove("CalList");
-            }
-            var events = await Cache.GetOrSet("CalList", async () => await CalendarBusiness.GetCalendarList());
+            //if (bust)
+            //{
+            //    Cache.Remove("CalList");
+            //}
+            //var events = await Cache.GetOrSet("CalList", async () => await CalendarBusiness.GetCalendarList());
+            var events = await CalendarBusiness.GetCalendarList();
             return Json(events, JsonRequestBehavior.AllowGet);
         }
 
