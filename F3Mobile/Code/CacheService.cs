@@ -18,7 +18,7 @@ namespace F3Mobile.Code
             if (item != null) return item;
 
             item = getItemCallback();
-            MemoryCache.Default.Add(cacheKey, item, DateTime.Now.AddMinutes(10));
+            MemoryCache.Default.Add(cacheKey, item, DateTime.UtcNow.AddMinutes(10));
             return item;
         }
 
@@ -28,7 +28,7 @@ namespace F3Mobile.Code
             if (item != null) return item;
 
             item = await getItemCallback();
-            MemoryCache.Default.Add(cacheKey, item, DateTime.Now.AddMinutes(10));
+            MemoryCache.Default.Add(cacheKey, item, DateTime.UtcNow.AddMinutes(10));
             return item;
         }
 
