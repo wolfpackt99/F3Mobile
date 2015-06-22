@@ -21,19 +21,28 @@ namespace F3Mobile.Controllers
         public ICacheService Cache { get; set; }
         
         [HttpGet]
-        public virtual async Task<ActionResult> Get(string id, bool all = true)
+        public virtual async Task<ActionResult> Get(string id, bool all = true, bool bost = false)
         {
+            var cacheKey = string.Format("{0}-{1}-{2}", "calenderitems", id, all.ToString());
+            if (bust)
+            {
+                Cache.Remove(cacheKey);
+            }
             var events =
                 await
-                    Cache.GetOrSet(string.Format("{0}-{1}-{2}", "calenderitems", id, all.ToString()),
+                    Cache.GetOrSet(cacheKey,
                         async () => await CalendarBusiness.GetEvents(id, all));
 
 
             return Json(events, JsonRequestBehavior.AllowGet);
         }
 
-        public virtual async Task<ActionResult> List()
+        public virtual async Task<ActionResult> List(bool bust = false)
         {
+            if (bust)
+            {
+                Cache.Remove("CalList");
+            }
             var events = await Cache.GetOrSet("CalList", async () => await CalendarBusiness.GetCalendarList());
             return Json(events, JsonRequestBehavior.AllowGet);
         }
