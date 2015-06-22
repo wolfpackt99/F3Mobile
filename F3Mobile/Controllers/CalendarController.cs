@@ -28,10 +28,7 @@ namespace F3Mobile.Controllers
             {
                 Cache.Remove(cacheKey);
             }
-            var events =
-                await
-                    Cache.GetOrSet(cacheKey,
-                        async () => await CalendarBusiness.GetEvents(id, all));
+            var events = await Cache.GetOrSet(cacheKey, async () => await CalendarBusiness.GetEvents(id, all));
 
 
             return Json(events, JsonRequestBehavior.AllowGet);
