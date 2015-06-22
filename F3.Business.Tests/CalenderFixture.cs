@@ -10,16 +10,16 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace F3.Business.Tests
 {
-    //[TestClass]
+    [TestClass]
     public class CalenderFixture
     {
-        [TestMethod]
+        //[TestMethod]
         public void CredentialTest()
         {
             ServiceAccount.Instance.Credential.Should().NotBeNull();
         }
 
-        [TestMethod]
+        //[TestMethod]
         public async Task GetEventsFixture()
         {
             var cb = new CalendarBusiness();
@@ -29,7 +29,7 @@ namespace F3.Business.Tests
             items.Items.Should().HaveCount(c => c > 0);
         }
 
-        [TestMethod]
+        //[TestMethod]
         public async Task GetCaledarListFixture()
         {
             var cb = new CalendarBusiness();

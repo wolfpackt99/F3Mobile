@@ -23,10 +23,19 @@ namespace F3Mobile.Controllers
         [HttpGet]
         public virtual async Task<ActionResult> Get(string id, bool all = true)
         {
-            var events =
-                await
-                    Cache.GetOrSet(string.Format("{0}-{1}-{2}", "calenderitems", id, all.ToString()),
-                        async () => await CalendarBusiness.GetEvents(id, all));
+            //var events =
+            //    await
+            //        Cache.GetOrSet(string.Format("{0}-{1}-{2}", "calenderitems", id, all.ToString()),
+            //            async () => await CalendarBusiness.GetEvents(id, all));
+
+
+            var events = await CalendarBusiness.GetEvents(id, all);
+            return Json(events, JsonRequestBehavior.AllowGet);
+        }
+
+        public virtual async Task<ActionResult> List()
+        {
+            var events = await CalendarBusiness.GetCalendarList();
             return Json(events, JsonRequestBehavior.AllowGet);
         }
 

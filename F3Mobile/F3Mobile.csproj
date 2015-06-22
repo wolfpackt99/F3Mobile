@@ -357,6 +357,7 @@
       <DependentUpon>T4MvcJs.tt</DependentUpon>
     </Content>
     <Content Include="Scripts\templates\aoTemplate.html" />
+    <Content Include="Scripts\templates\FirstF.html" />
     <Content Include="Scripts\templates\recentTemplate.html" />
     <Content Include="Scripts\text.js" />
     <Content Include="Scripts\toastr.js" />

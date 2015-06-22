@@ -1,5 +1,5 @@
-﻿define(['jquery', 'toastr', 'moment', 'text!templates/currentweekitem.html', 'text!templates/aoTemplate.html', 'mustache', 'underscore', 'calendarService'],
-    function ($, toastr, moment, itemTemplate, aoTemplate, mustache, _, calSvc) {
+﻿define(['jquery', 'toastr', 'moment', 'text!templates/currentweekitem.html', 'text!templates/aoTemplate.html', 'text!templates/firstf.html', 'mustache', 'underscore', 'calendarService'],
+    function ($, toastr, moment, itemTemplate, aoTemplate, firstTemplate, mustache, _, calSvc) {
 
         var scopes = ['https://www.googleapis.com/auth/calendar.readonly'],
             calendars = [
@@ -32,12 +32,16 @@
             client_id = "",
             current = [],
             allEvents = [],
-            thisweek = [];
+            thisweek = [],
+            list = [],
+            hasDisplayed = false,
+            dayOfWeek = [{ 'val': 0, "day": 'Monday' }, { 'val': 1, "day": 'Tuesday' }, { 'val': 2, "day": 'Wednesday' }, { 'val': 3, "day": 'Thursday' }, { 'val': 4, "day": 'Friday' }, { 'val': 5, "day": 'Saturday' }, { 'val': 6, "day": 'Sunday' }];
 
         function initialize(options) {
 
             calSvc.initialize({
-                calSvcUrl: options.calSvcUrl
+                calSvcUrl: options.calSvcUrl,
+                calListUrl: options.calListUrl
             });
 
             getEvents(false);
@@ -45,8 +49,10 @@
             $(".nav-tabs").bind('click', function (e) {
                 if (e.target.text === 'All') {
                     getEvents(true);
-                } else {
+                } else if (e.target.text === "This Week") {
                     getEvents(false);
+                } else {
+                    displayFirstF();
                 }
             });
 
@@ -122,7 +128,8 @@
                         var curItem = {
                             name: event.name,
                             description: item.Summary,
-                            date: theD.format("MM/DD/YYYY")
+                            date: theD.format("MM/DD/YYYY"),
+                            location: event.location
                         };
                         thisweek.push(curItem);
                     }
@@ -148,27 +155,71 @@
                 console.log(message);
         }
 
-        function getEvents(all) {
-            $("#loading-" + (all ? "all":"current")).show();
-            var deferred = [];
+        function displayFirstF() {
             
-            $.each(calendars, function (i, cal) {
-                var d = $.Deferred();
-                deferred.push(d);
-                listUpcomingEvents(cal, all, function () {
-                    d.resolve();
+            if (hasDisplayed == false && list && list.Items && list.Items.length > 0) {
+                $("#loading-firstf").hide();
+                $.each(list.Items, function (i, item) {
+                    try {
+                        var json = JSON.parse(item.Description);
+                        item.SiteQ = json.SiteQ;
+                        item.Meets = json.Meets;
+                        item.LocationHint = json.LocationHint;
+                        item.DisplayLocation = json.DisplayLocation;
+                    } catch (e) {
+                        item.SiteQ = item.Description;
+                        item.Meets = item.Description;
+                        item.LocationHint = null;
+                        item.DisplayLocation = item.Location;
+                    }
                 });
-            });
-
-            $.when.apply(this, deferred).done(function () {
-                displayEvents(all);
-                logger('all done');
-                $("#loading-" + (all ? "all" : "current")).hide();
-                //$("#current").addClass("active");
-            });
+                var sorted = _(list.Items)
+                    .chain()
+                    .sortBy(function (item) {
+                        return item.Summary;
+                    })
+                    .sortBy(function (item) {
+                        return _.findWhere(dayOfWeek, { day: item.Meets }).val;
+                    })
+                    .value();
+                var html = mustache.to_html(firstTemplate, sorted);
+                $("#firstF").append(html);
+                hasDisplayed = true;
+            }
         }
 
-        function listUpcomingEvents(calendar, all, callback) {
+        function getEvents(all) {
+            $("#loading-" + (all ? "all" : "current")).show();
+            var deferred = [];
+
+            calSvc.getList(function (data) {
+                list = data;
+                
+                $.each(calendars, function (i, cal) {
+                    var d = $.Deferred();
+                    deferred.push(d);
+                    listUpcomingEvents(cal, all, list, function () {
+                        d.resolve();
+                    });
+                });
+
+                $.when.apply(this, deferred).done(function () {
+                    displayEvents(all);
+                    logger('all done');
+                    $("#loading-" + (all ? "all" : "current")).hide();
+                    //$("#current").addClass("active");
+                });
+            }, function () {
+                console.log('unable to get list');
+            });
+
+
+
+        }
+
+        function listUpcomingEvents(calendar, all, list, callback) {
+
+            var location = _.findWhere(list.Items, { Id: calendar.id });
 
             allEvents = [];
             current = [];
@@ -179,7 +230,8 @@
                     id: calendar.id,
                     summary: resp.Summary,
                     name: calendar.name,
-                    items: resp.Items
+                    items: resp.Items,
+                    location: location.Location
                 };
                 if (all) {
                     allEvents.push(item);

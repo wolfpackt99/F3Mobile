@@ -16,8 +16,22 @@
         });
     };
 
+    function getList(success, error) {
+        $.ajax({
+            url: settings.calListUrl,
+            type: 'GET'
+        })
+        .success(function (data) {
+            success(data);
+        })
+        .error(function (err) {
+            error(err);
+        });
+    }
+
     return {
         initialize: initialize,
-        getEvents: getEvents
+        getEvents: getEvents,
+        getList: getList
     };
 });
