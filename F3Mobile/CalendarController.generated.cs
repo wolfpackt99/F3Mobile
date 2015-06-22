@@ -82,6 +82,7 @@ namespace F3Mobile.Controllers
         public class ActionNamesClass
         {
             public readonly string Get = ("Get").ToLowerInvariant();
+            public readonly string List = ("List").ToLowerInvariant();
         }
 
 
@@ -93,6 +94,15 @@ namespace F3Mobile.Controllers
         {
             public readonly string id = ("id").ToLowerInvariant();
             public readonly string all = ("all").ToLowerInvariant();
+            public readonly string bust = ("bust").ToLowerInvariant();
+        }
+        static readonly ActionParamsClass_List s_params_List = new ActionParamsClass_List();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_List ListParams { get { return s_params_List; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_List
+        {
+            public readonly string bust = ("bust").ToLowerInvariant();
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -114,15 +124,28 @@ namespace F3Mobile.Controllers
         public T4MVC_CalendarController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void GetOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string id, bool all);
+        partial void GetOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string id, bool all, bool bust);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Get(string id, bool all)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Get(string id, bool all, bool bust)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Get);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "all", all);
-            GetOverride(callInfo, id, all);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "bust", bust);
+            GetOverride(callInfo, id, all, bust);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        [NonAction]
+        partial void ListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, bool bust);
+
+        [NonAction]
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> List(bool bust)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.List);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "bust", bust);
+            ListOverride(callInfo, bust);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 

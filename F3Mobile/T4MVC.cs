@@ -125,6 +125,7 @@ namespace Links
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             public static readonly string aoTemplate_html = Url("aoTemplate.html");
             public static readonly string currentWeekItem_html = Url("currentWeekItem.html");
+            public static readonly string FirstF_html = Url("FirstF.html");
             public static readonly string recentTemplate_html = Url("recentTemplate.html");
         }
     
