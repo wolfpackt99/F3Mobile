@@ -30,18 +30,16 @@ namespace F3Mobile.Controllers
             }
             var events = await Cache.GetOrSet(cacheKey, async () => await CalendarBusiness.GetEvents(id, all));
 
-
             return Json(events, JsonRequestBehavior.AllowGet);
         }
 
         public virtual async Task<ActionResult> List(bool bust = false)
         {
-            //if (bust)
-            //{
-            //    Cache.Remove("CalList");
-            //}
-            //var events = await Cache.GetOrSet("CalList", async () => await CalendarBusiness.GetCalendarList());
-            var events = await CalendarBusiness.GetCalendarList();
+            if (bust)
+            {
+                Cache.Remove("CalList");
+            }
+            var events = await Cache.GetOrSet("CalList", async () => await CalendarBusiness.GetCalendarList());
             return Json(events, JsonRequestBehavior.AllowGet);
         }
 
