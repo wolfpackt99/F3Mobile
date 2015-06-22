@@ -21,7 +21,7 @@ namespace F3Mobile.Controllers
         public ICacheService Cache { get; set; }
         
         [HttpGet]
-        public virtual async Task<ActionResult> Get(string id, bool all = true, bool bost = false)
+        public virtual async Task<ActionResult> Get(string id, bool all = true, bool bust = false)
         {
             var cacheKey = string.Format("{0}-{1}-{2}", "calenderitems", id, all.ToString());
             if (bust)
