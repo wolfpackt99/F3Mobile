@@ -140,6 +140,7 @@
     <Compile Include="TokenFixture.cs" />
     <Compile Include="MailChimpFixture.cs" />
     <Compile Include="FeedFixture.cs" />
+    <Compile Include="NewsFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\F3.Business\F3.Business.csproj">

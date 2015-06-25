@@ -109,6 +109,19 @@ namespace F3Mobile.Controllers
             public readonly string fng = "~/Views/Home/fng.cshtml";
             public readonly string Index = "~/Views/Home/Index.cshtml";
             public readonly string Schedule = "~/Views/Home/Schedule.cshtml";
+            static readonly _DisplayTemplateClass s_DisplayTemplate = new _DisplayTemplateClass();
+            public _DisplayTemplateClass DisplayTemplate { get { return s_DisplayTemplate; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _DisplayTemplateClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                    public readonly string News = "News";
+                }
+                public readonly string News = "~/Views/Home/DisplayTemplate/News.cshtml";
+            }
         }
     }
 
@@ -121,11 +134,11 @@ namespace F3Mobile.Controllers
         partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index()
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index()
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
-            return callInfo;
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
         [NonAction]

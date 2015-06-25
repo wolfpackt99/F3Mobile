@@ -328,6 +328,10 @@
       <DependentUpon>custom.js</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\firebase-debug.js" />
+    <Content Include="Scripts\firebase-simple-login-debug.js" />
+    <Content Include="Scripts\firebase-simple-login.js" />
+    <Content Include="Scripts\firebase.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
@@ -413,6 +417,7 @@
     <Content Include="Views\Home\ContactAsnyc.cshtml" />
     <Content Include="Views\Home\Schedule.cshtml" />
     <Content Include="Views\Backblast\Index.cshtml" />
+    <Content Include="Views\Home\DisplayTemplates\News.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,5 +1,6 @@
 using F3.Business;
 using F3.Business.Calendar;
+using F3.Business.News;
 using F3.Infrastructure;
 using F3Mobile.Code;
 
@@ -72,6 +73,7 @@ namespace F3Mobile.App_Start
             kernel.Bind<ISubscribe>().To<MailChimpBusiness>();
             kernel.Bind<IAccessToken>().To<AuthAccessToken>();
             kernel.Bind<ICacheService>().To<CacheService>();
+            kernel.Bind<INewsBusiness>().To<NewsBusiness>();
         }        
     }
 }

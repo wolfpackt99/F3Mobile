@@ -84,6 +84,10 @@ namespace Links
         public static readonly string custom_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/custom.min.js") ? Url("custom.min.js") : Url("custom.js");
         public static readonly string custom_min_js = Url("custom.min.js");
         public static readonly string custom_min_js_map = Url("custom.min.js.map");
+        public static readonly string firebase_debug_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/firebase-debug.min.js") ? Url("firebase-debug.min.js") : Url("firebase-debug.js");
+        public static readonly string firebase_simple_login_debug_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/firebase-simple-login-debug.min.js") ? Url("firebase-simple-login-debug.min.js") : Url("firebase-simple-login-debug.js");
+        public static readonly string firebase_simple_login_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/firebase-simple-login.min.js") ? Url("firebase-simple-login.min.js") : Url("firebase-simple-login.js");
+        public static readonly string firebase_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/firebase.min.js") ? Url("firebase.min.js") : Url("firebase.js");
         public static readonly string jquery_2_1_4_intellisense_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.1.4.intellisense.min.js") ? Url("jquery-2.1.4.intellisense.min.js") : Url("jquery-2.1.4.intellisense.js");
         public static readonly string jquery_2_1_4_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.1.4.min.js") ? Url("jquery-2.1.4.min.js") : Url("jquery-2.1.4.js");
         public static readonly string jquery_2_1_4_min_js = Url("jquery-2.1.4.min.js");
@@ -184,6 +188,10 @@ namespace Links
                 public const string calendarService_js = "~/Scripts/calendarService.js"; 
                 public const string config_js = "~/Scripts/config.js"; 
                 public const string custom_js = "~/Scripts/custom.js"; 
+                public const string firebase_debug_js = "~/Scripts/firebase-debug.js"; 
+                public const string firebase_simple_login_debug_js = "~/Scripts/firebase-simple-login-debug.js"; 
+                public const string firebase_simple_login_js = "~/Scripts/firebase-simple-login.js"; 
+                public const string firebase_js = "~/Scripts/firebase.js"; 
                 public const string jquery_2_1_4_intellisense_js = "~/Scripts/jquery-2.1.4.intellisense.js"; 
                 public const string jquery_2_1_4_js = "~/Scripts/jquery-2.1.4.js"; 
                 public const string jquery_2_1_4_min_js = "~/Scripts/jquery-2.1.4.min.js"; 

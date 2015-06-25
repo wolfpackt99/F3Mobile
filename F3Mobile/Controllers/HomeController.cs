@@ -1,5 +1,6 @@
 ﻿using System;
 using F3.Business;
+using F3.Business.News;
 using F3.ViewModels;
 using F3Mobile.Code;
 using Ninject;
@@ -9,7 +10,7 @@ using Ninject.Activation.Caching;
 
 namespace F3Mobile.Controllers
 {
-    public partial class HomeController : Controller
+    public partial class HomeController : AsyncController
     {
         private const string Alert = "Alert";
         private const string LatestAdds = "LatestAdds";
@@ -19,9 +20,13 @@ namespace F3Mobile.Controllers
         [Inject]
         public ICacheService Cache { get; set; }
 
-        public virtual ActionResult Index()
+        [Inject]
+        public INewsBusiness News { get; set; }
+
+        public virtual async Task<ActionResult> Index()
         {
-            return View();
+            var news = await Cache.GetOrSet("News", async () => await News.GetNews());
+            return View(news);
         }
 
         public virtual ActionResult Fng()

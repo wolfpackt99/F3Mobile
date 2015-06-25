@@ -1,0 +1,13 @@
+﻿@model F3.ViewModels.News
+<li class="list-group-item">
+    @if (!string.IsNullOrEmpty(Model.Link))
+    {
+        <a href='@Model.Link' target="_blank">@Model.Title</a>
+    }
+    else
+    {
+        @Model.Title
+    }
+    <br />
+    @Model.Description
+</li>
