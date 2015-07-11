@@ -178,7 +178,7 @@
                         item.SiteQ = item.Description;
                         item.Meets = item.Description;
                         item.LocationHint = null;
-                        item.DisplayLocation = item.Location;
+                        item.DisplayLocation = item.Location || "";
                     }
                 });
                 var sorted = _(list.Items)
