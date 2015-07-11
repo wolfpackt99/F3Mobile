@@ -17,6 +17,8 @@ namespace F3.ViewModels
         public DateTime? End { get; set; }
         public bool Show { get; set; }
 
+        public bool Approved { get; set; }
+
         public int Order { get; set; }
     }
 }

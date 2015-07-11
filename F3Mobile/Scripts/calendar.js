@@ -26,6 +26,10 @@
                 {
                     'name': 'Rebel Yell',
                     id: 'clkjm5a176r66ng4q5sddreaug@group.calendar.google.com'
+                },
+                {
+                    'name': 'Dromedary',
+                    id: 'e77m27ijnivjs6ef9hmmm1tu48@group.calendar.google.com'
                 }
             ],
             token = "",
@@ -179,7 +183,11 @@
                         return item.Summary;
                     })
                     .sortBy(function (item) {
-                        return _.findWhere(dayOfWeek, { day: item.Meets }).val;
+                        var data = _.findWhere(dayOfWeek, { day: item.Meets });
+                        if (data) {
+                            return data.val;
+                        }
+                        return "";
                     })
                     .value();
                 var html = mustache.to_html(firstTemplate, sorted);

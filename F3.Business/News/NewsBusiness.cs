@@ -4,7 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FirebaseSharp.Portable;
+using FB = FirebaseSharp.Portable;
 using Newtonsoft.Json;
 
 namespace F3.Business.News
@@ -22,7 +22,7 @@ namespace F3.Business.News
         {
             var rootUri = ConfigurationManager.AppSettings.Get("FirebaseUri");
             var authToken = ConfigurationManager.AppSettings.Get("FirebaseAuthToken");
-            var fb = new Firebase(rootUri, authToken);
+            var fb = new FB.Firebase(rootUri, authToken);
 
             var data = await fb.GetAsync("news");
             
@@ -31,6 +31,17 @@ namespace F3.Business.News
 
             
             return select;
+        }
+
+        public async Task<bool> AddNews(F3.ViewModels.News news)
+        {
+            var rootUri = ConfigurationManager.AppSettings.Get("FirebaseUri");
+            var authToken = ConfigurationManager.AppSettings.Get("FirebaseAuthToken");
+            var fb = new FB.Firebase(rootUri, authToken);
+
+            var data = await fb.PostAsync("news", JsonConvert.SerializeObject(news));
+
+            return !string.IsNullOrEmpty(data);
         }
 
         private bool CurrentNews(ViewModels.News arg)
