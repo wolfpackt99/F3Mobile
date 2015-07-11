@@ -243,7 +243,7 @@
                     summary: resp.Summary,
                     name: calendar.name,
                     items: resp.Items,
-                    location: location.Location
+                    location: location.Location || ""
                 };
                 if (all) {
                     allEvents.push(item);
