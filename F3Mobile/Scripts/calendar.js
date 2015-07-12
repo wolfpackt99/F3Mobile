@@ -30,11 +30,12 @@
                 {
                     'name': 'Dromedary',
                     id: 'e77m27ijnivjs6ef9hmmm1tu48@group.calendar.google.com'
-                },
-                {
-                    'name': 'Centurion',
-                    id: 'bdfeim53d2eg11f0kg372pshvc@group.calendar.google.com'
                 }
+                //,
+                //{
+                //    'name': 'Centurion',
+                //    id: 'bdfeim53d2eg11f0kg372pshvc@group.calendar.google.com'
+                //}
             ],
             token = "",
             client_id = "",
