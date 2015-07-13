@@ -42,6 +42,10 @@
                 {
                     'name': 'Centurion',
                     id: 'bdfeim53d2eg11f0kg372pshvc@group.calendar.google.com'
+                },
+                {
+                    'name': 'Flash',
+                    id: 'ev896fqhhpq67k736q88oi0ds0@group.calendar.google.com'
                 }
             ],
             token = "",
