@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using F3.Business.Calendar;
+using F3.Infrastructure.Cache;
 using F3.Infrastructure.GoogleAuth;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -30,11 +31,22 @@ namespace F3.Business.Tests
         }
 
         //[TestMethod]
-        public async Task GetCaledarListFixture()
+        public async Task GetCalendarListFixture()
         {
             var cb = new CalendarBusiness();
             var sut = await cb.GetCalendarList();
             sut.Items.Should().HaveCount(c => c > 0);
         }
+
+        //[TestMethod]
+        //public async Task GetAllEventsTest()
+        //{
+        //    var cb = new CalendarBusiness
+        //    {
+        //        CacheService = new CacheService()
+        //    };
+        //    var sut = await cb.GetAllEvents(false);
+        //    sut.Should().NotBeEmpty();
+        //}
     }
 }

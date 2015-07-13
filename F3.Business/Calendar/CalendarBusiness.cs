@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using F3.Business.Calendar;
 using F3.Infrastructure;
+using F3.Infrastructure.Cache;
 using F3.Infrastructure.GoogleAuth;
 using FluentDateTime;
 using Google.Apis.Auth.OAuth2;
@@ -15,6 +17,7 @@ namespace F3.Business.Calendar
 {
     public class CalendarBusiness : ICalendarBusiness
     {
+        
 
         public async Task<Events> GetEvents(string id, bool all = true)
         {
@@ -39,8 +42,24 @@ namespace F3.Business.Calendar
             return ProcessResults(request);
         }
 
+        //public async Task<IEnumerable<Event>> GetAllEvents(bool all = true, bool bust = false)
+        //{
+        //    if (bust)
+        //    {
+        //        CacheService.Remove("ListOfSites");
+        //    }
+        //    var list = await CacheService.GetOrSet("ListOfSites", async () => await GetCalendarList());
+        //    var sites = list.Items;
+        //    var events = new List<Event>();
+        //    foreach (var site in sites)
+        //    {
+        //        var items = await GetEvents(site.Id, all);
+        //        events.AddRange(items.Items);
+        //    }
+        //    return events;
 
-       
+        //}
+
         public async Task<CalendarList> GetCalendarList()
         {
             var service = new CalendarService(new BaseClientService.Initializer

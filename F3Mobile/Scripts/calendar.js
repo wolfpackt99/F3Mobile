@@ -1,56 +1,7 @@
 ﻿define(['jquery', 'toastr', 'moment', 'text!templates/currentweekitem.html', 'text!templates/aoTemplate.html', 'text!templates/firstf.html', 'mustache', 'underscore', 'calendarService'],
     function ($, toastr, moment, itemTemplate, aoTemplate, firstTemplate, mustache, _, calSvc) {
 
-        var scopes = ['https://www.googleapis.com/auth/calendar.readonly'],
-            calendars = [
-                {
-                    'name': 'Bagpipe',
-                    id: 'l5jvg6rn8d1bpcqg76l14hoq7o@group.calendar.google.com'
-                },
-                {
-                    'name': 'Stonehenge',
-                    id: '1gb26eve59nn0ipbpn33ud9tk8@group.calendar.google.com'
-                },
-                {
-                    'name': 'The Brave',
-                    id: 'um2l72805ggd9nqoq411nf6p50@group.calendar.google.com'
-                },
-                {
-                    'name': 'The Maul',
-                    id: 'sn0n3fk13inesa7cju33fpejg4@group.calendar.google.com'
-                },
-                {
-                    'name': 'The Foxhole',
-                    id: 'foxholef3@gmail.com'
-                },
-                {
-                    'name': 'Rebel Yell',
-                    id: 'clkjm5a176r66ng4q5sddreaug@group.calendar.google.com'
-                },
-                {
-                    'name': 'Dromedary',
-                    id: 'e77m27ijnivjs6ef9hmmm1tu48@group.calendar.google.com'
-                },
-                {
-                    'name': "Death Valley",
-                    id: 'u90i7kf9uf92f8uemrhtr5jq6k@group.calendar.google.com'
-                },
-                {
-                    'name': 'Fight Club',
-                    id: 'b4p5q90psg3h0t57et1ug7cofo@group.calendar.google.com'
-                },
-                {
-                    'name': 'Centurion',
-                    id: 'bdfeim53d2eg11f0kg372pshvc@group.calendar.google.com'
-                },
-                {
-                    'name': 'Flash',
-                    id: 'ev896fqhhpq67k736q88oi0ds0@group.calendar.google.com'
-                }
-            ],
-            token = "",
-            client_id = "",
-            current = [],
+        var current = [],
             allEvents = [],
             thisweek = [],
             list = [],
@@ -97,48 +48,8 @@
             return date.isBetween(startOf, endOf);
         }
 
-        function checkAuth() {
-            logger('checkAuth');
-            try {
-                gapi.auth.authorize({
-                    'client_id': client_id,
-                    'scope': scopes,
-                    'immediate': true
-                }, handleAuthResult);
-            } catch (e) {
-                logger('auth call failed: ' + e.message);
-            }
-        }
-
-        function handleAuthResult(authResult) {
-            //logger('begin handleAuthResult: ' + authResult);
-            var authorizeDiv = document.getElementById('authorize-div');
-            if (authResult && !authResult.error) {
-                // Hide auth UI, then load Calendar client library.
-                authorizeDiv.style.display = 'none';
-                token = authResult['access_token'];
-                loadCalendarApi();
-                showLogout(true);
-            } else {
-                showLogout(false);
-                // Show auth UI, allowing the user to initiate authorization by
-                // clicking authorize button.
-                authorizeDiv.style.display = 'inline';
-            }
-        }
-
-        function showLogout(visible) {
-
-            $('#logout-div').toggle(visible);
-        }
-
-        function loadCalendarApi() {
-            logger('load calendar');
-            gapi.client.load('calendar', 'v3', getAllEvents);
-        }
-
         function displayEvents(all) {
-            var sorted = _.sortBy(all ? allEvents : current, 'name');
+            var sorted = _.sortBy(all ? allEvents : current, 'summary');
             var holder = $("#itemHolder");
             $.each(sorted, function (j, event) {
                 event.items = _.sortBy(event.items, 'Start.Date');
@@ -149,7 +60,7 @@
                             name: event.name,
                             description: item.Summary,
                             date: theD.format("MM/DD/YYYY"),
-                            location: event.location
+                            location: event.Summary
                         };
                         thisweek.push(curItem);
                     }
@@ -221,7 +132,7 @@
             calSvc.getList(function (data) {
                 list = data;
                 
-                $.each(calendars, function (i, cal) {
+                $.each(list.Items, function (i, cal) {
                     var d = $.Deferred();
                     deferred.push(d);
                     listUpcomingEvents(cal, all, list, function () {
@@ -245,17 +156,17 @@
 
         function listUpcomingEvents(calendar, all, list, callback) {
 
-            var location = _.findWhere(list.Items, { Id: calendar.id });
+            var location = _.findWhere(list.Items, { Id: calendar.Id });
 
             allEvents = [];
             current = [];
             thisweek = [];
-            calSvc.getEvents(calendar.id, all, function (resp) {
+            calSvc.getEvents(calendar.Id, all, function (resp) {
                 logger('success get: ' + calendar.name);
-                item = {
-                    id: calendar.id,
+                var item = {
+                    id: calendar.Id,
                     summary: resp.Summary,
-                    name: calendar.name,
+                    name: calendar.Summary,
                     items: resp.Items,
                     location: location.Location || ""
                 };
