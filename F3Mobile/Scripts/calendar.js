@@ -30,6 +30,10 @@
                 {
                     'name': 'Dromedary',
                     id: 'e77m27ijnivjs6ef9hmmm1tu48@group.calendar.google.com'
+                },
+                {
+                    'name': "Death Valley",
+                    id: 'u90i7kf9uf92f8uemrhtr5jq6k@group.calendar.google.com'
                 }
                 //,
                 //{
@@ -175,11 +179,13 @@
                         item.Meets = json.Meets;
                         item.LocationHint = json.LocationHint;
                         item.DisplayLocation = json.DisplayLocation;
+                        item.Time = json.Time;
                     } catch (e) {
                         item.SiteQ = item.Description;
                         item.Meets = item.Description;
                         item.LocationHint = null;
                         item.DisplayLocation = item.Location || "";
+                        item.Time = "";
                     }
                 });
                 var sorted = _(list.Items)
