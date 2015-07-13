@@ -32,7 +32,7 @@ namespace F3.Business.Calendar
             }
             request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
             request.SingleEvents = true;
-            request.MaxResults = 10;
+            request.MaxResults = 15;
             request.ShowDeleted = false;
 
 

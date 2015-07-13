@@ -34,12 +34,15 @@
                 {
                     'name': "Death Valley",
                     id: 'u90i7kf9uf92f8uemrhtr5jq6k@group.calendar.google.com'
+                },
+                {
+                    'name': 'Fight Club',
+                    id: 'b4p5q90psg3h0t57et1ug7cofo@group.calendar.google.com'
+                },
+                {
+                    'name': 'Centurion',
+                    id: 'bdfeim53d2eg11f0kg372pshvc@group.calendar.google.com'
                 }
-                //,
-                //{
-                //    'name': 'Centurion',
-                //    id: 'bdfeim53d2eg11f0kg372pshvc@group.calendar.google.com'
-                //}
             ],
             token = "",
             client_id = "",
