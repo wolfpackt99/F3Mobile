@@ -98,12 +98,14 @@
                         item.LocationHint = json.LocationHint;
                         item.DisplayLocation = json.DisplayLocation;
                         item.Time = json.Time;
+                        item.SignupLink = json.SignupLink;
                     } catch (e) {
                         item.SiteQ = item.Description;
                         item.Meets = item.Description;
                         item.LocationHint = null;
                         item.DisplayLocation = item.Location || "";
                         item.Time = "";
+                        item.SignupLink = "";
                     }
                 });
                 var sorted = _(list.Items)

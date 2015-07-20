@@ -11,8 +11,8 @@
         <tbody>
             {{#.}}
             <tr>
-                <td>{{Summary}}{{#Time}}<br/>{{Time}}{{/Time}}{{#SignupLink}}<br/><span class="label label-success"><a href="{{SignupLink}}" target="_blank">Sign Up</a></span>{{/SignupLink}}</td>
-                <td>{{Meets}}</td>
+                <td>{{Summary}}{{#Time}}<br/>{{Time}}{{/Time}}</td>
+                <td>{{Meets}}{{#SignupLink}}<br /><a href="{{SignupLink}}" class="btn btn-xs btn-primary">sign up</a>{{/SignupLink}}</td>
                 <td>{{SiteQ}}</td>
                 <td><a href="https://www.google.com/maps?q={{Location}}"><span class="glyphicon glyphicon-map-marker"></span> {{DisplayLocation}}</a><br />{{#LocationHint}}({{LocationHint}}){{/LocationHint}}</td>
             </tr>
