@@ -72,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calendar\QRequest.cs" />
     <Compile Include="Contact.cs" />
     <Compile Include="News.cs" />
     <Compile Include="Post.cs" />

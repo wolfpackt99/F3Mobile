@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using F3.Business.Calendar;
 using F3.Infrastructure;
 using F3.Infrastructure.Cache;
 using F3.Infrastructure.GoogleAuth;
+using F3.ViewModels.Calendar;
 using FluentDateTime;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Services;
 using Ninject;
+using Nustache.Core;
 
 namespace F3.Business.Calendar
 {
@@ -152,7 +155,18 @@ namespace F3.Business.Calendar
             }
         }
         #endregion
-        
-        
+
+        public async Task<bool> RequestDate(QRequest request)
+        {
+            var html = Render.FileToString("qrequest", request);
+            var to = new MailAddressCollection{new MailAddress("")};
+            var smtpClient = new SmtpClient();
+            var mailMsg = new MailMessage("", "", "Sub", html);
+            mailMsg.IsBodyHtml = true;
+            smtpClient.Send(mailMsg);
+            return true;
+        }
+
+         
     }
 }
