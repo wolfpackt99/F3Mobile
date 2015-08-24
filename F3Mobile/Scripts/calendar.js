@@ -60,7 +60,7 @@
                             name: event.name,
                             description: item.Summary,
                             date: theD.format("MM/DD/YYYY"),
-                            location: event.Summary
+                            location: event.location
                         };
                         thisweek.push(curItem);
                     }
