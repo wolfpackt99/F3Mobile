@@ -23,6 +23,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <NuGetPackageImportStamp>047170ef</NuGetPackageImportStamp>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -647,6 +648,7 @@
     <Content Include="Scripts\templates\aoTemplate.html" />
     <Content Include="Scripts\templates\FirstF.html" />
     <Content Include="Scripts\templates\recentTemplate.html" />
+    <Content Include="Scripts\templates\thisweek.html" />
     <Content Include="Scripts\text.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />

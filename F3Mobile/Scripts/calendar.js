@@ -1,4 +1,4 @@
-﻿define(['jquery', 'toastr', 'moment', 'text!templates/currentweekitem.html', 'text!templates/aoTemplate.html', 'text!templates/firstf.html', 'mustache', 'underscore', 'calendarService'],
+﻿define(['jquery', 'toastr', 'moment', 'text!templates/thisweek.html', 'text!templates/aoTemplate.html', 'text!templates/firstf.html', 'mustache', 'underscore', 'calendarService'],
     function ($, toastr, moment, itemTemplate, aoTemplate, firstTemplate, mustache, _, calSvc) {
 
         var current = [],
@@ -60,6 +60,8 @@
                             name: event.name,
                             description: item.Summary,
                             date: theD.format("MM/DD/YYYY"),
+                            day: theD.format("dddd"),
+                            dateraw: theD,
                             location: event.location
                         };
                         thisweek.push(curItem);
@@ -76,8 +78,17 @@
         }
 
         function thisWeek() {
-            var sorted = _.sortBy(thisweek, 'date');
-            var html = mustache.to_html(itemTemplate, sorted);
+            var sorted = _.sortBy(thisweek, function (item) { return item.dateraw.date(); });
+            var days = _.groupBy(sorted, 'day');
+            var mapped = _.map(days, function (item) {
+                return {
+                    day: item.length > 0 ? item[0].day : '',
+                    date: item.length > 0 ? item[0].date : '',
+                    items: item
+                };
+            });
+            
+            var html = mustache.to_html(itemTemplate, mapped);
             $("#currentWeekItems").html(html);
         }
 
