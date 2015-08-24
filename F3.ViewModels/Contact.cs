@@ -30,5 +30,7 @@ namespace F3.ViewModels
         [Display(ResourceType = typeof(ResourceStrings), Name = "EH")]
         public string EH { get; set; }
 
+        [Display(ResourceType = typeof(ResourceStrings), Name = "Twitter")]
+        public string Twitter { get; set; }
     }
 }

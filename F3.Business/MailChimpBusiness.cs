@@ -28,6 +28,7 @@ namespace F3.Business
                 F3Name = contact.F3Name,
                 Workout = contact.Workout,
                 EH = contact.EH,
+                Twitter = contact.Twitter,
                 Groupings = new List<Grouping>
                 {
                     new Grouping

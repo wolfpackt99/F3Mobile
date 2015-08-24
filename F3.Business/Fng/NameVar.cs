@@ -24,5 +24,8 @@ namespace F3.Business.Fng
 
         [System.Runtime.Serialization.DataMember(Name = "EH")]
         public string EH { get; set; }
+
+        [System.Runtime.Serialization.DataMember(Name = "TWITTER")]
+        public string Twitter { get; set; }
     }
 }

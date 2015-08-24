@@ -31,7 +31,7 @@ namespace F3Mobile.Controllers
 
         public virtual ActionResult Fng()
         {
-            ViewBag.Message = "FNG Signup";
+            ViewBag.Message = "FNG/Newsletter Signup";
             ViewBag.Alert = TempData[Alert];
             return View();
         }
