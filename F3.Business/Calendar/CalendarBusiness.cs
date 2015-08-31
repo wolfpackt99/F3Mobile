@@ -34,13 +34,16 @@ namespace F3.Business.Calendar
             request.TimeMin = DateTime.Now.Previous(DayOfWeek.Sunday);
             if (!all)
             {
+                //get just this weeks
                 request.TimeMax = DateTime.Now.Next(DayOfWeek.Saturday);
             }
+
             request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
             request.SingleEvents = true;
+            
             request.MaxResults = 15;
             request.ShowDeleted = false;
-
+            
 
             return ProcessResults(request);
         }
@@ -108,7 +111,7 @@ namespace F3.Business.Calendar
                     result = request.Execute();
                 }
                 Events allData = result;
-                allData.Items = allRows;
+                allData.Items = allRows.Take(5).ToList();
                 return allData;
             }
             catch (Exception ex)
