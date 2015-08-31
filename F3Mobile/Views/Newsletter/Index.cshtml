@@ -52,54 +52,57 @@
                     @Html.TextBoxFor(m => m.EH, new { @class = "form-control" })
                 </div>
             </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Workout)
-                <select id='Workout' name='Workout' class="form-control">
-                    <option value=''>Select a workout</option>
-                    <option value='Anvil'>Anvil</option>
-                    <option value='Area51'>Area51</option>
-                    <option value='Ascent'>Ascent</option>
-                    <option value='Bagpipe'>Bagpipe</option>
-                    <option value='Base Camp'>Base Camp</option>
-                    <option value='Centurion'>Centurion</option>
-                    <option value='Commitment'>Commitment</option>
-                    <option value='Day Zero'>Day Zero</option>
-                    <option value='Death Valley'>Death Valley</option>
-                    <option value='DMZ'>DMZ</option>
-                    <option value='Dromedary'>Dromedary</option>
-                    <option value='Fast Twitch'>Fast Twitch</option>
-                    <option value='Fight Club'>Fight Club</option>
-                    <option value='Flash'>Flash</option>
-                    <option value='Foxhole'>Foxhole</option>
-                    <option value='Hydra'>Hydra</option>
-                    <option value='Joust'>Joust</option>
-                    <option value='Kevlar'>Kevlar</option>
-                    <option value='Meathead'>Meathead</option>
-                    <option value='Olympus'>Olympus</option>
-                    <option value='Outland'>Outland</option>
-                    <option value='Overdrive'>Overdrive</option>
-                    <option value='Peak 51'>Peak 51</option>
-                    <option value='Rebel Yell'>Rebel Yell</option>
-                    <option value='Skunk Works'>Skunk Works</option>
-                    <option value='Stonehenge'>Stonehenge</option>
-                    <option value='Swift'>Swift</option>
-                    <option value='The Brave'>The Brave</option>
-                    <option value='The Charge'>The Charge</option>
-                    <option value='The Devils Turn'>The Devil's Turn</option>
-                    <option value='The Matrix'>The Matrix</option>
-                    <option value='The Maul'>The Maul</option>
-                    <option value='The Rock'>The Rock</option>
-                </select>
+            <div class="col-xs-6 col-sm-12 col-no-padding">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Workout)
+                    <select id='Workout' name='Workout' class="form-control">
+                        <option value=''>Select a workout</option>
+                        <option value='Anvil'>Anvil</option>
+                        <option value='Area51'>Area51</option>
+                        <option value='Ascent'>Ascent</option>
+                        <option value='Bagpipe'>Bagpipe</option>
+                        <option value='Base Camp'>Base Camp</option>
+                        <option value='Centurion'>Centurion</option>
+                        <option value='Commitment'>Commitment</option>
+                        <option value='Day Zero'>Day Zero</option>
+                        <option value='Death Valley'>Death Valley</option>
+                        <option value='DMZ'>DMZ</option>
+                        <option value='Dromedary'>Dromedary</option>
+                        <option value='Fast Twitch'>Fast Twitch</option>
+                        <option value='Fight Club'>Fight Club</option>
+                        <option value='Flash'>Flash</option>
+                        <option value='Foxhole'>Foxhole</option>
+                        <option value='Hydra'>Hydra</option>
+                        <option value='Joust'>Joust</option>
+                        <option value='Kevlar'>Kevlar</option>
+                        <option value='Meathead'>Meathead</option>
+                        <option value='Olympus'>Olympus</option>
+                        <option value='Outland'>Outland</option>
+                        <option value='Overdrive'>Overdrive</option>
+                        <option value='Peak 51'>Peak 51</option>
+                        <option value='Rebel Yell'>Rebel Yell</option>
+                        <option value='Skunk Works'>Skunk Works</option>
+                        <option value='Stonehenge'>Stonehenge</option>
+                        <option value='Swift'>Swift</option>
+                        <option value='The Brave'>The Brave</option>
+                        <option value='The Charge'>The Charge</option>
+                        <option value='The Devils Turn'>The Devil's Turn</option>
+                        <option value='The Matrix'>The Matrix</option>
+                        <option value='The Maul'>The Maul</option>
+                        <option value='The Rock'>The Rock</option>
+                    </select>
+                </div>
             </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Twitter)
-                        @Html.TextBoxFor(m => m.Twitter, new { @class = "form-control" })
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
+            <div class="col-xs-6 col-sm-12 col-no-padding">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Twitter)
+                    @Html.TextBoxFor(m => m.Twitter, new { @class = "form-control" })
+                </div>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
         }
-        <br/><br/>
     </div>
-    <div class="col-sm-12 col-md-4">
+    <div class="col-sm-12 col-md-4 hidden-xs hidden-sm">
         <div id="recent" class="well">
             <h4>Most Recent Adds</h4>
         </div>
