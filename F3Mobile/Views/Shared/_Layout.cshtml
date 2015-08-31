@@ -37,15 +37,15 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("FNG", MVC.Home.ActionNames.Fng, MVC.Home.Name)</li>
+                    <li>@Html.ActionLink("FNG", MVC.Home.ActionNames.Index, MVC.Newsletter.Name)</li>
                     <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Schedule <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("View Schedule", MVC.Home.ActionNames.Schedule, MVC.Home.Name)</li>
+                            <li>@Html.ActionLink("View Schedule", MVC.Schedule.ActionNames.Index, MVC.Schedule.Name)</li>
                             <li><a href="http://bit.ly/A51Workouts">View On GDrive</a></li>
                         </ul>
                     </li>
                     <li>@Html.ActionLink("Backblast", "Index", "Backblast")</li>
-                    <li>@Html.ActionLink("Login", "Login", "Account")</li>
+                    @*<li>@Html.ActionLink("Login", "Login", "Account")</li>*@
                 </ul>
             </div>
         </div>

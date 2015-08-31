@@ -24,13 +24,13 @@ using System.Web.Routing;
 using T4MVC;
 namespace F3Mobile.Controllers
 {
-    public partial class HomeController
+    public partial class NewsletterController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public HomeController() { }
+        public NewsletterController() { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected HomeController(Dummy d) { }
+        protected NewsletterController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -60,13 +60,13 @@ namespace F3Mobile.Controllers
 
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public HomeController Actions { get { return MVC.Home; } }
+        public NewsletterController Actions { get { return MVC.Newsletter; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "home";
+        public readonly string Name = "newsletter";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "home";
+        public const string NameConst = "newsletter";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -78,6 +78,14 @@ namespace F3Mobile.Controllers
         }
 
 
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
+        {
+            public readonly string contact = ("contact").ToLowerInvariant();
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -88,36 +96,37 @@ namespace F3Mobile.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string Contact = "Contact";
-                public readonly string ContactAsnyc = "ContactAsnyc";
                 public readonly string Index = "Index";
             }
-            public readonly string Contact = "~/Views/Home/Contact.cshtml";
-            public readonly string ContactAsnyc = "~/Views/Home/ContactAsnyc.cshtml";
-            public readonly string Index = "~/Views/Home/Index.cshtml";
-            static readonly _DisplayTemplatesClass s_DisplayTemplates = new _DisplayTemplatesClass();
-            public _DisplayTemplatesClass DisplayTemplates { get { return s_DisplayTemplates; } }
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public partial class _DisplayTemplatesClass
-            {
-                public readonly string News = "News";
-            }
+            public readonly string Index = "~/Views/Newsletter/Index.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_HomeController : F3Mobile.Controllers.HomeController
+    public partial class T4MVC_NewsletterController : F3Mobile.Controllers.NewsletterController
     {
-        public T4MVC_HomeController() : base(Dummy.Instance) { }
+        public T4MVC_NewsletterController() : base(Dummy.Instance) { }
 
         [NonAction]
         partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index()
+        public override System.Web.Mvc.ActionResult Index()
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, F3.ViewModels.Contact contact);
+
+        [NonAction]
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index(F3.ViewModels.Contact contact)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "contact", contact);
+            IndexOverride(callInfo, contact);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 

@@ -81,14 +81,17 @@
             var sorted = _.sortBy(thisweek, function (item) { return item.dateraw.date(); });
             var days = _.groupBy(sorted, 'day');
             var mapped = _.map(days, function (item) {
+                var dayText = _.findWhere(dayOfWeek, { day: item[0].day });
+                
                 return {
                     day: item.length > 0 ? item[0].day : '',
                     date: item.length > 0 ? item[0].date : '',
+                    sort: dayText ? dayText.val : 10,
                     items: item
                 };
             });
             
-            var html = mustache.to_html(itemTemplate, mapped);
+            var html = mustache.to_html(itemTemplate, _.sortBy(mapped, 'sort'));
             $("#currentWeekItems").html(html);
         }
 

@@ -24,13 +24,13 @@ using System.Web.Routing;
 using T4MVC;
 namespace F3Mobile.Controllers
 {
-    public partial class CalendarController
+    public partial class ScheduleController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public CalendarController() { }
+        public ScheduleController() { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected CalendarController(Dummy d) { }
+        protected ScheduleController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -67,13 +67,13 @@ namespace F3Mobile.Controllers
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public CalendarController Actions { get { return MVC.Calendar; } }
+        public ScheduleController Actions { get { return MVC.Schedule; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "calendar";
+        public readonly string Name = "schedule";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "calendar";
+        public const string NameConst = "schedule";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -81,6 +81,7 @@ namespace F3Mobile.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
+            public readonly string Index = ("Index").ToLowerInvariant();
             public readonly string Get = ("Get").ToLowerInvariant();
             public readonly string List = ("List").ToLowerInvariant();
         }
@@ -114,14 +115,27 @@ namespace F3Mobile.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string Index = "Index";
             }
+            public readonly string Index = "~/Views/Schedule/Index.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_CalendarController : F3Mobile.Controllers.CalendarController
+    public partial class T4MVC_ScheduleController : F3Mobile.Controllers.ScheduleController
     {
-        public T4MVC_CalendarController() : base(Dummy.Instance) { }
+        public T4MVC_ScheduleController() : base(Dummy.Instance) { }
+
+        [NonAction]
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
+            return callInfo;
+        }
 
         [NonAction]
         partial void GetOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string id, bool all, bool bust);

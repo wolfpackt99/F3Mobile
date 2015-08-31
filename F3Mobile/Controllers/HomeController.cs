@@ -28,45 +28,5 @@ namespace F3Mobile.Controllers
             var news = await Cache.GetOrSet("News", async () => await News.GetNews());
             return View(news);
         }
-
-        public virtual ActionResult Fng()
-        {
-            ViewBag.Message = "FNG/Newsletter Signup";
-            ViewBag.Alert = TempData[Alert];
-            return View();
-        }
-
-        [ValidateAntiForgeryToken]
-        [HttpPost]
-        public virtual async Task<ActionResult> Fng(Contact contact)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    var subscribed = await ContactBiz.Add(contact);
-                    TempData[Alert] = "FNG Added";
-                    Cache.Remove(LatestAdds);
-                    return RedirectToAction(MVC.Home.Actions.Fng());
-                }
-                catch (Exception exp)
-                {
-                    ModelState.AddModelError("",exp.Message);
-                }
-            }
-            return View(contact);
-        }
-
-        public virtual ActionResult Schedule()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public async Task<JsonResult> GetRecent()
-        {
-            var latest = await Cache.GetOrSet(LatestAdds, async () => await ContactBiz.Latest());
-            return Json(latest, JsonRequestBehavior.AllowGet);
-        }
     }
 }

@@ -12,14 +12,19 @@ using Ninject;
 
 namespace F3Mobile.Controllers
 {
-    public partial class CalendarController : Controller
+    public partial class ScheduleController : Controller
     {
         [Inject]
         public ICalendarBusiness CalendarBusiness { get; set; }
 
         [Inject]
         public ICacheService Cache { get; set; }
-        
+
+        public virtual ActionResult Index()
+        {
+            return View();
+        }
+
         [HttpGet]
         public virtual async Task<ActionResult> Get(string id, bool all = true, bool bust = false)
         {

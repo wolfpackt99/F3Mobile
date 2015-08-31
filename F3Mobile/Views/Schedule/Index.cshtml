@@ -88,8 +88,8 @@
             require(['calendar'], function (cal) {
                 cal.initialize({
                     client_id: '@WebConfig.ClientId',
-                    calSvcUrl: '@Url.Action("Get","Calendar")',
-                    calListUrl: '@Url.Action("List","Calendar")'
+                    calSvcUrl: '@Url.Action("Get","Schedule")',
+                    calListUrl: '@Url.Action("List", "Schedule")'
                 });
             });
         });
