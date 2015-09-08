@@ -3,7 +3,7 @@
     <p class='lead'>{{summary}}</p>
     <ul class='list-group'>
         {{#items}}
-        <li class="list-group-item">{{displayDate}} - {{Summary}}</li>
+        <li class="list-group-item">{{displayDate}} - {{Summary}}{{#preblast}} <a href='{{preblast}}' target="_blank"><span class='label label-info'>preblast</span></a>{{/preblast}}</li>
         {{/items}}
         {{^items.0}}
         <li class="list-group-item">Upcoming Q schedule is empty</li>

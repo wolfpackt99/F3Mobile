@@ -54,6 +54,15 @@
             $.each(sorted, function (j, event) {
                 event.items = _.sortBy(event.items, 'Start.Date');
                 $.each(event.items, function (i, item) {
+                    item.preblast = null;
+                    if (item.Description) {
+                        
+                        try {
+                            var json = JSON.parse(item.Description);
+                            item.preblast = json.preblast;
+                        } catch (e) {
+                        }
+                    }
                     var theD = item.Start.Date === null ? moment(item.Start.DateTime) : moment(item.Start.Date);
                     if (isBetween(theD)) {
                         var curItem = {
@@ -62,7 +71,8 @@
                             date: theD.format("MM/DD/YYYY"),
                             day: theD.format("dddd"),
                             dateraw: theD,
-                            location: event.location
+                            location: event.location,
+                            preblast: item.preblast
                         };
                         thisweek.push(curItem);
                     }
