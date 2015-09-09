@@ -35,7 +35,7 @@ namespace F3.Business.Calendar
             if (!all)
             {
                 //get just this weeks
-                request.TimeMax = DateTime.Now.Next(DayOfWeek.Saturday);
+                request.TimeMax = DateTime.Now.Next(DayOfWeek.Saturday).EndOfDay();
             }
 
             request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
