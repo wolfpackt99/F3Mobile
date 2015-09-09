@@ -30,7 +30,7 @@ namespace F3.Business.Tests
             items.Items.Should().HaveCount(c => c > 0);
         }
 
-        [TestMethod]
+        //[TestMethod]
         public async Task GetCalendarListFixture()
         {
             var cb = new CalendarBusiness();
@@ -38,7 +38,7 @@ namespace F3.Business.Tests
             sut.Items.Should().HaveCount(c => c > 0);
         }
 
-        [TestMethod]
+        //[TestMethod]
         public async Task GetAllEventsForWeek()
         {
             var cb = new CalendarBusiness
@@ -49,7 +49,7 @@ namespace F3.Business.Tests
             sut.Should().NotBeEmpty();
             sut.First().Summary.ShouldBeEquivalentTo("Anvil");
         }
-        [TestMethod]
+        //[TestMethod]
         public async Task GetAllEventsForAll()
         {
             var cb = new CalendarBusiness
