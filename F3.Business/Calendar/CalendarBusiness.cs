@@ -20,8 +20,7 @@ namespace F3.Business.Calendar
 {
     public class CalendarBusiness : ICalendarBusiness
     {
-        [Inject]
-        public ICacheService CacheService { get; set; }
+        
 
         public async Task<Events> GetEvents(string id, bool all = true)
         {
@@ -59,11 +58,8 @@ namespace F3.Business.Calendar
 
         public async Task<IEnumerable<Events>> GetAllEvents(bool all = true, bool bust = false)
         {
-            if (bust)
-            {
-                CacheService.Remove("ListOfSites");
-            }
-            var list = await CacheService.GetOrSet("ListOfSites", async () => await GetCalendarList());
+
+            var list = await GetCalendarList();
             var sites = list.Items;
 
             var tasks = sites.Select(s => GetEvents(s.Id, all));
