@@ -12,5 +12,6 @@ namespace F3.Business.Calendar
     {
         Task<Events> GetEvents(string id, bool all = true);
         Task<CalendarList> GetCalendarList();
+        Task<IEnumerable<Events>> GetAllEvents(bool all = true, bool bust = false);
     }
 }

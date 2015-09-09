@@ -38,12 +38,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("FNG", MVC.Newsletter.ActionNames.Index, MVC.Newsletter.Name)</li>
-                    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Schedule <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("View Schedule", MVC.Schedule.ActionNames.Index, MVC.Schedule.Name)</li>
-                            <li><a href="http://bit.ly/A51Workouts">View On GDrive</a></li>
-                        </ul>
-                    </li>
+                    <li>@Html.ActionLink("View Schedule", MVC.Schedule.ActionNames.Index, MVC.Schedule.Name)</li>
                     <li>@Html.ActionLink("Backblast", MVC.Backblast.ActionNames.Index, MVC.Backblast.Name)</li>
                     @*<li>@Html.ActionLink("Login", "Login", "Account")</li>*@
                 </ul>

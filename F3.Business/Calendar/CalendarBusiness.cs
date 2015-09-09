@@ -20,7 +20,8 @@ namespace F3.Business.Calendar
 {
     public class CalendarBusiness : ICalendarBusiness
     {
-        
+        [Inject]
+        public ICacheService CacheService { get; set; }
 
         public async Task<Events> GetEvents(string id, bool all = true)
         {
@@ -31,40 +32,49 @@ namespace F3.Business.Calendar
             });
 
             EventsResource.ListRequest request = service.Events.List(id);
-            request.TimeMin = DateTime.Now.Previous(DayOfWeek.Sunday);
+            request.TimeMin = DateTime.Now.Previous(DayOfWeek.Sunday).BeginningOfDay();
             if (!all)
             {
                 //get just this weeks
                 request.TimeMax = DateTime.Now.Next(DayOfWeek.Saturday).EndOfDay();
             }
+            else
+            {
+                request.TimeMax = DateTime.Now.NextMonth();
+            }
 
             request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
             request.SingleEvents = true;
-            
-            request.MaxResults = 15;
-            request.ShowDeleted = false;
-            
 
-            return ProcessResults(request);
+            request.MaxResults = 5;
+            request.ShowDeleted = false;
+
+
+            var result = request.Execute();
+            return result;
+
+
+            //return ProcessResults(request);
         }
 
-        //public async Task<IEnumerable<Event>> GetAllEvents(bool all = true, bool bust = false)
-        //{
-        //    if (bust)
-        //    {
-        //        CacheService.Remove("ListOfSites");
-        //    }
-        //    var list = await CacheService.GetOrSet("ListOfSites", async () => await GetCalendarList());
-        //    var sites = list.Items;
-        //    var events = new List<Event>();
-        //    foreach (var site in sites)
-        //    {
-        //        var items = await GetEvents(site.Id, all);
-        //        events.AddRange(items.Items);
-        //    }
-        //    return events;
+        public async Task<IEnumerable<Events>> GetAllEvents(bool all = true, bool bust = false)
+        {
+            if (bust)
+            {
+                CacheService.Remove("ListOfSites");
+            }
+            var list = await CacheService.GetOrSet("ListOfSites", async () => await GetCalendarList());
+            var sites = list.Items;
 
-        //}
+            var tasks = sites.Select(s => GetEvents(s.Id, all));
+
+            var enumerable = tasks as Task<Events>[] ?? tasks.ToArray();
+            await Task.WhenAll(enumerable);
+
+
+            return enumerable.Select(site => site.Result).OrderBy(s => s.Summary);
+
+        }
 
         public async Task<CalendarList> GetCalendarList()
         {
@@ -79,6 +89,7 @@ namespace F3.Business.Calendar
             request.MaxResults = 100;
             request.ShowDeleted = false;
             request.ShowHidden = false;
+
 
             return ProcessListResults(request);
         }

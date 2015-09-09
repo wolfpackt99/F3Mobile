@@ -30,7 +30,7 @@ namespace F3.Business.Tests
             items.Items.Should().HaveCount(c => c > 0);
         }
 
-        //[TestMethod]
+        [TestMethod]
         public async Task GetCalendarListFixture()
         {
             var cb = new CalendarBusiness();
@@ -38,15 +38,27 @@ namespace F3.Business.Tests
             sut.Items.Should().HaveCount(c => c > 0);
         }
 
-        //[TestMethod]
-        //public async Task GetAllEventsTest()
-        //{
-        //    var cb = new CalendarBusiness
-        //    {
-        //        CacheService = new CacheService()
-        //    };
-        //    var sut = await cb.GetAllEvents(false);
-        //    sut.Should().NotBeEmpty();
-        //}
+        [TestMethod]
+        public async Task GetAllEventsForWeek()
+        {
+            var cb = new CalendarBusiness
+            {
+                CacheService = new CacheService()
+            };
+            var sut = await cb.GetAllEvents(false);
+            sut.Should().NotBeEmpty();
+            sut.First().Summary.ShouldBeEquivalentTo("Anvil");
+        }
+        [TestMethod]
+        public async Task GetAllEventsForAll()
+        {
+            var cb = new CalendarBusiness
+            {
+                CacheService = new CacheService()
+            };
+            var sut = await cb.GetAllEvents();
+            sut.Should().NotBeEmpty();
+            sut.First().Summary.ShouldBeEquivalentTo("Anvil");
+        }
     }
 }
