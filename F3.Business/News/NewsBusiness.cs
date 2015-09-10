@@ -25,15 +25,22 @@ namespace F3.Business.News
             var fb = new FB.Firebase(rootUri, authToken);
 
             var data = await fb.GetAsync("news");
-            
-            var result = JsonConvert.DeserializeObject<IEnumerable<ViewModels.News>>(data);
-            var select = result.Where(CurrentNews).OrderBy(s => s.Order);
+            try
+            {
+                var result = JsonConvert.DeserializeObject<IEnumerable<ViewModels.News>>(data);
+                var select = result.Where(CurrentNews).OrderBy(s => s.Order);
+                return select;
+            }
+            catch (Exception exp)
+            {
 
-            
-            return select;
+            }
+
+
+            return Enumerable.Empty<ViewModels.News>();
         }
 
-        public async Task<bool> AddNews(F3.ViewModels.News news)
+        public async Task<bool> AddNews(IEnumerable<ViewModels.News> news)
         {
             var rootUri = ConfigurationManager.AppSettings.Get("FirebaseUri");
             var authToken = ConfigurationManager.AppSettings.Get("FirebaseAuthToken");

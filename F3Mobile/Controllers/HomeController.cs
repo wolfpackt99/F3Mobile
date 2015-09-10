@@ -25,7 +25,8 @@ namespace F3Mobile.Controllers
 
         public virtual async Task<ActionResult> Index()
         {
-            var news = await Cache.GetOrSet("News", async () => await News.GetNews());
+            var news = await News.GetNews();
+            //var news = await Cache.GetOrSet("News", async () => await News.GetNews());
             return View(news);
         }
     }

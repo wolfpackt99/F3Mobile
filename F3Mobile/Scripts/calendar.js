@@ -35,7 +35,7 @@
                     $("div.ao").show();
                 } else {
                     $("div.ao").hide();
-                    $("div.ao[data-name='" + selected + "']").show();
+                    $("div.ao[data-name=\"" + selected + "\"]").show();
                 }
             });
         }
@@ -55,11 +55,13 @@
                 event.items = _.sortBy(event.items, 'Start.Date');
                 $.each(event.items, function (i, item) {
                     item.preblast = null;
+                    item.tag = null;
                     if (item.Description) {
                         
                         try {
                             var json = JSON.parse(item.Description);
                             item.preblast = json.preblast;
+                            item.tag = json.tag || null;
                         } catch (e) {
                         }
                     }
@@ -72,7 +74,8 @@
                             day: theD.format("dddd"),
                             dateraw: theD,
                             location: event.location,
-                            preblast: item.preblast
+                            preblast: item.preblast,
+                            tag: item.tag
                         };
                         thisweek.push(curItem);
                     }
