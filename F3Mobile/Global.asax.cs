@@ -10,6 +10,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Ninject;
 using Ninject.Web.Common;
+using WebApiContrib.Formatting.Jsonp;
 
 namespace F3Mobile
 {
@@ -19,6 +20,7 @@ namespace F3Mobile
         {
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            GlobalConfiguration.Configuration.AddJsonpFormatter(callbackQueryParameter: "callback");
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
