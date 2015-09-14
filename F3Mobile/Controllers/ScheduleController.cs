@@ -49,9 +49,9 @@ namespace F3Mobile.Controllers
         }
 
 
-        public virtual async Task<ActionResult> All(bool all = true, bust = false)
+        public virtual async Task<ActionResult> All(bool all = true, bool bust = false)
         {
-            var cacheKey = string.Format("{0}-{1}-{2}", "allcalenderitems", id, all.ToString());
+            var cacheKey = string.Format("{0}-{1}", "allcalenderitems", all.ToString());
             if (bust)
             {
                 Cache.Remove(cacheKey);
