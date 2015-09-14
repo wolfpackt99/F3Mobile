@@ -49,14 +49,14 @@ namespace F3.Business.Calendar
             request.ShowDeleted = false;
 
 
-            var result = request.Execute();
+            var result = await request.ExecuteAsync();
             return result;
 
 
             //return ProcessResults(request);
         }
 
-        public async Task<IEnumerable<Events>> GetAllEvents(bool all = true, bool bust = false)
+        public async Task<IEnumerable<Events>> GetAllEvents(bool all = true)
         {
 
             var list = await GetCalendarList();

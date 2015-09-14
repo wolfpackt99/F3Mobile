@@ -48,5 +48,16 @@ namespace F3Mobile.Controllers
             return Json(events, JsonRequestBehavior.AllowGet);
         }
 
+
+        public virtual async Task<ActionResult> All(bool all = true, bust = false)
+        {
+            var cacheKey = string.Format("{0}-{1}-{2}", "allcalenderitems", id, all.ToString());
+            if (bust)
+            {
+                Cache.Remove(cacheKey);
+            }
+            var events = await Cache.GetOrSet("CalList", async () => await CalendarBusiness.GetAllEvents(all));
+            return Json(events, JsonRequestBehavior.AllowGet);
+        }
     }
 }
