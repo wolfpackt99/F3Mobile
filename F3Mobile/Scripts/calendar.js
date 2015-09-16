@@ -5,6 +5,8 @@
             allEvents = [],
             thisweek = [],
             list = [],
+            firstWeek = false,
+            firstAll = false,
             hasDisplayed = false,
             dayOfWeek = [{ 'val': 0, "day": 'Monday' }, { 'val': 1, "day": 'Tuesday' }, { 'val': 2, "day": 'Wednesday' }, { 'val': 3, "day": 'Thursday' }, { 'val': 4, "day": 'Friday' }, { 'val': 5, "day": 'Saturday' }, { 'val': 6, "day": 'Sunday' }];
 
@@ -19,9 +21,9 @@
             //default is current tab
             $(".nav-tabs").bind('click', function (e) {
                 if (e.target.text === 'All') {
-                    getEvents(true);
+                    getEvents(true, firstWeek);
                 } else if (e.target.text === "This Week") {
-                    getEvents(false);
+                    getEvents(false, firstAll);
                 } else {
                     displayFirstF();
                 }
@@ -57,7 +59,7 @@
                     item.preblast = null;
                     item.tag = null;
                     if (item.Description) {
-                        
+
                         try {
                             var json = JSON.parse(item.Description);
                             item.preblast = json.preblast;
@@ -68,7 +70,7 @@
                     var theD = item.Start.Date === null ? moment(item.Start.DateTime) : moment(item.Start.Date);
                     if (isBetween(theD)) {
                         var curItem = {
-                            name: event.name,
+                            name: event.summary,
                             description: item.Summary,
                             date: theD.format("MM/DD/YYYY"),
                             day: theD.format("dddd"),
@@ -95,7 +97,7 @@
             var days = _.groupBy(sorted, 'day');
             var mapped = _.map(days, function (item) {
                 var dayText = _.findWhere(dayOfWeek, { day: item[0].day });
-                
+
                 return {
                     day: item.length > 0 ? item[0].day : '',
                     date: item.length > 0 ? item[0].date : '',
@@ -103,7 +105,7 @@
                     items: item
                 };
             });
-            
+
             var html = mustache.to_html(itemTemplate, _.sortBy(mapped, 'sort'));
             $("#currentWeekItems").html(html);
         }
@@ -114,7 +116,7 @@
         }
 
         function displayFirstF() {
-            
+
             if (hasDisplayed == false && list && list.Items && list.Items.length > 0) {
                 $("#loading-firstf").hide();
                 $.each(list.Items, function (i, item) {
@@ -154,49 +156,72 @@
             }
         }
 
-        function getEvents(all) {
-            $("#loading-" + (all ? "all" : "current")).show();
+        function getEvents(all, hasLoadedBefore) {
+
             var deferred = [];
-
-            calSvc.getList(function (data) {
-                list = data;
-                
-                $.each(list.Items, function (i, cal) {
-                    var d = $.Deferred();
-                    deferred.push(d);
-                    listUpcomingEvents(cal, all, list, function () {
-                        d.resolve();
+            if (current.length === 0 || allEvents.length === 0 && !hasLoadedBefore) {
+                $("#loading-" + (all ? "all" : "current")).show();
+                calSvc.getList(function (data) {
+                    list = data;
+                    calSvc.getEvents("", all, function (data) {
+                        listUpcomingEvents(all, list, data);
+                        $("#loading-" + (all ? "all" : "current")).hide();
+                        displayEvents(all);
+                    }, function (err) {
+                        console.log(err);
                     });
+                }, function () {
+                    console.log('unable to get list');
                 });
+            }
+            $("#loading-" + (all ? "all" : "current")).hide();
+            //calSvc.getEvents("", false, function (data) {
+            //    if (all) {
+            //        allEvents = data;
+            //    } else {
+            //        current = data;
+            //    }
+            //    displayEvents(all);
+            //    $("#loading-" + (all ? "all" : "current")).hide();
+            //}, function (err) {
+            //    console.log(err);
+            //});
 
-                $.when.apply(this, deferred).done(function () {
-                    displayEvents(all);
-                    logger('all done');
-                    $("#loading-" + (all ? "all" : "current")).hide();
-                    //$("#current").addClass("active");
-                });
-            }, function () {
-                console.log('unable to get list');
-            });
+            //calSvc.getList(function (data) {
+            //    list = data;
+
+            //    $.each(list.Items, function (i, cal) {
+            //        var d = $.Deferred();
+            //        deferred.push(d);
+            //        listUpcomingEvents(cal, all, list, function () {
+            //            d.resolve();
+            //        });
+            //    });
+
+            //    $.when.apply(this, deferred).done(function () {
+            //        displayEvents(all);
+            //        logger('all done');
+            //        $("#loading-" + (all ? "all" : "current")).hide();
+            //        //$("#current").addClass("active");
+            //    });
+            //}, function () {
+            //    console.log('unable to get list');
+            //});
 
 
 
         }
 
-        function listUpcomingEvents(calendar, all, list, callback) {
+        function listUpcomingEvents(all, list, data) {
 
-            var location = _.findWhere(list.Items, { Id: calendar.Id });
-
-            allEvents = [];
-            current = [];
-            thisweek = [];
-            calSvc.getEvents(calendar.Id, all, function (resp) {
+            $.each(data, function (i, calendar) {
+                var location = _.findWhere(list.Items, { Summary: calendar.Summary });
                 logger('success get: ' + calendar.name);
                 var item = {
-                    id: calendar.Id,
-                    summary: resp.Summary,
+                    id: location.Id,
+                    summary: calendar.Summary,
                     name: calendar.Summary,
-                    items: resp.Items,
+                    items: calendar.Items,
                     location: location.Location || ""
                 };
                 if (all) {
@@ -204,10 +229,25 @@
                 } else {
                     current.push(item);
                 }
-                callback();
-            }, function () {
-                callback();
             });
+            //calSvc.getEvents(calendar.Id, all, function (resp) {
+            //    logger('success get: ' + calendar.name);
+            //    var item = {
+            //        id: calendar.Id,
+            //        summary: resp.Summary,
+            //        name: calendar.Summary,
+            //        items: resp.Items,
+            //        location: location.Location || ""
+            //    };
+            //    if (all) {
+            //        allEvents.push(item);
+            //    } else {
+            //        current.push(item);
+            //    }
+            //    callback();
+            //}, function () {
+            //    callback();
+            //});
         }
 
         return {
