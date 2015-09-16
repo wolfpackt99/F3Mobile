@@ -169,12 +169,14 @@
                         displayEvents(all);
                     }, function (err) {
                         console.log(err);
+                        $("#loading-" + (all ? "all" : "current")).hide();
                     });
                 }, function () {
                     console.log('unable to get list');
+                    $("#loading-" + (all ? "all" : "current")).hide();
                 });
             }
-            $("#loading-" + (all ? "all" : "current")).hide();
+            
             //calSvc.getEvents("", false, function (data) {
             //    if (all) {
             //        allEvents = data;
