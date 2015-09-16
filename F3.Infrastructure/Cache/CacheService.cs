@@ -13,7 +13,7 @@ namespace F3.Infrastructure.Cache
             if (item != null) return item;
 
             item = getItemCallback();
-            MemoryCache.Default.Add(cacheKey, item, DateTime.UtcNow.AddMinutes(10));
+            MemoryCache.Default.Add(cacheKey, item, DateTime.UtcNow.AddMinutes(30));
             return item;
         }
 
@@ -23,7 +23,7 @@ namespace F3.Infrastructure.Cache
             if (item != null) return item;
 
             item = await getItemCallback();
-            MemoryCache.Default.Add(cacheKey, item, DateTime.UtcNow.AddMinutes(10));
+            MemoryCache.Default.Add(cacheKey, item, DateTime.UtcNow.AddMinutes(30));
             return item;
         }
 
