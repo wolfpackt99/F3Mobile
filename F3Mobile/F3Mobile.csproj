@@ -387,7 +387,6 @@
     <Content Include="Scripts\angular-touch.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\angularfire.js" />
     <Content Include="Scripts\angularfire.min.js" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -397,6 +396,8 @@
       <DependentUpon>calendar.js</DependentUpon>
     </Content>
     <Content Include="Scripts\calendarService.js" />
+    <Content Include="Scripts\controllers\scheduleController.js" />
+    <Content Include="Scripts\controllers\weekController.js" />
     <Content Include="Scripts\custom.min.js.map">
       <DependentUpon>custom.min.js</DependentUpon>
     </Content>
@@ -1194,6 +1195,8 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\scheduleApp.js" />
+    <Content Include="Scripts\services\calendarService.js" />
     <Content Include="Scripts\T4MvcJs\T4MvcJs.js">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1202,6 +1205,8 @@
     <Content Include="Scripts\templates\aoTemplate.html" />
     <Content Include="Scripts\templates\FirstF.html" />
     <Content Include="Scripts\templates\recentTemplate.html" />
+    <Content Include="Scripts\templates\schedule.html" />
+    <Content Include="Scripts\templates\week.html" />
     <Content Include="Scripts\templates\thisweek.html" />
     <Content Include="Scripts\text.js" />
     <Content Include="Scripts\toastr.js" />
@@ -1258,9 +1263,10 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\ContactAsnyc.cshtml" />
-    <Content Include="Views\Schedule\Index.cshtml" />
+    <Content Include="Views\Schedule\IndexOld.cshtml" />
     <Content Include="Views\Backblast\Index.cshtml" />
     <Content Include="Views\Home\DisplayTemplates\News.cshtml" />
+    <Content Include="Views\Schedule\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

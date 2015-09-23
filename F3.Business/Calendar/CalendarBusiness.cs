@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using F3.Business.Calendar;
 using F3.Infrastructure;
 using F3.Infrastructure.Cache;
+using F3.Infrastructure.Extensions;
 using F3.Infrastructure.GoogleAuth;
 using F3.ViewModels.Calendar;
 using FluentDateTime;
@@ -13,6 +16,7 @@ using Google.Apis.Auth.OAuth2;
 using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Services;
+using Newtonsoft.Json;
 using Ninject;
 using Nustache.Core;
 
@@ -20,7 +24,7 @@ namespace F3.Business.Calendar
 {
     public class CalendarBusiness : ICalendarBusiness
     {
-        
+
 
         public async Task<Events> GetEvents(string id, bool all = true)
         {
@@ -169,7 +173,7 @@ namespace F3.Business.Calendar
         public async Task<bool> RequestDate(QRequest request)
         {
             var html = Render.FileToString("qrequest", request);
-            var to = new MailAddressCollection{new MailAddress("")};
+            var to = new MailAddressCollection { new MailAddress("") };
             var smtpClient = new SmtpClient();
             var mailMsg = new MailMessage("", "", "Sub", html);
             mailMsg.IsBodyHtml = true;
@@ -177,6 +181,74 @@ namespace F3.Business.Calendar
             return true;
         }
 
-         
+        public async Task<bool> Publish()
+        {
+            var sites = (await GetCalendarList()).Items;
+            var thisweek = new List<EventViewModel>();
+            var tasks = sites.Select(async s =>
+            {
+                var events = await GetEvents(s.Id);
+                var list = new List<EventViewModel>();
+                var cal = new CalenderViewModel
+                {
+                    Id = s.Id,
+                    Name = s.Summary,
+                    Description = s.Description,
+                    Location = s.Location,
+                    Items = events.Items.Select(ev =>
+                    {
+                        var evModel = new EventViewModel
+                        {
+                            CalendarId = s.Id,
+                            CalendarName = s.Summary,
+                            Start = ev.Start.DateTime ?? Convert.ToDateTime(ev.Start.Date),
+                            Title = ev.Summary,
+                            Description = ev.Description,
+                            Location = s.Location
+                        };
+                        try
+                        {
+                            var json = JsonConvert.DeserializeObject<Dictionary<string, string>>(ev.Description);
+                            evModel.Preblast = json.ContainsKey("preblast") ? json["preblast"] : null;
+                            evModel.Tag = json.ContainsKey("tag") ? json["tag"] : null;
+                            
+                        }
+                        catch (Exception exp)
+                        {
+                        }
+
+                        return evModel;
+                    }).AsEnumerable()
+                };
+                thisweek.AddRange(isThisWeek(cal));
+
+                return cal;
+            });
+
+            var x = await Task.WhenAll(tasks);
+            var rootUri = ConfigurationManager.AppSettings.Get("FirebaseUri");
+            var authToken = ConfigurationManager.AppSettings.Get("FirebaseAuthToken");
+            var fb = new FirebaseSharp.Portable.Firebase(rootUri, authToken);
+
+            await fb.DeleteAsync("/events");
+            await fb.DeleteAsync("/thisweek");
+            var taskOfEvents = x.OrderBy(s => s.Name).Select(item => fb.PostAsync("/events", JsonConvert.SerializeObject(item)));
+            var taskOfThisWeek = thisweek.EmptyIfNull().OrderBy(s => s.Start).Select(item => fb.PostAsync("/thisweek", JsonConvert.SerializeObject(item)));
+            await Task.WhenAll(taskOfEvents);
+            await Task.WhenAll(taskOfThisWeek);
+            return true;
+        }
+
+        public List<EventViewModel> isThisWeek(CalenderViewModel cvm)
+        {
+            if (cvm.Items != null)
+            {
+                var now = DateTime.Now;
+                return cvm.Items.Where(e => 
+                    e.Start.Value <= now.Next(DayOfWeek.Saturday).EndOfDay()).ToList();
+            }
+            return new List<EventViewModel>();
+        }
+
     }
 }

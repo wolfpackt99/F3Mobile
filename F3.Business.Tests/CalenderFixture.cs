@@ -7,11 +7,12 @@ using F3.Business.Calendar;
 using F3.Infrastructure.Cache;
 using F3.Infrastructure.GoogleAuth;
 using FluentAssertions;
+using log4net.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace F3.Business.Tests
 {
-    //[TestClass]
+    [TestClass]
     public class CalenderFixture
     {
         //[TestMethod]
@@ -38,7 +39,7 @@ namespace F3.Business.Tests
             sut.Items.Should().HaveCount(c => c > 0);
         }
 
-        [TestMethod]
+        //[TestMethod]
         public async Task GetAllEventsForWeek()
         {
             var cb = new CalendarBusiness();
@@ -47,13 +48,21 @@ namespace F3.Business.Tests
             sut.First().Summary.ShouldBeEquivalentTo("Anvil");
         }
 
-        [TestMethod]
+        //[TestMethod]
         public async Task GetAllEventsForAll()
         {
             var cb = new CalendarBusiness();
             var sut = await cb.GetAllEvents();
             sut.Should().NotBeEmpty();
             sut.First().Summary.ShouldBeEquivalentTo("Anvil");
+        }
+
+        [TestMethod]
+        public async Task Publish2Test()
+        {
+            var cb = new CalendarBusiness();
+            var sut = await cb.Publish();
+            sut.Should().BeTrue();
         }
     }
 }

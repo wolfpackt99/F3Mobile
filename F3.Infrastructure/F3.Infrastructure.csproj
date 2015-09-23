@@ -115,6 +115,7 @@
     <Compile Include="AuthAccessToken.cs" />
     <Compile Include="Cache\CacheService.cs" />
     <Compile Include="Cache\ICacheService.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="GoogleAuth\AccountCredential.cs" />
     <Compile Include="IAccessToken.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

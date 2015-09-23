@@ -1,4 +1,7 @@
 ﻿<!DOCTYPE html>
+@{
+    var useRequire = ViewBag.UseRequire ?? false;
+}
 <html>
 <head>
     <meta charset="utf-8" />
@@ -16,14 +19,14 @@
                 height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
     <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-            '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NVTZMR');</script>
+(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+            new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+})(window, document, 'script', 'dataLayer', 'GTM-NVTZMR');</script>
     <!-- End Google Tag Manager -->
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -55,14 +58,18 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    <script src="~/Scripts/require.js"></script>
-    <script src="~/Scripts/config.js"></script>
-    <script>
-        F3MobileConfig.initialize({
-            baseUrl: "@Url.Content("~/scripts")"
-        });
+    @if (useRequire)
+    {
+        <script src="~/Scripts/require.js"></script>
+        <script src="~/Scripts/config.js"></script>
+        <script>
 
-    </script>
+            F3MobileConfig.initialize({
+                baseUrl: "@Url.Content("~/scripts")"
+            });
+
+        </script>
+    }
     
     @RenderSection("scripts", required: false)
 </body>

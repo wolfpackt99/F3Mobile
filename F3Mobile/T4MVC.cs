@@ -113,7 +113,6 @@ namespace Links
         public static readonly string angular_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/angular.min.js") ? Url("angular.min.js") : Url("angular.js");
         public static readonly string angular_min_js = Url("angular.min.js");
         public static readonly string angular_min_js_map = Url("angular.min.js.map");
-        public static readonly string angularfire_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/angularfire.min.js") ? Url("angularfire.min.js") : Url("angularfire.js");
         public static readonly string angularfire_min_js = Url("angularfire.min.js");
         public static readonly string app_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/app.min.js") ? Url("app.min.js") : Url("app.js");
         public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.js") ? Url("bootstrap.min.js") : Url("bootstrap.js");
@@ -123,6 +122,15 @@ namespace Links
         public static readonly string calendar_min_js_map = Url("calendar.min.js.map");
         public static readonly string calendarService_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/calendarService.min.js") ? Url("calendarService.min.js") : Url("calendarService.js");
         public static readonly string config_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/config.min.js") ? Url("config.min.js") : Url("config.js");
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class controllers {
+            private const string URLPATH = "~/Scripts/controllers";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string scheduleController_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/scheduleController.min.js") ? Url("scheduleController.min.js") : Url("scheduleController.js");
+            public static readonly string weekController_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/weekController.min.js") ? Url("weekController.min.js") : Url("weekController.js");
+        }
+    
         public static readonly string custom_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/custom.min.js") ? Url("custom.min.js") : Url("custom.js");
         public static readonly string custom_min_js = Url("custom.min.js");
         public static readonly string custom_min_js_map = Url("custom.min.js.map");
@@ -904,6 +912,15 @@ namespace Links
         public static readonly string respond_matchmedia_addListener_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/respond.matchmedia.addListener.min.js") ? Url("respond.matchmedia.addListener.min.js") : Url("respond.matchmedia.addListener.js");
         public static readonly string respond_matchmedia_addListener_min_js = Url("respond.matchmedia.addListener.min.js");
         public static readonly string respond_min_js = Url("respond.min.js");
+        public static readonly string scheduleApp_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/scheduleApp.min.js") ? Url("scheduleApp.min.js") : Url("scheduleApp.js");
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class services {
+            private const string URLPATH = "~/Scripts/services";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string calendarService_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/calendarService.min.js") ? Url("calendarService.min.js") : Url("calendarService.js");
+        }
+    
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class T4MvcJs {
             private const string URLPATH = "~/Scripts/T4MvcJs";
@@ -924,7 +941,9 @@ namespace Links
             public static readonly string currentWeekItem_html = Url("currentWeekItem.html");
             public static readonly string FirstF_html = Url("FirstF.html");
             public static readonly string recentTemplate_html = Url("recentTemplate.html");
+            public static readonly string schedule_html = Url("schedule.html");
             public static readonly string thisweek_html = Url("thisweek.html");
+            public static readonly string week_html = Url("week.html");
         }
     
         public static readonly string text_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/text.min.js") ? Url("text.min.js") : Url("text.js");
@@ -964,6 +983,14 @@ namespace Links
     {
         public static partial class Scripts 
         {
+            public static partial class controllers 
+            {
+                public static class Assets
+                {
+                    public const string scheduleController_js = "~/Scripts/controllers/scheduleController.js"; 
+                    public const string weekController_js = "~/Scripts/controllers/weekController.js"; 
+                }
+            }
             public static partial class i18n 
             {
                 public static class Assets
@@ -1714,6 +1741,13 @@ namespace Links
                     public const string angular_locale_zu_js = "~/Scripts/i18n/angular-locale_zu.js"; 
                 }
             }
+            public static partial class services 
+            {
+                public static class Assets
+                {
+                    public const string calendarService_js = "~/Scripts/services/calendarService.js"; 
+                }
+            }
             public static partial class T4MvcJs 
             {
                 public static class Assets
@@ -1754,7 +1788,6 @@ namespace Links
                 public const string angular_touch_min_js = "~/Scripts/angular-touch.min.js"; 
                 public const string angular_js = "~/Scripts/angular.js"; 
                 public const string angular_min_js = "~/Scripts/angular.min.js"; 
-                public const string angularfire_js = "~/Scripts/angularfire.js"; 
                 public const string angularfire_min_js = "~/Scripts/angularfire.min.js"; 
                 public const string app_js = "~/Scripts/app.js"; 
                 public const string bootstrap_js = "~/Scripts/bootstrap.js"; 
@@ -1787,6 +1820,7 @@ namespace Links
                 public const string respond_matchmedia_addListener_js = "~/Scripts/respond.matchmedia.addListener.js"; 
                 public const string respond_matchmedia_addListener_min_js = "~/Scripts/respond.matchmedia.addListener.min.js"; 
                 public const string respond_min_js = "~/Scripts/respond.min.js"; 
+                public const string scheduleApp_js = "~/Scripts/scheduleApp.js"; 
                 public const string text_js = "~/Scripts/text.js"; 
                 public const string toastr_js = "~/Scripts/toastr.js"; 
                 public const string toastr_min_js = "~/Scripts/toastr.min.js"; 

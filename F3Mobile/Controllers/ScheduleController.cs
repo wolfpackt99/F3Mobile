@@ -25,6 +25,11 @@ namespace F3Mobile.Controllers
             return View();
         }
 
+        public virtual ActionResult IndexOld()
+        {
+            return View();
+        }
+
         [HttpGet]
         public virtual async Task<ActionResult> Get(string id, bool all = true, bool bust = false)
         {

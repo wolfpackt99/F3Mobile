@@ -72,6 +72,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calendar\CalenderViewModel.cs" />
+    <Compile Include="Calendar\EventViewModel.cs" />
     <Compile Include="Calendar\QRequest.cs" />
     <Compile Include="Contact.cs" />
     <Compile Include="News.cs" />

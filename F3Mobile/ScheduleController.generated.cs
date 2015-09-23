@@ -83,8 +83,10 @@ namespace F3Mobile.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = ("Index").ToLowerInvariant();
+            public readonly string IndexOld = ("IndexOld").ToLowerInvariant();
             public readonly string Get = ("Get").ToLowerInvariant();
             public readonly string List = ("List").ToLowerInvariant();
+            public readonly string All = ("All").ToLowerInvariant();
         }
 
 
@@ -106,6 +108,15 @@ namespace F3Mobile.Controllers
         {
             public readonly string bust = ("bust").ToLowerInvariant();
         }
+        static readonly ActionParamsClass_All s_params_All = new ActionParamsClass_All();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_All AllParams { get { return s_params_All; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_All
+        {
+            public readonly string all = ("all").ToLowerInvariant();
+            public readonly string bust = ("bust").ToLowerInvariant();
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -117,8 +128,10 @@ namespace F3Mobile.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Index = "Index";
+                public readonly string IndexNew = "IndexNew";
             }
             public readonly string Index = "~/Views/Schedule/Index.cshtml";
+            public readonly string IndexNew = "~/Views/Schedule/IndexNew.cshtml";
         }
     }
 
@@ -135,6 +148,17 @@ namespace F3Mobile.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void IndexOldOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult IndexOld()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.IndexOld);
+            IndexOldOverride(callInfo);
             return callInfo;
         }
 
@@ -161,6 +185,19 @@ namespace F3Mobile.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.List);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "bust", bust);
             ListOverride(callInfo, bust);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        [NonAction]
+        partial void AllOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, bool all, bool bust);
+
+        [NonAction]
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> All(bool all, bool bust)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.All);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "all", all);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "bust", bust);
+            AllOverride(callInfo, all, bust);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
