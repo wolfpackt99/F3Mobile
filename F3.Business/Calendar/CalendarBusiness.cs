@@ -187,7 +187,7 @@ namespace F3.Business.Calendar
             var thisweek = new List<EventViewModel>();
             var tasks = sites.Select(async s =>
             {
-                var events = await GetEvents(s.Id);
+                var events = await GetEvents(s.Id, false);
                 var list = new List<EventViewModel>();
                 var cal = new CalenderViewModel
                 {
@@ -233,7 +233,7 @@ namespace F3.Business.Calendar
             await fb.DeleteAsync("/events");
             await fb.DeleteAsync("/thisweek");
             var taskOfEvents = x.OrderBy(s => s.Name).Select(item => fb.PostAsync("/events", JsonConvert.SerializeObject(item)));
-            var taskOfThisWeek = thisweek.EmptyIfNull().OrderBy(s => s.Start).Select(item => fb.PostAsync("/thisweek", JsonConvert.SerializeObject(item)));
+            var taskOfThisWeek = thisweek.EmptyIfNull().Where(s => s!= null).OrderBy(s => s.Start).Select(item => fb.PostAsync("/thisweek", JsonConvert.SerializeObject(item)));
             await Task.WhenAll(taskOfEvents);
             await Task.WhenAll(taskOfThisWeek);
             return true;
@@ -245,6 +245,7 @@ namespace F3.Business.Calendar
             {
                 var now = DateTime.Now;
                 return cvm.Items.Where(e => 
+                    e.Start.Value > now.Previous(DayOfWeek.Sunday).BeginningOfDay() &&
                     e.Start.Value <= now.Next(DayOfWeek.Saturday).EndOfDay()).ToList();
             }
             return new List<EventViewModel>();

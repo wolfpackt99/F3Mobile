@@ -12,7 +12,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace F3.Business.Tests
 {
-    [TestClass]
+    //[TestClass]
     public class CalenderFixture
     {
         //[TestMethod]
