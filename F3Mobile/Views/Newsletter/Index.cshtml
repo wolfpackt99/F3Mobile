@@ -114,7 +114,7 @@
     <script src="~/Scripts/require.js"></script>
     <script>
         $(function () {
-            require(['toastr', 'recent'], function (toastr, recent) {
+            require(['/scripts/toastr', '/scripts/recent'], function (toastr, recent) {
                 var alert = "@alert";
                 if (alert.length > 0) {
                     toastr.success(alert);
