@@ -44,6 +44,10 @@
       <HintPath>..\packages\FirebaseTokenGenerator.2.0.0.0\lib\net35\FirebaseTokenGenerator.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FireSharp, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FireSharp.2.0.3\lib\portable-net45+sl5+wp8+win8\FireSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FluentDateTime, Version=1.12.0.0, Culture=neutral, PublicKeyToken=6ccbc613702e6c71, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentDateTime.1.12.0\lib\NET35\FluentDateTime.dll</HintPath>
       <Private>True</Private>

@@ -57,7 +57,7 @@ namespace F3.Business.Tests
             sut.First().Summary.ShouldBeEquivalentTo("Anvil");
         }
 
-        [TestMethod]
+        //[TestMethod]
         public async Task Publish2Test()
         {
             var cb = new CalendarBusiness();

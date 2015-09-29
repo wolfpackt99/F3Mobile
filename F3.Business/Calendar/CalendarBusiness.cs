@@ -11,6 +11,8 @@ using F3.Infrastructure.Cache;
 using F3.Infrastructure.Extensions;
 using F3.Infrastructure.GoogleAuth;
 using F3.ViewModels.Calendar;
+using FireSharp;
+using FireSharp.Config;
 using FluentDateTime;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Calendar.v3;
@@ -35,16 +37,18 @@ namespace F3.Business.Calendar
             });
 
             EventsResource.ListRequest request = service.Events.List(id);
-            request.TimeMin = DateTime.Now.Previous(DayOfWeek.Sunday).BeginningOfDay();
+            request.TimeMin = GetCorrectSunday();
             if (!all)
             {
                 //get just this weeks
-                request.TimeMax = DateTime.Now.Next(DayOfWeek.Saturday).EndOfDay();
+                request.TimeMax = GetCorrectSaturday();
             }
             else
             {
-                request.TimeMax = DateTime.Now.NextMonth();
+                request.TimeMax = DateTime.UtcNow.NextMonth();
             }
+
+            //request.
 
             request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
             request.SingleEvents = true;
@@ -58,6 +62,28 @@ namespace F3.Business.Calendar
 
 
             //return ProcessResults(request);
+        }
+
+        private DateTime GetCorrectSunday()
+        {
+            TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+            DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, easternZone);
+            if (easternTime.DayOfWeek == DayOfWeek.Sunday)
+            {
+                return easternTime.BeginningOfDay();
+            }
+            return easternTime.Previous(DayOfWeek.Sunday).BeginningOfDay();
+        }
+
+        private DateTime GetCorrectSaturday()
+        {
+            TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+            DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, easternZone);
+            if (easternTime.DayOfWeek == DayOfWeek.Saturday)
+            {
+                return easternTime.Date.EndOfDay();
+            }
+            return easternTime.Next(DayOfWeek.Saturday).EndOfDay();
         }
 
         public async Task<IEnumerable<Events>> GetAllEvents(bool all = true)
@@ -227,8 +253,8 @@ namespace F3.Business.Calendar
 
             var x = await Task.WhenAll(tasks);
             var rootUri = ConfigurationManager.AppSettings.Get("FirebaseUri");
-            var authToken = ConfigurationManager.AppSettings.Get("FirebaseAuthToken");
-            var fb = new FirebaseSharp.Portable.Firebase(rootUri, authToken);
+            var secret = ConfigurationManager.AppSettings.Get("FirebaseUserToken");
+            var fb = new FirebaseSharp.Portable.Firebase(rootUri, secret);
 
             await fb.DeleteAsync("/events");
             await fb.DeleteAsync("/thisweek");
@@ -241,12 +267,14 @@ namespace F3.Business.Calendar
 
         public List<EventViewModel> isThisWeek(CalenderViewModel cvm)
         {
+            TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+            DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, easternZone);
             if (cvm.Items != null)
             {
                 var now = DateTime.Now;
                 return cvm.Items.Where(e => 
-                    e.Start.Value > now.Previous(DayOfWeek.Sunday).BeginningOfDay() &&
-                    e.Start.Value <= now.Next(DayOfWeek.Saturday).EndOfDay()).ToList();
+                    e.Start.Value > GetCorrectSunday().BeginningOfDay() &&
+                    e.Start.Value <= GetCorrectSaturday().EndOfDay()).ToList();
             }
             return new List<EventViewModel>();
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -63,6 +64,17 @@ namespace F3Mobile.Controllers
             }
             var events = await Cache.GetOrSet("CalList", async () => await CalendarBusiness.GetAllEvents(all));
             return Json(events, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetToken()
+        {
+            var tokenGenerator = new Firebase.TokenGenerator(ConfigurationManager.AppSettings.Get("FirebaseUserToken"));
+            var authPayload = new Dictionary<string, object>()
+            {
+                { "uid","app" },
+            };
+            return Json(tokenGenerator.CreateToken(authPayload));
+
         }
     }
 }
