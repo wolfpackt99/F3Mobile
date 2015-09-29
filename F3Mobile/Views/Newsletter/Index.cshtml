@@ -5,6 +5,7 @@
     ViewBag.Title = ViewBag.Message;
     var success = ViewBag.Success;
     var alert = ViewBag.Alert;
+    ViewBag.UseRequire = true;
 }
 <h2>@ViewBag.Message</h2>
 <div class="row">
@@ -111,10 +112,10 @@
 
 @section scripts
 {
-    <script src="~/Scripts/require.js"></script>
+    
     <script>
         $(function () {
-            require(['/scripts/toastr', '/scripts/recent'], function (toastr, recent) {
+            require(['scripts/toastr', 'recent'], function (toastr, recent) {
                 var alert = "@alert";
                 if (alert.length > 0) {
                     toastr.success(alert);
