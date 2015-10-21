@@ -18,5 +18,7 @@ namespace F3.ViewModels.Calendar
         public string Preblast { get; set; }
         public string Tag { get; set; }
         public string Location { get; set; }
+
+        public string Time { get; set; }
     }
 }

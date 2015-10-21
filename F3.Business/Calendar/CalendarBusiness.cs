@@ -214,12 +214,23 @@ namespace F3.Business.Calendar
             var tasks = sites.Select(async s =>
             {
                 var events = await GetEvents(s.Id, false);
+                MetaDataViewModel meta = null;
+                try
+                {
+                    meta = JsonConvert.DeserializeObject<MetaDataViewModel>(s.Description);
+                }
+                catch (Exception exp)
+                {
+
+                }
+
                 var list = new List<EventViewModel>();
                 var cal = new CalenderViewModel
                 {
                     Id = s.Id,
                     Name = s.Summary,
                     Description = s.Description,
+                    MetaData = meta,
                     Location = s.Location,
                     Items = events.Items.Select(ev =>
                     {
@@ -230,7 +241,8 @@ namespace F3.Business.Calendar
                             Start = ev.Start.DateTime ?? Convert.ToDateTime(ev.Start.Date),
                             Title = ev.Summary,
                             Description = ev.Description,
-                            Location = s.Location
+                            Location = s.Location,
+                            Time = meta != null ? meta.Time : string.Empty
                         };
                         try
                         {
