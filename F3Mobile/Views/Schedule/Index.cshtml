@@ -7,7 +7,7 @@
 }
 
 <div id="container" ng-app="ScheduleApp">
-    <select ng-options='r.label for r in regions track by r.label' ng-model="region" ng-change="setSelected()" class="pull-right form-control"></select>
+    <select ng-options='r.label for r in regions track by r.label' ng-model="region" ng-change="setSelected()" class="form-control"></select>
     <h3 ng-show="title">{{title}}</h3>
 
     <ul class="nav nav-tabs" role="tablist">

@@ -16,8 +16,6 @@
             vm.selectedRegion = $rootScope.region.val;
         };
 
-        console.log(regionService.regions);
-
         $rootScope.title = "Schedule";
 
 
