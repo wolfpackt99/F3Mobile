@@ -242,7 +242,8 @@ namespace F3.Business.Calendar
                             Title = ev.Summary,
                             Description = ev.Description,
                             Location = s.Location,
-                            Time = meta != null ? meta.Time : string.Empty
+                            Time = meta != null ? meta.Time : string.Empty,
+                            Region = meta.Region
                         };
                         try
                         {

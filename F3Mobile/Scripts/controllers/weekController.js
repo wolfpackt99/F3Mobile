@@ -1,12 +1,26 @@
 ﻿(function () {
-    var injectParams = ["calendarService", "$rootScope", "_"];
+    var injectParams = ["calendarService", "regionService", "$rootScope", "_"];
 
-    var scheduleController = function (calendarService, $rootScope, _, $moment) {
+    var weekController = function (calendarService, regionService, $rootScope, _, $moment) {
         var vm = this,
             dayOfWeek = [{ 'val': 0, "day": 'Monday' }, { 'val': 1, "day": 'Tuesday' }, { 'val': 2, "day": 'Wednesday' }, { 'val': 3, "day": 'Thursday' }, { 'val': 4, "day": 'Friday' }, { 'val': 5, "day": 'Saturday' }, { 'val': 6, "day": 'Sunday' }];
 
         vm.thisweek = [];
+
+        $rootScope.regions = regionService.regions;
+        $rootScope.region = $rootScope.regions[0];
+
+        vm.selectedRegion = '';
+
+        $rootScope.setSelected = function () {
+            vm.selectedRegion = $rootScope.region.val;
+        };
+
+        console.log(regionService.regions);
+
         $rootScope.title = "Schedule";
+
+
 
         var x = calendarService.getWeek();
 
@@ -18,7 +32,6 @@
         x.$watch(function (event) {
             displayEvents(x);
         });
-
 
         function displayEvents(x) {
             angular.forEach(x, function (item, i) {
@@ -34,10 +47,11 @@
                 };
             });
             vm.items = mapped;
+            console.log(vm.items);
         }
 
     };
 
-    scheduleController.$inject = injectParams;
-    angular.module('ScheduleApp').controller('WeekController', scheduleController);
+    weekController.$inject = injectParams;
+    angular.module('ScheduleApp').controller('WeekController', weekController);
 }());

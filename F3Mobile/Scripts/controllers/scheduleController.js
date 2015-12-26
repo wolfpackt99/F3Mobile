@@ -4,6 +4,7 @@
     var scheduleController = function (calendarService, $rootScope) {
         var vm = this;
         $rootScope.title = 'Schedule';
+        
         vm.list = calendarService.getCalendars();
         
     };

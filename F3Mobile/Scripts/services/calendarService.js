@@ -48,6 +48,7 @@
                     item.DisplayLocation = json.DisplayLocation;
                     item.Time = json.Time;
                     item.SignupLink = json.SignupLink;
+                    item.Region = json.Region;
                 } catch (e) {
                     item.SiteQ = item.Description;
                     item.Meets = item.Description;

@@ -20,5 +20,6 @@ namespace F3.ViewModels.Calendar
         public string Location { get; set; }
 
         public string Time { get; set; }
+        public string Region { get; set; }
     }
 }

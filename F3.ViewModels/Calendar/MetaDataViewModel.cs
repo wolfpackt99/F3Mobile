@@ -15,5 +15,7 @@ namespace F3.ViewModels.Calendar
         public string LocationHint { get; set; }
 
         public string SignupLink { get; set; }
+
+        public string Region { get; set; }
     }
 }
