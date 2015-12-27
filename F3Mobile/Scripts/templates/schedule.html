@@ -9,7 +9,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="cal in vm.list | orderBy:['DayOfWeek','Name']">
+            <tr ng-repeat="cal in vm.list | filter: { Region: vm.selectedRegion } |orderBy:['DayOfWeek','Name']">
                 <td>{{cal.Name}}<br />{{cal.Time}}</td>
                 <td>{{cal.Meets}}<br/><a href="{{cal.SignupLink}}" class="btn btn-xs btn-primary" ng-show="cal.SignupLink">sign up</a></td>
                 <td>{{cal.SiteQ}}</td>

@@ -1,10 +1,19 @@
 ﻿(function(){
-    var injectParams = ['calendarService','$rootScope'];
+    var injectParams = ['calendarService','regionService','$rootScope'];
 
-    var scheduleController = function (calendarService, $rootScope) {
+    var scheduleController = function (calendarService, regionService, $rootScope) {
         var vm = this;
         $rootScope.title = 'Schedule';
         
+        $rootScope.regions = regionService.regions;
+        $rootScope.region = $rootScope.regions[0];
+
+        vm.selectedRegion = '';
+
+        $rootScope.setSelected = function () {
+            vm.selectedRegion = $rootScope.region.val;
+        };
+
         vm.list = calendarService.getCalendars();
         
     };
