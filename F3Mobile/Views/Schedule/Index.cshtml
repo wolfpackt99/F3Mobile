@@ -9,8 +9,9 @@
 <div id="container" ng-app="ScheduleApp">
     <select ng-options='r.label for r in regions track by r.label' ng-model="region" ng-change="setSelected()" class="form-control" style="margin-bottom: 5px;"></select>
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" ng-class="{active: $route.current.activetab == 'week'}" class="active"><a href="#week" aria-controls="current" role="tab" data-toggle="tab">This Week</a></li>
-        <li role="presentation" ng-class="{active: $route.current.activetab == 'schedule'}"><a href="#schedule" aria-controls="firstF" role="tab" data-toggle="tab">1st F Info</a></li>
+        <li role="presentation" ng-class="{active: $route.current.activeTab == 'week'}" class="active"><a href="#week" aria-controls="current" role="tab" data-toggle="tab">This Week</a></li>
+        <li role="presentation" ng-class="{active: $route.current.activeTab == 'schedule'}"><a href="#schedule" aria-controls="firstF" role="tab" data-toggle="tab">1st F Info</a></li>
+        @*<li role="presentation" ng-class="{active: $route.current.activeTab == 'leaderboard'}"><a href="#leaderboard" aria-controls="firstF" role="tab" data-toggle="tab">Leaderboard</a></li>*@
     </ul>
 
     <ng-view></ng-view>
@@ -32,8 +33,10 @@
     <script src="~/Scripts/scheduleApp.js"></script>
     <script src="~/Scripts/controllers/scheduleController.js"></script>
     <script src="~/Scripts/controllers/weekController.js"></script>
+    <script src="~/Scripts/controllers/leaderboardController.js"></script>
     <script src="~/Scripts/services/calendarService.js"></script>
     <script src="~/Scripts/services/regionService.js"></script>
+    <script src="~/Scripts/services/leaderService.js"></script>
 
 }
 

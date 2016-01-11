@@ -299,6 +299,7 @@
     <Compile Include="Controllers\BackblastController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
+    <Compile Include="Controllers\LeaderBoardController.cs" />
     <Compile Include="Controllers\NewsletterController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -397,6 +398,7 @@
       <DependentUpon>calendar.js</DependentUpon>
     </Content>
     <Content Include="Scripts\calendarService.js" />
+    <Content Include="Scripts\controllers\leaderboardController.js" />
     <Content Include="Scripts\controllers\scheduleController.js" />
     <Content Include="Scripts\controllers\weekController.js" />
     <Content Include="Scripts\custom.min.js.map">
@@ -1198,6 +1200,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\scheduleApp.js" />
     <Content Include="Scripts\services\calendarService.js" />
+    <Content Include="Scripts\services\leaderService.js" />
     <Content Include="Scripts\services\regionService.js" />
     <Content Include="Scripts\T4MvcJs\T4MvcJs.js">
       <AutoGen>True</AutoGen>
@@ -1207,6 +1210,7 @@
     <Content Include="Scripts\templates\aoTemplate.html" />
     <Content Include="Scripts\templates\FirstF.html" />
     <Content Include="Scripts\templates\recentTemplate.html" />
+    <Content Include="Scripts\templates\leaderboard.html" />
     <Content Include="Scripts\templates\schedule.html" />
     <Content Include="Scripts\templates\week.html" />
     <Content Include="Scripts\templates\thisweek.html" />
@@ -1269,6 +1273,7 @@
     <Content Include="Views\Backblast\Index.cshtml" />
     <Content Include="Views\Home\DisplayTemplates\News.cshtml" />
     <Content Include="Views\Schedule\Index.cshtml" />
+    <Content Include="Views\LeaderBoard\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

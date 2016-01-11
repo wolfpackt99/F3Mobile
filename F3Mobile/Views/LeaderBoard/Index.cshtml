@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Leader Board";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var id = 1;
+}
+<div id="drive" class="pull-right" style="margin-top:15px;">
+    <button id="drive-sched" class="btn btn-default btn-small" onclick="location.href = 'http://f3nation.com/locations/charlotte-south-nc/'">View all @@ F3Nation.com</button>
+</div>
+<h2>Leaderboard</h2>
+
+<div id="row">
+    <table>
+        
+    </table>
+</div>
+<script>
+    $(function() {
+        var x = $.ajax({
+            url: "@Url.Action("Index","LeaderBoard")"
+        }).done(function(data) {
+            
+        });
+    });
+</script>

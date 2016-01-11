@@ -1,0 +1,19 @@
+﻿<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Activity Count</th>
+                <th>Total Miles</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="cal in vm.list | orderBy:['-TotalMiles','-ActivityCounty']">
+                <td>{{cal.LastName}}</td>
+                <td>{{cal.ActivityCount}}</td>
+                <td>{{cal.TotalMiles | number:2}}</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>

@@ -156,6 +156,9 @@
       <HintPath>..\packages\ServiceStack.Text.3.9.71\lib\net35\ServiceStack.Text.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="StravaDotNet">
+      <HintPath>..\packages\Strava.NET.3.4.1\StravaDotNet.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -189,6 +192,7 @@
     <Compile Include="GoogleContactBusiness.cs" />
     <Compile Include="IContactBusiness.cs" />
     <Compile Include="ISubscribe.cs" />
+    <Compile Include="Leaderboard\StravaBusiness.cs" />
     <Compile Include="MailChimpBusiness.cs" />
     <Compile Include="News\INewsBusiness.cs" />
     <Compile Include="News\NewsBusiness.cs" />

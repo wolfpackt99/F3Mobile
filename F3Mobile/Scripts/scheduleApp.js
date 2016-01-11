@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     var underscore = angular.module('underscore', []);
     underscore.factory('_', function () {
         return window._; //Underscore must already be loaded on the page
@@ -21,7 +21,7 @@
             activeTab: 'week'
         });
 
-        $routeProvider.when('/schedule', {
+        $routeProvider.when('/schedule', { 
             controller: 'ScheduleController',
             templateUrl: '/scripts/templates/schedule.html',
             reloadOnSearch: false,
@@ -35,6 +35,14 @@
             reloadOnSearch: false,
             controllerAs: 'vm',
             activeTab: 'week'
+        });
+
+        $routeProvider.when('/stats', {
+            controller: 'LeaderboardController',
+            templateUrl: '/scripts/templates/leaderboard.html',
+            reloadOnSearch: false,
+            controllerAs: 'vm',
+            activeTab: 'leaderboard'
         });
 
         //$routeProvider.when('/firstf', {
