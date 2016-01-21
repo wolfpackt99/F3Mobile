@@ -8,6 +8,7 @@
         var hasApprovedStrava = $cookies.get("allowStrava");
         if (!hasApprovedStrava) {
             vm.showStrava = true;
+        } else {
             leaderboardService.getLeaders(function (data) {
                 vm.list = data;
             }, function (err) {
