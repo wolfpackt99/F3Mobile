@@ -17,15 +17,16 @@ namespace F3.Business.Auth
     {
         public async Task<string> GetToken(string username, string password)
         {
-            var tokenGenerator = new Firebase.TokenGenerator(ConfigurationManager.AppSettings.Get(""));
-            var authPayload = new Dictionary<string, object>()
-            {
-              { "uid", "1" },
-              { "some", "arbitrary" },
-              { "data", "here" }
-            };
-            string token = tokenGenerator.CreateToken(authPayload);
-            return token;
+            //var tokenGenerator = new Firebase.TokenGenerator(ConfigurationManager.AppSettings.Get(""));
+            //var authPayload = new Dictionary<string, object>()
+            //{
+            //  { "uid", "1" },
+            //  { "some", "arbitrary" },
+            //  { "data", "here" }
+            //};
+            //string token = tokenGenerator.CreateToken(authPayload);
+            //return token;
+            throw new NotImplementedException("");
         }
     }
 }

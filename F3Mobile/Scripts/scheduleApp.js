@@ -8,7 +8,8 @@
     'ngResource',
     'firebase',
     'underscore',
-    'angularMoment'
+    'angularMoment',
+    'ngCookies'
     ]);
 
     app.config(function ($routeProvider) {
@@ -42,7 +43,7 @@
             templateUrl: '/scripts/templates/leaderboard.html',
             reloadOnSearch: false,
             controllerAs: 'vm',
-            activeTab: 'leaderboard'
+            activeTab: 'stats'
         });
 
         //$routeProvider.when('/firstf', {

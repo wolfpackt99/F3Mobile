@@ -6,10 +6,6 @@
 
         factory.getCalendars = function () {
             var ref = new Firebase("https://f3area51.firebaseio.com/events");
-            ref.authWithCustomToken("U9rk647fbP2EkkiK3qz2cqsSCa2TymlZbPXh2gLq", function (error, authData) {
-                if (!error) {
-                }
-            });
             var x = $firebaseArray(ref);
             x.$loaded()
                 .then(function (x) {
@@ -28,10 +24,6 @@
 
         factory.getWeek = function (callback) {
             var ref = new Firebase("https://f3area51.firebaseio.com/thisweek");
-            ref.authWithCustomToken("U9rk647fbP2EkkiK3qz2cqsSCa2TymlZbPXh2gLq", function (error, authData) {
-                if (!error) {
-                }
-            });
             var x = $firebaseArray(ref);
             
             return x;

@@ -188,6 +188,7 @@
     <Compile Include="Calendar\CalendarBusiness.cs" />
     <Compile Include="Calendar\ICalendarBusiness.cs" />
     <Compile Include="Feed.cs" />
+    <Compile Include="Storage\StorageClient.cs" />
     <Compile Include="Fng\NameVar.cs" />
     <Compile Include="GoogleContactBusiness.cs" />
     <Compile Include="IContactBusiness.cs" />

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using F3.Business.Leaderboard;
 using F3Mobile.Code;
@@ -13,17 +9,33 @@ namespace F3Mobile.Controllers
     public class LeaderBoardController : Controller
     {
         [Inject]
+        public IStravaBusiness StravaBusiness { get; set; }
+
+        [Inject]
         public ICacheService Cache { get; set; }
 
         // GET: LeaderBoard
         [HttpGet]
-        public async Task<ActionResult> _Index()
+        public async Task<ActionResult> _Index(bool clear = false)
         {
             var x = new StravaBusiness();
+            //if (clear == false)
+            //{
+            //    Cache.Remove("stats");
+            //}
 
-            var stats = await Cache.GetOrSet("stats", async () => await x.GetData());
+            //var stats = await Cache.GetOrSet("stats", async () => await x.GetData());
+
+            var stats = await x.GetData();
 
             return Json(stats, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> SetAuth(string code)
+        {
+            var token = await StravaBusiness.GetAuthToken(code);
+            return Json(token, JsonRequestBehavior.AllowGet);
         }
     }
 }
