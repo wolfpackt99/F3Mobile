@@ -16,6 +16,20 @@
             });
         }
 
+        factory.getStatsByUser = function(id, callback, errCallback) {
+            $http({
+                method: "GET",
+                url: "/leaderboard/getstatsbyuser/" + id,
+                headers: {
+                    'Content-Type': 'json'
+                },
+            }).then(function (data) {
+                callback(data.data);
+            }, function (err) {
+                errCallback(err);
+            });
+        }
+
         return factory;
     };
 

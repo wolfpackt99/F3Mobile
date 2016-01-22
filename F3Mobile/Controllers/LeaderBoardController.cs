@@ -19,14 +19,12 @@ namespace F3Mobile.Controllers
         public async Task<ActionResult> _Index(bool clear = false)
         {
             var x = new StravaBusiness();
-            //if (clear == false)
-            //{
-            //    Cache.Remove("stats");
-            //}
+            if (clear == false)
+            {
+                Cache.Remove("stats");
+            }
 
-            //var stats = await Cache.GetOrSet("stats", async () => await x.GetData());
-
-            var stats = await x.GetData();
+            var stats = await Cache.GetOrSet("stats", async () => await x.GetData());
 
             return Json(stats, JsonRequestBehavior.AllowGet);
         }

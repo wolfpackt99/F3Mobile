@@ -64,6 +64,16 @@
                 "approval_prompt=force";
         }
 
+        vm.getStatsByUser = function (user) {
+            if (user.ShowStats && user.ShowStats === true) {
+                user.ShowStats = false;
+            } else if (user.ShowStats === false) {
+                user.ShowStats = true;
+            } else {
+                user.ShowStats = true;
+            }
+        }
+
 
     };
 

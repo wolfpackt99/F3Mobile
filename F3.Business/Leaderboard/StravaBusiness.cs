@@ -16,6 +16,7 @@ using Strava.Athletes;
 using Strava.Authentication;
 using Strava.Clients;
 using Strava.Common;
+using Strava.Statistics;
 using WebRequest = Strava.Http.WebRequest;
 
 namespace F3.Business.Leaderboard
@@ -106,14 +107,27 @@ namespace F3.Business.Leaderboard
             var user = new User
             {
                 ProfilePic = athlete.ProfileMedium,
-                Activities = activities,
+                StravaId = arg.Id,
                 FirstName = arg.FirstName,
                 LastName = arg.LastName,
                 ActivityCount = activities.Count(),
-                TotalMiles = activities.Sum(e => Convert.ToDecimal(e.Distance * 0.000621371))
+                TotalMiles = activities.Sum(e => Convert.ToDecimal(e.Distance * 0.000621371)),
+                Stats = GetStatsForUser(activities).ToList()
             };
 
             return user;
+        }
+
+        private IEnumerable<Stat> GetStatsForUser(List<ActivitySummary> activities)
+        {
+            var actByType = activities.EmptyIfNull()
+                        .GroupBy(s => s.Type)
+                        .Select(s => new Stat
+                        {
+                            Activity = s.First().Type.ToString(),
+                            Mileage = s.Sum(m => Convert.ToDecimal(m.Distance * 0.000621371))
+                        });
+            return actByType;
         }
 
         private async Task<IEnumerable<ActivitySummary>> GetActivityByUser(long athleteId, string authToken)
