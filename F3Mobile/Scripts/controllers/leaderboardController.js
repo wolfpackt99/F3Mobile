@@ -1,9 +1,12 @@
 ﻿(function () {
-    var injectParams = ['leaderboardService', 'regionService', '$rootScope', '$location', '$http', '$cookies'];
+    var injectParams = ['leaderboardService', 'regionService', '$rootScope', '$location', '$http', '$cookies','$route'];
 
-    var leaderboardController = function (leaderboardService, regionService, $rootScope, $location, $http, $cookies) {
+    var leaderboardController = function (leaderboardService, regionService, $rootScope, $location, $http, $cookies, $route) {
         var vm = this;
         vm.showStrava = false;
+
+        $rootScope.$route = $route;
+        $rootScope.showRegion = false;
 
         var hasApprovedStrava = $cookies.get("allowStrava");
         if (!hasApprovedStrava) {
@@ -41,7 +44,7 @@
                 vm.showStrava = false;
             });
         }
-        $rootScope.title = 'Leaderboard';
+        $rootScope.title = 'Stats';
 
         $rootScope.regions = regionService.regions;
         $rootScope.region = $rootScope.regions[0];

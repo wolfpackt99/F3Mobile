@@ -1,7 +1,7 @@
 ﻿(function () {
-    var injectParams = ["calendarService", "regionService", "$rootScope", "_"];
+    var injectParams = ["calendarService", "regionService", "$rootScope", "_", '$route'];
 
-    var weekController = function (calendarService, regionService, $rootScope, _, $moment) {
+    var weekController = function (calendarService, regionService, $rootScope, _, $route) {
         var vm = this,
             dayOfWeek = [{ 'val': 0, "day": 'Monday' }, { 'val': 1, "day": 'Tuesday' }, { 'val': 2, "day": 'Wednesday' }, { 'val': 3, "day": 'Thursday' }, { 'val': 4, "day": 'Friday' }, { 'val': 5, "day": 'Saturday' }, { 'val': 6, "day": 'Sunday' }];
 
@@ -9,6 +9,9 @@
 
         $rootScope.regions = regionService.regions;
         $rootScope.region = $rootScope.regions[0];
+        $rootScope.$route = $route;
+
+        $rootScope.showRegion = true;
 
         vm.selectedRegion = '';
 
