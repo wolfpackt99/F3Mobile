@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using F3.Business.Calendar;
 using F3.Infrastructure.Cache;
+using F3.Infrastructure.Extensions;
 using F3.Infrastructure.GoogleAuth;
 using FluentAssertions;
 using log4net.Core;
@@ -46,6 +47,8 @@ namespace F3.Business.Tests
             var sut = await cb.GetAllEvents(false);
             sut.Should().NotBeEmpty();
             sut.First().Summary.ShouldBeEquivalentTo("Anvil");
+            sut.Any(s => s.Summary == "SOBLSD").ShouldBeEquivalentTo(true);
+            sut.FirstOrDefault(s => s.Summary == "SOBLSD").Items.EmptyIfNull().Should().HaveCount(1);
         }
 
         //[TestMethod]

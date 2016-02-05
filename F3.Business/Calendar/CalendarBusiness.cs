@@ -37,11 +37,11 @@ namespace F3.Business.Calendar
             });
 
             EventsResource.ListRequest request = service.Events.List(id);
-            request.TimeMin = GetCorrectSunday();
+            request.TimeMin = GetCorrectStart();
             if (!all)
             {
                 //get just this weeks
-                request.TimeMax = GetCorrectSaturday();
+                request.TimeMax = GetCorrectEndOfWeek();
             }
             else
             {
@@ -64,26 +64,26 @@ namespace F3.Business.Calendar
             //return ProcessResults(request);
         }
 
-        private DateTime GetCorrectSunday()
+        private DateTime GetCorrectStart()
+        {
+            TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+            DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, easternZone);
+            if (easternTime.DayOfWeek == DayOfWeek.Monday)
+            {
+                return easternTime.BeginningOfDay();
+            }
+            return easternTime.Previous(DayOfWeek.Monday).BeginningOfDay();
+        }
+
+        private DateTime GetCorrectEndOfWeek()
         {
             TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
             DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, easternZone);
             if (easternTime.DayOfWeek == DayOfWeek.Sunday)
             {
-                return easternTime.BeginningOfDay();
-            }
-            return easternTime.Previous(DayOfWeek.Sunday).BeginningOfDay();
-        }
-
-        private DateTime GetCorrectSaturday()
-        {
-            TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
-            DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, easternZone);
-            if (easternTime.DayOfWeek == DayOfWeek.Saturday)
-            {
                 return easternTime.Date.EndOfDay();
             }
-            return easternTime.Next(DayOfWeek.Saturday).EndOfDay();
+            return easternTime.Next(DayOfWeek.Sunday).EndOfDay();
         }
 
         public async Task<IEnumerable<Events>> GetAllEvents(bool all = true)
@@ -286,8 +286,8 @@ namespace F3.Business.Calendar
             {
                 var now = DateTime.Now;
                 return cvm.Items.Where(e => 
-                    e.Start.Value > GetCorrectSunday().BeginningOfDay() &&
-                    e.Start.Value <= GetCorrectSaturday().EndOfDay()).ToList();
+                    e.Start.Value > GetCorrectStart().BeginningOfDay() &&
+                    e.Start.Value <= GetCorrectEndOfWeek().EndOfDay()).ToList();
             }
             return new List<EventViewModel>();
         }
