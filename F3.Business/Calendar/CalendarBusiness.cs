@@ -68,11 +68,11 @@ namespace F3.Business.Calendar
         {
             TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
             DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, easternZone);
-            if (easternTime.DayOfWeek == DayOfWeek.Monday)
+            if (easternTime.DayOfWeek == DayOfWeek.Sunday)
             {
-                return easternTime.BeginningOfDay();
+                return easternTime.BeginningOfDay().ToUniversalTime();
             }
-            return easternTime.Previous(DayOfWeek.Monday).BeginningOfDay();
+            return easternTime.Previous(DayOfWeek.Sunday).BeginningOfDay().ToUniversalTime();
         }
 
         private DateTime GetCorrectEndOfWeek()
@@ -81,9 +81,9 @@ namespace F3.Business.Calendar
             DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, easternZone);
             if (easternTime.DayOfWeek == DayOfWeek.Sunday)
             {
-                return easternTime.Date.EndOfDay();
+                return easternTime.Next(DayOfWeek.Sunday).EndOfDay().ToUniversalTime();
             }
-            return easternTime.Next(DayOfWeek.Sunday).EndOfDay();
+            return easternTime.Next(DayOfWeek.Sunday).EndOfDay().ToUniversalTime();
         }
 
         public async Task<IEnumerable<Events>> GetAllEvents(bool all = true)

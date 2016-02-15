@@ -13,7 +13,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace F3.Business.Tests
 {
-    //[TestClass]
+    [TestClass]
     public class CalenderFixture
     {
         //[TestMethod]
@@ -66,6 +66,17 @@ namespace F3.Business.Tests
             var cb = new CalendarBusiness();
             var sut = await cb.Publish();
             sut.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public async Task TodayIsSundayShouldHaveEventsForNextWeek()
+        {
+            TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+            DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, easternZone);
+            var cb = new CalendarBusiness();
+            var sut = await cb.GetAllEvents(false);
+            sut.Count().Should().BeGreaterThan(1);
+
         }
     }
 }

@@ -37,12 +37,14 @@
         function displayEvents(x) {
             angular.forEach(x, function (item, i) {
                 item.Day = moment(item.Start).format("dddd");
+                item.DayOfMonth = moment(item.Start).format("D");
                 item.DayNumber = _.findWhere(dayOfWeek, { day: item.Day }).val;
             });
-            var grpd = _.groupBy(x, 'Day');
+            var grpd = _.groupBy(x, 'DayOfMonth');
             var mapped = _.map(grpd, function (item, key) {
                 return {
-                    Day: key,
+                    DayOfMonth: key,
+                    Day: item[0].Day,
                     Items: item,
                     Date: item.length > 0 ? moment(item[0].Start).format('MM/DD/YYYY') : '',
                 };
