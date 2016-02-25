@@ -38,11 +38,13 @@
             angular.forEach(x, function (item, i) {
                 item.Day = moment(item.Start).format("dddd");
                 item.DayOfMonth = moment(item.Start).format("D");
+                item.DayOfYear = moment(item.Start).format("DDD");
                 item.DayNumber = _.findWhere(dayOfWeek, { day: item.Day }).val;
             });
-            var grpd = _.groupBy(x, 'DayOfMonth');
+            var grpd = _.groupBy(x, 'DayOfYear');
             var mapped = _.map(grpd, function (item, key) {
                 return {
+                    DayOfYear: key,
                     DayOfMonth: key,
                     Day: item[0].Day,
                     Items: item,
@@ -50,7 +52,6 @@
                 };
             });
             vm.items = mapped;
-            console.log(vm.items);
         }
 
     };

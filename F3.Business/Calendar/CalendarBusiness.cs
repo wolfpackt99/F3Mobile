@@ -81,9 +81,9 @@ namespace F3.Business.Calendar
             DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, easternZone);
             if (easternTime.DayOfWeek == DayOfWeek.Sunday)
             {
-                return easternTime.Next(DayOfWeek.Sunday).EndOfDay().ToUniversalTime();
+                return easternTime.Next(DayOfWeek.Sunday).Next(DayOfWeek.Sunday).ToUniversalTime();
             }
-            return easternTime.Next(DayOfWeek.Sunday).EndOfDay().ToUniversalTime();
+            return easternTime.Next(DayOfWeek.Sunday).Next(DayOfWeek.Sunday).ToUniversalTime();
         }
 
         public async Task<IEnumerable<Events>> GetAllEvents(bool all = true)
