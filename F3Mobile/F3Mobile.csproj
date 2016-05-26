@@ -1270,7 +1270,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\ContactAsnyc.cshtml" />
-    <Content Include="Views\Schedule\IndexOld.cshtml" />
     <Content Include="Views\Backblast\Index.cshtml" />
     <Content Include="Views\Home\DisplayTemplates\News.cshtml" />
     <Content Include="Views\Schedule\Index.cshtml" />

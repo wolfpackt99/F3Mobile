@@ -12,7 +12,7 @@
     @RenderSection("css", false)
     @RenderSection("headscripts", false)
 </head>
-<body>
+<body role="document">
     <!-- Google Tag Manager -->
     <noscript>
         <iframe src="//www.googletagmanager.com/ns.html?id=GTM-NVTZMR"
@@ -41,7 +41,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("FNG", MVC.Newsletter.ActionNames.Index, MVC.Newsletter.Name)</li>
-                    <li>@Html.ActionLink("Schedule", MVC.Schedule.ActionNames.Index, MVC.Schedule.Name)</li>
+                    <li><a href="@Url.Action("Index", MVC.Schedule.Name)#/week">Schedule</a></li>
+                    <li><a href="@Url.Action("Index", MVC.Schedule.Name)#/schedule">Workouts</a></li>
+                    <li><a href="@Url.Action("Index", MVC.Schedule.Name)#/stats">Stats</a></li>
                     <li>@Html.ActionLink("Backblast", MVC.Backblast.ActionNames.Index, MVC.Backblast.Name)</li>
                     @*<li>@Html.ActionLink("Login", "Login", "Account")</li>*@
                 </ul>
