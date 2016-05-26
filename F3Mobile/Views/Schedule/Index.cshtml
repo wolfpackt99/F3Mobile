@@ -10,10 +10,10 @@
     <h3 ng-show="!showRegion">{{title}}</h3>
     <select ng-options='r.label for r in regions track by r.label' ng-show="showRegion" ng-model="region" ng-change="setSelected()" class="form-control" style="margin-bottom: 5px;"></select>
     @*<ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" ng-class="{active: $route.current.activeTab == 'week'}"><a href="#week" aria-controls="current" role="tab" data-toggle="tab">This Week</a></li>
-        <li role="presentation" ng-class="{active: $route.current.activeTab == 'schedule'}"><a href="#schedule" aria-controls="firstF" role="tab" data-toggle="tab">1st F Info</a></li>
-        <li role="presentation" ng-class="{active: $route.current.activeTab == 'stats'}"><a href="#stats" aria-controls="firstF" role="tab" data-toggle="tab">Stats</a></li>
-    </ul>*@
+            <li role="presentation" ng-class="{active: $route.current.activeTab == 'week'}"><a href="#week" aria-controls="current" role="tab" data-toggle="tab">This Week</a></li>
+            <li role="presentation" ng-class="{active: $route.current.activeTab == 'schedule'}"><a href="#schedule" aria-controls="firstF" role="tab" data-toggle="tab">1st F Info</a></li>
+            <li role="presentation" ng-class="{active: $route.current.activeTab == 'stats'}"><a href="#stats" aria-controls="firstF" role="tab" data-toggle="tab">Stats</a></li>
+        </ul>*@
 
     <ng-view></ng-view>
 </div>
@@ -38,6 +38,14 @@
     <script src="~/Scripts/services/calendarService.js"></script>
     <script src="~/Scripts/services/regionService.js"></script>
     <script src="~/Scripts/services/leaderService.js"></script>
-
+    <script>
+        $(function () {
+            $(".nav a").click(function () {
+                if ($(".navbar-collapse").hasClass("in")) {
+                    $('[data-toggle="collapse"]').click();
+                }
+            });
+        });
+    </script>
 }
 
