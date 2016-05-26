@@ -345,6 +345,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\apple-icon-114x114.png" />
+    <Content Include="Content\images\apple-icon-144x144.png" />
+    <Content Include="Content\images\apple-icon-57x57.png" />
+    <Content Include="Content\images\apple-icon-72x72.png" />
     <Content Include="Content\images\LogInWithStrava.png" />
     <Content Include="Content\loading-image.gif" />
     <Content Include="Content\Site.css">
