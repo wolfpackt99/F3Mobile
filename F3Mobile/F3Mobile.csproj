@@ -349,6 +349,7 @@
     <Content Include="Content\images\apple-icon-144x144-precomposed.png" />
     <Content Include="Content\images\apple-icon-57x57-precomposed.png" />
     <Content Include="Content\images\apple-icon-72x72-precomposed.png" />
+    <Content Include="Content\images\icon.png" />
     <Content Include="Content\images\LogInWithStrava.png" />
     <Content Include="Content\loading-image.gif" />
     <Content Include="Content\Site.css">
