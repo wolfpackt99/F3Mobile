@@ -17,5 +17,6 @@ namespace F3.ViewModels
         
         public string ProfilePic { get; set; }
         public List<Stat> Stats { get; set; }
+        public decimal Running { get; set; }
     }
 }

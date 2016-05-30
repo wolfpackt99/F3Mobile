@@ -8,7 +8,9 @@
             <th>&nbsp;</th>
             <th>Name</th>
             <th>Activity Count</th>
+            <th>Running</th>
             <th>Total Miles</th>
+
         </tr>
         </thead>
         <tbody>
@@ -21,6 +23,7 @@
                 </div>
             </td>
             <td>{{cal.ActivityCount}}</td>
+            <td>{{cal.Running | number:2}}</td>
             <td>{{cal.TotalMiles | number:2}}</td>
         </tr>
         </tbody>

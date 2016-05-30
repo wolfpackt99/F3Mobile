@@ -313,11 +313,6 @@
     <Compile Include="ManageController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201504281344047_AccessToken.cs" />
-    <Compile Include="Migrations\201504281344047_AccessToken.Designer.cs">
-      <DependentUpon>201504281344047_AccessToken.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -1303,11 +1298,6 @@
       <Project>{558c9f15-fcc8-47ef-a937-b8ce57125f03}</Project>
       <Name>F3.ViewModels</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201504281344047_AccessToken.resx">
-      <DependentUpon>201504281344047_AccessToken.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

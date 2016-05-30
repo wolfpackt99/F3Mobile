@@ -97,13 +97,13 @@ namespace F3.Business.Leaderboard
             var authToken = authedAthletes.ToList().FirstOrDefault(c => c.Athlete.Id == arg.Id);
             if (authToken != null)
             {
-                var userActivities =
-                await GetActivityByUser(arg.Id, authToken.AccessToken);
+                var userActivities = await GetActivityByUser(arg.Id, authToken.AccessToken);
                 activities.AddRange(userActivities);
             }
             
             var athleteClient = new AthleteClient(StaticAuthentication);
             var athlete = await athleteClient.GetAthleteAsync(arg.Id.ToString());
+            var stats = GetStatsForUser(activities).ToList();
             var user = new User
             {
                 ProfilePic = athlete.ProfileMedium,
@@ -111,8 +111,9 @@ namespace F3.Business.Leaderboard
                 FirstName = arg.FirstName,
                 LastName = arg.LastName,
                 ActivityCount = activities.Count(),
+                Running = activities.Where(t => t.Type == ActivityType.Run).Sum(e => Convert.ToDecimal(e.Distance * 0.000621371)),
                 TotalMiles = activities.Sum(e => Convert.ToDecimal(e.Distance * 0.000621371)),
-                Stats = GetStatsForUser(activities).ToList()
+                Stats = stats
             };
 
             return user;
