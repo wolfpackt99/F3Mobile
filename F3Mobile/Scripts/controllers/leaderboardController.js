@@ -58,7 +58,7 @@
         vm.login = function () {
             document.location.href = "https://www.strava.com/oauth/authorize?client_id=9524" +
                 "&response_type=code&" +
-                "redirect_uri=https://f3area51.apphb.com/schedule%23/stats/&" +
+                "redirect_uri=https://f3sclt.apphb.com/schedule%23/stats/&" +
                 "scope=view_private&" +
                 "state=stats&" +
                 "approval_prompt=force";
