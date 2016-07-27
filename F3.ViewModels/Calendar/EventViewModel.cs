@@ -21,5 +21,6 @@ namespace F3.ViewModels.Calendar
 
         public string Time { get; set; }
         public string Region { get; set; }
+        public string Type { get; set; }
     }
 }

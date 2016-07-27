@@ -13,6 +13,8 @@ namespace F3.ViewModels.Calendar
         public string Location { get; set; }
         public string Description { get; set; }
 
+        public string Type { get; set; }
+
         public IEnumerable<EventViewModel> Items { get; set; } 
 
         public MetaDataViewModel MetaData { get; set; }

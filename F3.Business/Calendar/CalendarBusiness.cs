@@ -232,6 +232,7 @@ namespace F3.Business.Calendar
                     Description = s.Description,
                     MetaData = meta,
                     Location = s.Location,
+                    Type = meta.type,
                     Items = events.Items.Select(ev =>
                     {
                         var evModel = new EventViewModel
@@ -243,7 +244,8 @@ namespace F3.Business.Calendar
                             Description = ev.Description,
                             Location = s.Location,
                             Time = meta != null ? meta.Time : string.Empty,
-                            Region = meta.Region
+                            Region = meta.Region,
+                            Type = meta != null ? meta.type ?? string.Empty : string.Empty
                         };
                         try
                         {
