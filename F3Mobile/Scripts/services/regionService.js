@@ -15,18 +15,13 @@
             },
             {
                 id: 2,
-                label: 'SOB',
+                label: 'SOB/IL',
                 val: 'SOB'
             },
             {
                 id: 3,
                 label: 'Union County',
                 val: 'Union County'
-            },
-            {
-                id: 4,
-                label: 'Indian Land',
-                val: 'Indian Land'
             }]
         };
         return factory;
