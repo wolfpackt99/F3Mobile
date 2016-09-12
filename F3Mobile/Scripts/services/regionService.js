@@ -15,7 +15,7 @@
             },
             {
                 id: 2,
-                label: 'SOB/IL',
+                label: 'SOB/India Land',
                 val: 'SOB'
             },
             {
