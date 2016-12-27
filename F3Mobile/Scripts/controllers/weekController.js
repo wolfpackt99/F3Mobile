@@ -39,7 +39,6 @@
                 item.Day = moment(item.Start).format("dddd");
                 item.DayOfMonth = moment(item.Start).format("D");
                 item.DayOfYear = moment(item.Start).format("DDD");
-                console.log(item.DayOfYear);
                 item.DayNumber = _.findWhere(dayOfWeek, { day: item.Day }).val;
             });
             var grpd = _.groupBy(x, 'DayOfYear');
