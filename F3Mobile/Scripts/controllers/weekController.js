@@ -39,9 +39,11 @@
                 item.Day = moment(item.Start).format("dddd");
                 item.DayOfMonth = moment(item.Start).format("D");
                 item.DayOfYear = moment(item.Start).format("DDD");
+                console.log(item.DayOfYear);
                 item.DayNumber = _.findWhere(dayOfWeek, { day: item.Day }).val;
             });
             var grpd = _.groupBy(x, 'DayOfYear');
+            //console.log(grpd);
             var mapped = _.map(grpd, function (item, key) {
                 return {
                     DayOfYear: key,
@@ -49,6 +51,7 @@
                     Day: item[0].Day,
                     Items: item,
                     Date: item.length > 0 ? moment(item[0].Start).format('MM/DD/YYYY') : '',
+                    Datum: new Date(item[0].Start)
                 };
             });
             vm.items = mapped;

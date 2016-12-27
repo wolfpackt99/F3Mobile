@@ -1,7 +1,7 @@
 ﻿<br/>
 <div role="tabpanel" class="tab-pane active" id="current">
-    <div class="ao" ng-repeat="day in vm.items">
-        <p><strong>{{day.Day}} - {{day.Date}}</strong></p>
+    <div class="ao" ng-repeat="day in vm.items | orderBy :['Datum']">
+        <p><strong>{{day.Day}} - {{day.Date}} </strong></p>
         <ul class='list-group'>
             <li class="list-group-item" ng-repeat="ev in filtered = (day.Items | filter: { Region: vm.selectedRegion } | orderBy: 'CalendarName')">
                 {{ev.CalendarName}} - {{ev.Title}}  
