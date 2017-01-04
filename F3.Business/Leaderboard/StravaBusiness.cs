@@ -141,7 +141,7 @@ namespace F3.Business.Leaderboard
             var activities = new List<ActivitySummary>();
             while (moreResults)
             {
-                var actPage = await actClient.GetActivitiesAfterAsync(new DateTime(2016, 1, 1, 0, 0, 0, DateTimeKind.Utc), page, 200);
+                var actPage = await actClient.GetActivitiesAfterAsync(new DateTime(2017, 1, 1, 0, 0, 0, DateTimeKind.Utc), page, 200);
                 if (!actPage.Any())
                 {
                     moreResults = false;
