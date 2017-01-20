@@ -25,7 +25,18 @@
         factory.getWeek = function (callback) {
             var ref = new Firebase("https://f3area51.firebaseio.com/thisweek");
             var x = $firebaseArray(ref);
-            
+            x.$loaded()
+                .then(function (x) {
+                    massageThisWeek(x);
+                })
+                .catch(function (error) {
+
+                });
+
+            x.$watch(function (event) {
+                massageThisWeek(x);
+            });
+
             return x;
         }
 
@@ -41,6 +52,8 @@
                     item.Time = json.Time;
                     item.SignupLink = json.SignupLink;
                     item.Region = json.Region;
+                    
+
                 } catch (e) {
                     item.SiteQ = item.Description;
                     item.Meets = item.Description;
@@ -54,26 +67,14 @@
         }
 
         function massageThisWeek(x) {
-            angular.forEach(x, function(item, i) {
-                try {
-                    var json = JSON.parse(item.Description);
-                    item.SiteQ = json.SiteQ;
-                    item.Meets = json.Meets;
-                    item.DayOfWeek = _.findWhere(dayOfWeek, { day: item.Meets }).val;
-                    item.LocationHint = json.LocationHint;
-                    item.DisplayLocation = json.DisplayLocation;
-                    item.Time = json.Time;
-                    item.SignupLink = json.SignupLink;
-                } catch (e) {
-                    item.SiteQ = item.Description;
-                    item.Meets = item.Description;
-                    item.LocationHint = null;
-                    item.DisplayLocation = item.Location || "";
-                    item.Time = null;
-                    item.SignupLink = null;
+            angular.forEach(x, function (item, i) {
+                if (item.IsCustomDateTime === true) {
+                    if (!item.IsAllDay) {
+                        item.StartTimeFormat = moment(item.StartTime).format("HHmm");
+                        item.EndTimeFormat = moment(item.EndTime).format("HHmm");
+                    }   
                 }
             });
-            
         }
 
         return factory;

@@ -18,5 +18,6 @@ namespace F3.ViewModels.Calendar
         public IEnumerable<EventViewModel> Items { get; set; } 
 
         public MetaDataViewModel MetaData { get; set; }
+        public string TimeZone { get; set; }
     }
 }

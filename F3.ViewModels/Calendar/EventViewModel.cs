@@ -22,5 +22,10 @@ namespace F3.ViewModels.Calendar
         public string Time { get; set; }
         public string Region { get; set; }
         public string Type { get; set; }
+        public bool IsCustomDateTime { get; set; }
+        public DateTime? StartTime { get; set; }
+        public DateTime? EndTime { get; set; }
+        public bool IsAllDay { get; set; }
+        public string TimeZone { get; set; }
     }
 }

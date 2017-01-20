@@ -233,6 +233,7 @@ namespace F3.Business.Calendar
                     MetaData = meta,
                     Location = s.Location,
                     Type = meta.type,
+                    TimeZone = s.TimeZone,
                     Items = events.Items.Select(ev =>
                     {
                         var evModel = new EventViewModel
@@ -245,14 +246,27 @@ namespace F3.Business.Calendar
                             Location = s.Location,
                             Time = meta != null ? meta.Time : string.Empty,
                             Region = meta.Region,
-                            Type = meta != null ? meta.type ?? string.Empty : string.Empty
+                            Type = meta != null ? meta.type ?? string.Empty : string.Empty,
+                            TimeZone = s.TimeZone
                         };
                         try
                         {
                             var json = JsonConvert.DeserializeObject<Dictionary<string, string>>(ev.Description);
                             evModel.Preblast = json.ContainsKey("preblast") ? json["preblast"] : null;
                             evModel.Tag = json.ContainsKey("tag") ? json["tag"] : null;
-                            
+                            evModel.IsCustomDateTime = json.ContainsKey("custom");
+                            if (evModel.IsCustomDateTime)
+                            {
+                                evModel.StartTime = ev.Start.DateTime;
+                                evModel.EndTime = ev.End.DateTime;
+                                if (!ev.Start.DateTime.HasValue && !ev.End.DateTime.HasValue)
+                                {
+                                    evModel.IsAllDay = true;
+                                }
+                                    
+                                evModel.Location = ev.Location ?? s.Location;
+                                
+                            }
                         }
                         catch (Exception exp)
                         {
