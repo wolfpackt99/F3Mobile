@@ -83,40 +83,48 @@ namespace F3.Business.Leaderboard
                 athletes.AddRange(pageResults);
                 page++;
             }
-            var clubMembers = await client.GetClubMembersAsync(ConfigurationManager.AppSettings.Get("stravaClubId"));
             var authedAthletes = await GetAuthedAthletes();
 
-            var users = await athletes.ForkJoin(async s => await DoTheNeedful(s, authedAthletes));
+            var auth_only = athletes.Where(s => authedAthletes.Any(a => a.Athlete.Id == s.Id));
+
+            var users = await auth_only.ForkJoin(async s => await DoTheNeedful(s, authedAthletes));
             return users;
 
         }
 
         private async Task<User> DoTheNeedful(AthleteSummary arg, IEnumerable<StravaAuth> authedAthletes)
         {
-            var activities = new List<ActivitySummary>();
-            var authToken = authedAthletes.ToList().FirstOrDefault(c => c.Athlete.Id == arg.Id);
-            if (authToken != null)
+            try
             {
-                var userActivities = await GetActivityByUser(arg.Id, authToken.AccessToken);
-                activities.AddRange(userActivities);
-            }
-            
-            var athleteClient = new AthleteClient(StaticAuthentication);
-            var athlete = await athleteClient.GetAthleteAsync(arg.Id.ToString());
-            var stats = GetStatsForUser(activities).ToList();
-            var user = new User
-            {
-                ProfilePic = athlete.ProfileMedium,
-                StravaId = arg.Id,
-                FirstName = arg.FirstName,
-                LastName = arg.LastName,
-                ActivityCount = activities.Count(),
-                Running = activities.Where(t => t.Type == ActivityType.Run).Sum(e => Convert.ToDecimal(e.Distance * 0.000621371)),
-                TotalMiles = activities.Sum(e => Convert.ToDecimal(e.Distance * 0.000621371)),
-                Stats = stats
-            };
+                var activities = new List<ActivitySummary>();
+                var authToken = authedAthletes.ToList().FirstOrDefault(c => c.Athlete.Id == arg.Id);
+                if (authToken != null)
+                {
+                    var userActivities = await GetActivityByUser(arg.Id, authToken.AccessToken);
+                    activities.AddRange(userActivities);
+                }
 
-            return user;
+                var athleteClient = new AthleteClient(StaticAuthentication);
+                var athlete = await athleteClient.GetAthleteAsync(arg.Id.ToString());
+                var stats = GetStatsForUser(activities).ToList();
+                var user = new User
+                {
+                    ProfilePic = athlete.ProfileMedium,
+                    StravaId = arg.Id,
+                    FirstName = arg.FirstName,
+                    LastName = arg.LastName,
+                    ActivityCount = activities.Count(),
+                    Running = activities.Where(t => t.Type == ActivityType.Run).Sum(e => Convert.ToDecimal(e.Distance * 0.000621371)),
+                    TotalMiles = activities.Sum(e => Convert.ToDecimal(e.Distance * 0.000621371)),
+                    Stats = stats
+                };
+
+                return user;
+            }
+            catch (Exception exp)
+            {
+                throw;
+            }
         }
 
         private IEnumerable<Stat> GetStatsForUser(List<ActivitySummary> activities)
@@ -137,7 +145,7 @@ namespace F3.Business.Leaderboard
 
             var moreResults = true;
             var page = 1;
-            
+
             var activities = new List<ActivitySummary>();
             while (moreResults)
             {
@@ -162,24 +170,30 @@ namespace F3.Business.Leaderboard
         /// <returns></returns>
         public async Task<List<AthleteSummary>> GetClubMembersAsync(string clubId, int page, int perPage)
         {
-            string getUrl = string.Format("{0}/{1}/members?page={2}&per_page={3}&access_token={4}",
+            try
+            {
+                string getUrl = string.Format("{0}/{1}/members?page={2}&per_page={3}&access_token={4}",
                 Endpoints.Club,
                 clubId,
                 page,
                 perPage,
                 StaticAuthentication.AccessToken);
-            string json = await WebRequest.SendGetAsync(new Uri(getUrl));
-
-            return Unmarshaller<List<AthleteSummary>>.Unmarshal(json);
+                string json = await WebRequest.SendGetAsync(new Uri(getUrl));
+                return Unmarshaller<List<AthleteSummary>>.Unmarshal(json);
+            }
+            catch (Exception exp)
+            {
+                throw;
+            }
         }
 
         public async Task<string> GetAuthToken(string code)
         {
-            
+
             var clientId = ConfigurationManager.AppSettings.Get("stravaClientId");
             var clientSecret = ConfigurationManager.AppSettings.Get("stravaClientSecret");
             var httpClient = new HttpClient();
-            
+
             //get the token from the server using client secret
             string url = string.Format("https://www.strava.com/oauth/token?client_id={0}&client_secret={1}&code={2}", clientId, clientSecret, code);
 
@@ -221,7 +235,7 @@ namespace F3.Business.Leaderboard
             }
 
             //8cd6c2d011d724860bbdde4b491e312e63db9d32
-            
+
         }
     }
 
@@ -231,6 +245,6 @@ namespace F3.Business.Leaderboard
         public AthleteSummary Athlete { get; set; }
         [JsonProperty("access_token")]
         public string AccessToken { get; set; }
-        
+
     }
 }
