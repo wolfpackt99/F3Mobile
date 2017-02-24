@@ -104,12 +104,10 @@ namespace F3.Business.Leaderboard
                     activities.AddRange(userActivities);
                 }
 
-                var athleteClient = new AthleteClient(StaticAuthentication);
-                var athlete = await athleteClient.GetAthleteAsync(arg.Id.ToString());
                 var stats = GetStatsForUser(activities).ToList();
                 var user = new User
                 {
-                    ProfilePic = athlete.ProfileMedium,
+                    ProfilePic = arg.ProfileMedium,
                     StravaId = arg.Id,
                     FirstName = arg.FirstName,
                     LastName = arg.LastName,
