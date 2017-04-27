@@ -68,11 +68,18 @@
 
         function massageThisWeek(x) {
             angular.forEach(x, function (item, i) {
+                try {
+                    var json = JSON.parse(item.Description);
+                    item.CustomDescription = json.description;
+                }
+                catch (e) {
+                }
                 if (item.IsCustomDateTime === true) {
                     if (!item.IsAllDay) {
                         item.StartTimeFormat = moment(item.StartTime).format("HHmm");
                         item.EndTimeFormat = moment(item.EndTime).format("HHmm");
-                    }   
+                    }
+                   
                 }
             });
         }

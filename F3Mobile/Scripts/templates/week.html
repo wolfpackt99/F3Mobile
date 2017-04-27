@@ -15,6 +15,7 @@
                     <a href="https://maps.google.com?q={{ev.Location}}"><span class="glyphicon glyphicon-map-marker"></span></a>
                 </span>
                 <div ng-show="ev.IsCustomDateTime"><a href="https://maps.google.com?q={{ev.Location}}">{{ev.Location}}</a></div>
+                <small ng-show="ev.CustomDescription">{{ev.CustomDescription}}</small>
             </li>
             <li class="list-group-item" ng-if="filtered.length === 0">No entries found. Check various twitter accounts.</li>
         </ul>
