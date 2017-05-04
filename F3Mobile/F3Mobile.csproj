@@ -344,6 +344,7 @@
     <Content Include="Content\images\apple-icon-144x144-precomposed.png" />
     <Content Include="Content\images\apple-icon-57x57-precomposed.png" />
     <Content Include="Content\images\apple-icon-72x72-precomposed.png" />
+    <Content Include="Content\images\f3-sclt-banner.png" />
     <Content Include="Content\images\icon.png" />
     <Content Include="Content\images\LogInWithStrava.png" />
     <Content Include="Content\loading-image.gif" />
@@ -400,6 +401,7 @@
     </Content>
     <Content Include="Scripts\calendarService.js" />
     <Content Include="Scripts\controllers\leaderboardController.js" />
+    <Content Include="Scripts\controllers\mapController.js" />
     <Content Include="Scripts\controllers\scheduleController.js" />
     <Content Include="Scripts\controllers\weekController.js" />
     <Content Include="Scripts\custom.min.js.map">
@@ -1213,6 +1215,7 @@
     <Content Include="Scripts\templates\recentTemplate.html" />
     <Content Include="Scripts\templates\leaderboard.html" />
     <Content Include="Scripts\templates\schedule.html" />
+    <Content Include="Scripts\templates\map.html" />
     <Content Include="Scripts\templates\week.html" />
     <Content Include="Scripts\templates\thisweek.html" />
     <Content Include="Scripts\text.js" />

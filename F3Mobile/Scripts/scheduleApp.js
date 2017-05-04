@@ -46,13 +46,13 @@
             activeTab: 'stats'
         });
 
-        //$routeProvider.when('/firstf', {
-        //    controller: 'ScheduleController',
-        //    templateUrl: '/scripts/templates/all.html',
-        //    reloadOnSearch: false,
-        //    controllerAs: 'vm'
-        //});
-
+        $routeProvider.when('/map', {
+            controller: 'MapController',
+            templateUrl: '/scripts/templates/map.html',
+            reloadOnSearch: false,
+            controllerAs: 'vm',
+            activeTab: 'map'
+        });
     });
 
 
