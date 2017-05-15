@@ -6,7 +6,7 @@ using Ninject;
 
 namespace F3Mobile.Controllers
 {
-    public class LeaderBoardController : Controller
+    public partial class LeaderBoardController : Controller
     {
         [Inject]
         public IStravaBusiness StravaBusiness { get; set; }
@@ -16,7 +16,7 @@ namespace F3Mobile.Controllers
 
         // GET: LeaderBoard
         [HttpGet]
-        public async Task<ActionResult> _Index(bool clear = false)
+        public virtual async Task<ActionResult> _Index(bool clear = false)
         {
             var x = new StravaBusiness();
             if (clear == false)
