@@ -30,6 +30,7 @@ public static partial class MVC
     public static F3Mobile.Controllers.AccountController Account = new F3Mobile.Controllers.T4MVC_AccountController();
     public static F3Mobile.Controllers.BackblastController Backblast = new F3Mobile.Controllers.T4MVC_BackblastController();
     public static F3Mobile.Controllers.HomeController Home = new F3Mobile.Controllers.T4MVC_HomeController();
+    public static F3Mobile.Controllers.LeaderBoardController LeaderBoard = new F3Mobile.Controllers.T4MVC_LeaderBoardController();
     public static F3Mobile.Controllers.ManageController Manage = new F3Mobile.Controllers.T4MVC_ManageController();
     public static F3Mobile.Controllers.NewsletterController Newsletter = new F3Mobile.Controllers.T4MVC_NewsletterController();
     public static F3Mobile.Controllers.ScheduleController Schedule = new F3Mobile.Controllers.T4MVC_ScheduleController();
@@ -59,6 +60,19 @@ internal partial class T4MVC_System_Web_Mvc_ActionResult : System.Web.Mvc.Action
     }
      
     public override void ExecuteResult(System.Web.Mvc.ControllerContext context) { }
+    
+    public string Controller { get; set; }
+    public string Action { get; set; }
+    public string Protocol { get; set; }
+    public RouteValueDictionary RouteValueDictionary { get; set; }
+}
+[GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+internal partial class T4MVC_System_Web_Mvc_JsonResult : System.Web.Mvc.JsonResult, IT4MVCActionResult
+{
+    public T4MVC_System_Web_Mvc_JsonResult(string area, string controller, string action, string protocol = null): base()
+    {
+        this.InitMVCT4Result(area, controller, action, protocol);
+    }
     
     public string Controller { get; set; }
     public string Action { get; set; }
@@ -97,6 +111,7 @@ namespace Links
         public static readonly string angular_messages_min_js = Url("angular-messages.min.js");
         public static readonly string angular_messages_min_js_map = Url("angular-messages.min.js.map");
         public static readonly string angular_mocks_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/angular-mocks.min.js") ? Url("angular-mocks.min.js") : Url("angular-mocks.js");
+        public static readonly string angular_moment_min_js = Url("angular-moment.min.js");
         public static readonly string angular_resource_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/angular-resource.min.js") ? Url("angular-resource.min.js") : Url("angular-resource.js");
         public static readonly string angular_resource_min_js = Url("angular-resource.min.js");
         public static readonly string angular_resource_min_js_map = Url("angular-resource.min.js.map");
@@ -127,6 +142,8 @@ namespace Links
             private const string URLPATH = "~/Scripts/controllers";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string leaderboardController_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/leaderboardController.min.js") ? Url("leaderboardController.min.js") : Url("leaderboardController.js");
+            public static readonly string mapController_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/mapController.min.js") ? Url("mapController.min.js") : Url("mapController.js");
             public static readonly string scheduleController_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/scheduleController.min.js") ? Url("scheduleController.min.js") : Url("scheduleController.js");
             public static readonly string weekController_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/weekController.min.js") ? Url("weekController.min.js") : Url("weekController.js");
         }
@@ -919,6 +936,8 @@ namespace Links
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             public static readonly string calendarService_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/calendarService.min.js") ? Url("calendarService.min.js") : Url("calendarService.js");
+            public static readonly string leaderService_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/leaderService.min.js") ? Url("leaderService.min.js") : Url("leaderService.js");
+            public static readonly string regionService_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/regionService.min.js") ? Url("regionService.min.js") : Url("regionService.js");
         }
     
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -940,6 +959,8 @@ namespace Links
             public static readonly string aoTemplate_html = Url("aoTemplate.html");
             public static readonly string currentWeekItem_html = Url("currentWeekItem.html");
             public static readonly string FirstF_html = Url("FirstF.html");
+            public static readonly string leaderboard_html = Url("leaderboard.html");
+            public static readonly string map_html = Url("map.html");
             public static readonly string recentTemplate_html = Url("recentTemplate.html");
             public static readonly string schedule_html = Url("schedule.html");
             public static readonly string thisweek_html = Url("thisweek.html");
@@ -965,6 +986,20 @@ namespace Links
              
         public static readonly string bootstrap_css_map = Url("bootstrap.css.map");
         public static readonly string bootstrap_min_css = Url("bootstrap.min.css");
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class images {
+            private const string URLPATH = "~/Content/images";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string apple_icon_114x114_precomposed_png = Url("apple-icon-114x114-precomposed.png");
+            public static readonly string apple_icon_144x144_precomposed_png = Url("apple-icon-144x144-precomposed.png");
+            public static readonly string apple_icon_57x57_precomposed_png = Url("apple-icon-57x57-precomposed.png");
+            public static readonly string apple_icon_72x72_precomposed_png = Url("apple-icon-72x72-precomposed.png");
+            public static readonly string f3_sclt_banner_png = Url("f3-sclt-banner.png");
+            public static readonly string icon_png = Url("icon.png");
+            public static readonly string LogInWithStrava_png = Url("LogInWithStrava.png");
+        }
+    
         public static readonly string loading_image_gif = Url("loading-image.gif");
         public static readonly string Site_less = Url("Site.less");
         public static readonly string Site_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Site.min.css") ? Url("Site.min.css") : Url("Site.css");
@@ -987,6 +1022,8 @@ namespace Links
             {
                 public static class Assets
                 {
+                    public const string leaderboardController_js = "~/Scripts/controllers/leaderboardController.js"; 
+                    public const string mapController_js = "~/Scripts/controllers/mapController.js"; 
                     public const string scheduleController_js = "~/Scripts/controllers/scheduleController.js"; 
                     public const string weekController_js = "~/Scripts/controllers/weekController.js"; 
                 }
@@ -1746,6 +1783,8 @@ namespace Links
                 public static class Assets
                 {
                     public const string calendarService_js = "~/Scripts/services/calendarService.js"; 
+                    public const string leaderService_js = "~/Scripts/services/leaderService.js"; 
+                    public const string regionService_js = "~/Scripts/services/regionService.js"; 
                 }
             }
             public static partial class T4MvcJs 
@@ -1777,6 +1816,7 @@ namespace Links
                 public const string angular_messages_js = "~/Scripts/angular-messages.js"; 
                 public const string angular_messages_min_js = "~/Scripts/angular-messages.min.js"; 
                 public const string angular_mocks_js = "~/Scripts/angular-mocks.js"; 
+                public const string angular_moment_min_js = "~/Scripts/angular-moment.min.js"; 
                 public const string angular_resource_js = "~/Scripts/angular-resource.js"; 
                 public const string angular_resource_min_js = "~/Scripts/angular-resource.min.js"; 
                 public const string angular_route_js = "~/Scripts/angular-route.js"; 
@@ -1828,6 +1868,12 @@ namespace Links
         }
         public static partial class Content 
         {
+            public static partial class images 
+            {
+                public static class Assets
+                {
+                }
+            }
             public static class Assets
             {
                 public const string bootstrap_theme_css = "~/Content/bootstrap-theme.css";
