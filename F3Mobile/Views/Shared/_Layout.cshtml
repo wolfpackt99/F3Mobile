@@ -1,12 +1,13 @@
 ﻿<!DOCTYPE html>
 @{
     var useRequire = ViewBag.UseRequire ?? false;
+    var ShowFrame = ViewBag.ShowFrame ?? true;
 }
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" sizes="144x144" href="~/Content/images/icon.png"> 
+    <link rel="icon" sizes="144x144" href="~/Content/images/icon.png">
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="~/Content/images/apple-icon-57x57-precomposed.png" />
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/Content/images/apple-icon-72x72-precomposed.png" />
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/Content/images/apple-icon-114x114-precomposed.png" />
@@ -34,35 +35,41 @@
                 '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-NVTZMR');</script>
     <!-- End Google Tag Manager -->
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("F3 SCLT", MVC.Home.ActionNames.Index, MVC.Home.Name, new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("FNG", MVC.Newsletter.ActionNames.Index, MVC.Newsletter.Name)</li>
-                    <li><a href="@Url.Action("Index", MVC.Schedule.Name)#/map">Map</a></li>
-                    <li><a href="@Url.Action("Index", MVC.Schedule.Name)#/week">Schedule</a></li>
-                    <li><a href="@Url.Action("Index", MVC.Schedule.Name)#/schedule">Workouts</a></li>
-                    <li><a href="@Url.Action("Index", MVC.Schedule.Name)#/stats">Stats</a></li>
-                    <li>@Html.ActionLink("Backblast", MVC.Backblast.ActionNames.Index, MVC.Backblast.Name)</li>
-                    @*<li>@Html.ActionLink("Login", "Login", "Account")</li>*@
-                </ul>
+    @if (ShowFrame)
+    {
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("F3 SCLT", MVC.Home.ActionNames.Index, MVC.Home.Name, new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("FNG", MVC.Newsletter.ActionNames.Index, MVC.Newsletter.Name)</li>
+                        <li><a href="@Url.Action("Index", MVC.Schedule.Name)#/map">Map</a></li>
+                        <li><a href="@Url.Action("Index", MVC.Schedule.Name)#/week">Schedule</a></li>
+                        <li><a href="@Url.Action("Index", MVC.Schedule.Name)#/schedule">Workouts</a></li>
+                        <li><a href="@Url.Action("Index", MVC.Schedule.Name)#/stats">Stats</a></li>
+                        <li>@Html.ActionLink("Backblast", MVC.Backblast.ActionNames.Index, MVC.Backblast.Name)</li>
+                        @*<li>@Html.ActionLink("Login", "Login", "Account")</li>*@
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
+    }
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - F3 SCLT</p>
-        </footer>
+        @if (ShowFrame)
+        {
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - F3 SCLT</p>
+            </footer>
+        }
     </div>
 
     @Scripts.Render("~/bundles/jquery")

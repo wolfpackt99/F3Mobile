@@ -21,8 +21,9 @@ namespace F3Mobile.Controllers
         [Inject]
         public ICacheService Cache { get; set; }
 
-        public virtual ActionResult Index()
+        public virtual ActionResult Index(bool showFrame = true)
         {
+            ViewBag.ShowFrame = showFrame;
             return View();
         }
 
@@ -66,7 +67,7 @@ namespace F3Mobile.Controllers
             return Json(events, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetToken()
+        public virtual JsonResult GetToken()
         {
             var tokenGenerator = new Firebase.TokenGenerator(ConfigurationManager.AppSettings.Get("FirebaseUserToken"));
             var authPayload = new Dictionary<string, object>()
