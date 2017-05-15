@@ -19,7 +19,7 @@
     @RenderSection("css", false)
     @RenderSection("headscripts", false)
 </head>
-<body role="document">
+<body role="document" @(ShowFrame == false ? "style=padding-top:0;":"") >
     <!-- Google Tag Manager -->
     <noscript>
         <iframe src="//www.googletagmanager.com/ns.html?id=GTM-NVTZMR"
