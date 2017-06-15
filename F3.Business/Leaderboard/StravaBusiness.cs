@@ -94,6 +94,7 @@ namespace F3.Business.Leaderboard
 
         private async Task<User> DoTheNeedful(AthleteSummary arg, IEnumerable<StravaAuth> authedAthletes)
         {
+            var user = new User();
             try
             {
                 var activities = new List<ActivitySummary>();
@@ -104,25 +105,41 @@ namespace F3.Business.Leaderboard
                     activities.AddRange(userActivities);
                 }
 
-                var stats = GetStatsForUser(activities).ToList();
-                var user = new User
+                
+                user = new User
                 {
                     ProfilePic = arg.ProfileMedium,
                     StravaId = arg.Id,
                     FirstName = arg.FirstName,
                     LastName = arg.LastName,
-                    ActivityCount = activities.Count(),
-                    Running = activities.Where(t => t.Type == ActivityType.Run).Sum(e => Convert.ToDecimal(e.Distance * 0.000621371)),
-                    TotalMiles = activities.Sum(e => Convert.ToDecimal(e.Distance * 0.000621371)),
-                    Stats = stats
+                    ActivityCount = activities.Count()
                 };
-
-                return user;
+                user.TotalMiles = activities.Sum(e => Convert.ToDecimal(e.Distance * 0.000621371));
+                var stats = GetStatsForUser(activities.ToList()).ToList();
+                user.Stats = stats;
+                user.Running = activities.ToList().Where(t => EnumTryParser(t).ToLower() == "run").Sum(e => Convert.ToDecimal(e.Distance * 0.000621371));
+                
             }
             catch (Exception exp)
             {
-                throw;
+                System.Diagnostics.Debug.WriteLine(exp.Message);
+                //throw;
             }
+            return user;
+        }
+
+        private string EnumTryParser(ActivitySummary summary)
+        {
+            var str = "Unknown";
+            try {
+                str = Convert.ToString(summary.Type);
+            }
+            catch (Exception e)
+            {
+                //eat
+                System.Diagnostics.Debug.WriteLine(e.Message);
+            }
+            return str;
         }
 
         private IEnumerable<Stat> GetStatsForUser(List<ActivitySummary> activities)
@@ -131,7 +148,7 @@ namespace F3.Business.Leaderboard
                         .GroupBy(s => s.Type)
                         .Select(s => new Stat
                         {
-                            Activity = s.First().Type.ToString(),
+                            Activity = EnumTryParser(s.FirstOrDefault()),
                             Mileage = s.Sum(m => Convert.ToDecimal(m.Distance * 0.000621371))
                         });
             return actByType;
