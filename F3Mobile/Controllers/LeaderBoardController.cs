@@ -16,6 +16,7 @@ namespace F3Mobile.Controllers
 
         // GET: LeaderBoard
         [HttpGet]
+        [AllowCrossSiteJson]
         public virtual async Task<ActionResult> _Index(bool clear = false)
         {
             var x = new StravaBusiness();
