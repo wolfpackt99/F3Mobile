@@ -29,7 +29,7 @@ namespace F3Mobile.Controllers
             return Json(stats, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
+        [HttpGet]
         [AllowCrossSiteJson]
         public async Task<JsonResult> SetAuth(string code)
         {
