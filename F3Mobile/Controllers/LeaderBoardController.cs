@@ -30,6 +30,7 @@ namespace F3Mobile.Controllers
         }
 
         [HttpPost]
+        [AllowCrossSiteJson]
         public async Task<JsonResult> SetAuth(string code)
         {
             var token = await StravaBusiness.GetAuthToken(code);
