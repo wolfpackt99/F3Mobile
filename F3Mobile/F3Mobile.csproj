@@ -292,6 +292,7 @@
     <Compile Include="BackblastController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Code\AllowCrossSiteJsonAttribute.cs" />
     <Compile Include="Code\CacheService.cs" />
     <Compile Include="Code\ICacheService.cs" />
     <Compile Include="Code\WebConfig.cs" />
