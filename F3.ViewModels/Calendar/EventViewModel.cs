@@ -27,5 +27,6 @@ namespace F3.ViewModels.Calendar
         public DateTime? EndTime { get; set; }
         public bool IsAllDay { get; set; }
         public string TimeZone { get; set; }
+        public object CustomDescription { get; set; }
     }
 }

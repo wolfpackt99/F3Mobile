@@ -157,8 +157,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="StravaDotNet, Version=3.4.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Strava.NET.3.4.4\lib\net45\StravaDotNet.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\stravadotnet\StravaDotNet\bin\Debug\StravaDotNet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />

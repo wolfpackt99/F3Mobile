@@ -105,8 +105,9 @@
       <HintPath>..\packages\ServiceStack.Text.3.9.71\lib\net35\ServiceStack.Text.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="StravaDotNet">
-      <HintPath>..\packages\Strava.NET.3.4.1\StravaDotNet.dll</HintPath>
+    <Reference Include="StravaDotNet, Version=3.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\stravadotnet\StravaDotNet\bin\Debug\StravaDotNet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Net" />
@@ -150,7 +151,7 @@
     <Compile Include="MailChimpFixture.cs" />
     <Compile Include="FeedFixture.cs" />
     <Compile Include="NewsFixture.cs" />
-    <Compile Include="StraveFixture.cs" />
+    <Compile Include="StravaFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\F3.Business\F3.Business.csproj">

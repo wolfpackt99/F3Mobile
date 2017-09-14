@@ -117,7 +117,7 @@ namespace F3.Business.Leaderboard
                 user.TotalMiles = activities.Sum(e => Convert.ToDecimal(e.Distance * 0.000621371));
                 var stats = GetStatsForUser(activities.ToList()).ToList();
                 user.Stats = stats;
-                user.Running = activities.ToList().Where(t => EnumTryParser(t).ToLower() == "run").Sum(e => Convert.ToDecimal(e.Distance * 0.000621371));
+                user.Running = activities.ToList().Where(t => t.RawType.ToLower() == "run").Sum(e => Convert.ToDecimal(e.Distance * 0.000621371));
                 
             }
             catch (Exception exp)
@@ -128,27 +128,15 @@ namespace F3.Business.Leaderboard
             return user;
         }
 
-        private string EnumTryParser(ActivitySummary summary)
-        {
-            var str = "Unknown";
-            try {
-                str = Convert.ToString(summary.Type);
-            }
-            catch (Exception e)
-            {
-                //eat
-                System.Diagnostics.Debug.WriteLine(e.Message);
-            }
-            return str;
-        }
+        
 
         private IEnumerable<Stat> GetStatsForUser(List<ActivitySummary> activities)
         {
             var actByType = activities.EmptyIfNull()
-                        .GroupBy(s => s.Type)
+                        .GroupBy(s => s.RawType)
                         .Select(s => new Stat
                         {
-                            Activity = EnumTryParser(s.FirstOrDefault()),
+                            Activity = s.FirstOrDefault().RawType,
                             Mileage = s.Sum(m => Convert.ToDecimal(m.Distance * 0.000621371))
                         });
             return actByType;

@@ -16,13 +16,13 @@ namespace F3.Business.Tests
     [TestClass]
     public class CalenderFixture
     {
-        //[TestMethod]
+        [TestMethod, Ignore]
         public void CredentialTest()
         {
             ServiceAccount.Instance.Credential.Should().NotBeNull();
         }
 
-        //[TestMethod]
+        [TestMethod, Ignore]
         public async Task GetEventsFixture()
         {
             var cb = new CalendarBusiness();
@@ -32,7 +32,7 @@ namespace F3.Business.Tests
             items.Items.Should().HaveCount(c => c > 0);
         }
 
-        //[TestMethod]
+        [TestMethod, Ignore]
         public async Task GetCalendarListFixture()
         {
             var cb = new CalendarBusiness();
@@ -40,7 +40,7 @@ namespace F3.Business.Tests
             sut.Items.Should().HaveCount(c => c > 0);
         }
 
-        //[TestMethod]
+        [TestMethod, Ignore]
         public async Task GetAllEventsForWeek()
         {
             var cb = new CalendarBusiness();
@@ -50,8 +50,15 @@ namespace F3.Business.Tests
             sut.Any(s => s.Summary == "SOBLSD").ShouldBeEquivalentTo(true);
             sut.FirstOrDefault(s => s.Summary == "SOBLSD").Items.EmptyIfNull().Should().HaveCount(1);
         }
+        [TestMethod, Ignore]
+        public async Task GetAllEventsShouldntBreak()
+        {
+            var cb = new CalendarBusiness();
+            var sut = await cb.Publish();
+            sut.Should().BeTrue();
+        }
 
-        //[TestMethod]
+        [TestMethod, Ignore]
         public async Task GetAllEventsForAll()
         {
             var cb = new CalendarBusiness();
@@ -60,7 +67,7 @@ namespace F3.Business.Tests
             sut.First().Summary.ShouldBeEquivalentTo("Anvil");
         }
 
-        //[TestMethod]
+        [TestMethod, Ignore]
         public async Task Publish2Test()
         {
             var cb = new CalendarBusiness();

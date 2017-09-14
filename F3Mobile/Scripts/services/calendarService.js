@@ -73,6 +73,7 @@
                     item.CustomDescription = json.description;
                 }
                 catch (e) {
+                    console.log(e);
                 }
                 if (item.IsCustomDateTime === true) {
                     if (!item.IsAllDay) {

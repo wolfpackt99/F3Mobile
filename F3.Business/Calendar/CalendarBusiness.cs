@@ -209,89 +209,109 @@ namespace F3.Business.Calendar
 
         public async Task<bool> Publish()
         {
-            var sites = (await GetCalendarList()).Items;
-            var thisweek = new List<EventViewModel>();
-            var tasks = sites.Select(async s =>
+            try
             {
-                var events = await GetEvents(s.Id, false);
-                MetaDataViewModel meta = null;
-                try
+                var sites = (await GetCalendarList()).Items;
+                var thisweek = new List<EventViewModel>();
+                var tasks = sites.Select(async s =>
                 {
-                    meta = JsonConvert.DeserializeObject<MetaDataViewModel>(s.Description);
-                }
-                catch (Exception exp)
-                {
-
-                }
-
-                var list = new List<EventViewModel>();
-                var cal = new CalenderViewModel
-                {
-                    Id = s.Id,
-                    Name = s.Summary,
-                    Description = s.Description,
-                    MetaData = meta,
-                    Location = s.Location,
-                    Type = meta.type,
-                    TimeZone = s.TimeZone,
-                    Items = events.Items.Select(ev =>
+                    var events = await GetEvents(s.Id, false);
+                    MetaDataViewModel meta = null;
+                    try
                     {
-                        var evModel = new EventViewModel
+                        meta = JsonConvert.DeserializeObject<MetaDataViewModel>(s.Description);
+                    }
+                    catch (Exception exp)
+                    {
+
+                        System.Diagnostics.Debug.WriteLine("----calendar------");
+                        System.Diagnostics.Debug.WriteLine(s.Description);
+                        System.Diagnostics.Debug.WriteLine(exp.Message);
+                        System.Diagnostics.Debug.WriteLine("----endcalendar-----");
+
+                    }
+
+                    var list = new List<EventViewModel>();
+                    var cal = new CalenderViewModel
+                    {
+                        Id = s.Id,
+                        Name = s.Summary,
+                        Description = s.Description,
+                        MetaData = meta,
+                        Location = s.Location,
+                        Type = meta.type,
+                        TimeZone = s.TimeZone,
+                        Items = events.Items.Select(ev =>
                         {
-                            CalendarId = s.Id,
-                            CalendarName = s.Summary,
-                            Start = ev.Start.DateTime ?? Convert.ToDateTime(ev.Start.Date),
-                            Title = ev.Summary,
-                            Description = ev.Description,
-                            Location = s.Location,
-                            Time = meta != null ? meta.Time : string.Empty,
-                            Region = meta.Region,
-                            Type = meta != null ? meta.type ?? string.Empty : string.Empty,
-                            TimeZone = s.TimeZone
-                        };
-                        try
-                        {
-                            var json = JsonConvert.DeserializeObject<Dictionary<string, string>>(ev.Description);
-                            evModel.Preblast = json.ContainsKey("preblast") ? json["preblast"] : null;
-                            evModel.Tag = json.ContainsKey("tag") ? json["tag"] : null;
-                            evModel.IsCustomDateTime = json.ContainsKey("custom");
-                            if (evModel.IsCustomDateTime)
+                            var evModel = new EventViewModel
                             {
-                                evModel.StartTime = ev.Start.DateTime;
-                                evModel.EndTime = ev.End.DateTime;
-                                if (!ev.Start.DateTime.HasValue && !ev.End.DateTime.HasValue)
+                                CalendarId = s.Id,
+                                CalendarName = s.Summary,
+                                Start = ev.Start.DateTime ?? Convert.ToDateTime(ev.Start.Date),
+                                Title = ev.Summary,
+                                Description = ev.Description,
+                                Location = s.Location,
+                                Time = meta != null ? meta.Time : string.Empty,
+                                Region = meta.Region,
+                                Type = meta != null ? meta.type ?? string.Empty : string.Empty,
+                                TimeZone = s.TimeZone
+                            };
+                            try
+                            {
+                                var json = JsonConvert.DeserializeObject<Dictionary<string, string>>(ev.Description);
+                                evModel.Preblast = json.ContainsKey("preblast") ? json["preblast"] : null;
+                                evModel.Tag = json.ContainsKey("tag") ? json["tag"] : null;
+                                evModel.CustomDescription = json.ContainsKey("description") ? json["description"] : null;
+                                evModel.IsCustomDateTime = json.ContainsKey("custom");
+                                if (evModel.IsCustomDateTime)
                                 {
-                                    evModel.IsAllDay = true;
+                                    evModel.StartTime = ev.Start.DateTime;
+                                    evModel.EndTime = ev.End.DateTime;
+                                    if (!ev.Start.DateTime.HasValue && !ev.End.DateTime.HasValue)
+                                    {
+                                        evModel.IsAllDay = true;
+                                    }
+
+                                    evModel.Location = ev.Location ?? s.Location;
+
                                 }
-                                    
-                                evModel.Location = ev.Location ?? s.Location;
-                                
                             }
-                        }
-                        catch (Exception exp)
-                        {
-                        }
+                            catch (Exception exp)
+                            {
+                                if (!exp.Message.Contains("Value cannot be null."))
+                                {
+                                    System.Diagnostics.Debug.WriteLine("-----calitem------");
+                                    System.Diagnostics.Debug.WriteLine(ev.Summary + "::" + ev.Description);
+                                    System.Diagnostics.Debug.WriteLine(exp.Message);
+                                    System.Diagnostics.Debug.WriteLine("-----endcalitem-----");
+                                }
+                            }
 
-                        return evModel;
-                    }).AsEnumerable()
-                };
-                thisweek.AddRange(isThisWeek(cal));
+                            return evModel;
+                        }).AsEnumerable()
+                    };
+                    thisweek.AddRange(isThisWeek(cal));
 
-                return cal;
-            });
+                    return cal;
+                });
+                var x = await Task.WhenAll(tasks);
+                var rootUri = ConfigurationManager.AppSettings.Get("FirebaseUri");
+                var secret = ConfigurationManager.AppSettings.Get("FirebaseUserToken");
+                var fb = new FirebaseSharp.Portable.Firebase(rootUri, secret);
 
-            var x = await Task.WhenAll(tasks);
-            var rootUri = ConfigurationManager.AppSettings.Get("FirebaseUri");
-            var secret = ConfigurationManager.AppSettings.Get("FirebaseUserToken");
-            var fb = new FirebaseSharp.Portable.Firebase(rootUri, secret);
-
-            await fb.DeleteAsync("/events");
-            await fb.DeleteAsync("/thisweek");
-            var taskOfEvents = x.OrderBy(s => s.Name).Select(item => fb.PostAsync("/events", JsonConvert.SerializeObject(item)));
-            var taskOfThisWeek = thisweek.EmptyIfNull().Where(s => s!= null).OrderBy(s => s.Start).Select(item => fb.PostAsync("/thisweek", JsonConvert.SerializeObject(item)));
-            await Task.WhenAll(taskOfEvents);
-            await Task.WhenAll(taskOfThisWeek);
-            return true;
+                await fb.DeleteAsync("/events");
+                await fb.DeleteAsync("/thisweek");
+                var taskOfEvents = x.OrderBy(s => s.Name).Select(item => fb.PostAsync("/events", JsonConvert.SerializeObject(item)));
+                var taskOfThisWeek = thisweek.EmptyIfNull().Where(s => s != null).OrderBy(s => s.Start).Select(item => fb.PostAsync("/thisweek", JsonConvert.SerializeObject(item)));
+                await Task.WhenAll(taskOfEvents);
+                await Task.WhenAll(taskOfThisWeek);
+                return true;
+            }
+            catch (Exception eep)
+            {
+                System.Diagnostics.Debug.WriteLine(eep.Message);
+            }
+            return false;
         }
 
         public List<EventViewModel> isThisWeek(CalenderViewModel cvm)
@@ -301,7 +321,7 @@ namespace F3.Business.Calendar
             if (cvm.Items != null)
             {
                 var now = DateTime.Now;
-                return cvm.Items.Where(e => 
+                return cvm.Items.Where(e =>
                     e.Start.Value > GetCorrectStart().BeginningOfDay() &&
                     e.Start.Value <= GetCorrectEndOfWeek().EndOfDay()).ToList();
             }
