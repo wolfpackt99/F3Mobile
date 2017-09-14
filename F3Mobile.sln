@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F3.Infrastructure", "F3.Infrastructure\F3.Infrastructure.csproj", "{1CE17557-BE64-487A-ACBB-DEB59E7C7DD0}"
 EndProject
@@ -14,6 +14,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1F558B1D-0408-486B-9484-12745827379D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F3.Business.Tests", "F3.Business.Tests\F3.Business.Tests.csproj", "{51092D03-7196-42FD-8126-92DE59658250}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{7A351E4B-6D70-4185-8D9F-75A29E7DC939}"
+	ProjectSection(SolutionItems) = preProject
+		Library\StravaDotNet.dll = Library\StravaDotNet.dll
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,5 +52,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{51092D03-7196-42FD-8126-92DE59658250} = {1F558B1D-0408-486B-9484-12745827379D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7F6DD090-6D87-49FD-A540-3B5B02A96CD1}
 	EndGlobalSection
 EndGlobal
