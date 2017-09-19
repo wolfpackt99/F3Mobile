@@ -54,6 +54,7 @@ namespace F3Mobile.Controllers
         }
 
         [HttpGet]
+        [AllowCrossSiteJson]
         public async Task<JsonResult> GetRecent()
         {
             var latest = await Cache.GetOrSet(LatestAdds, async () => await ContactBiz.Latest());
