@@ -32,8 +32,8 @@ namespace F3Mobile.Controllers
             return View();
         }
 
-        [ValidateAntiForgeryToken]
         [HttpPost]
+        [AllowCrossSiteJson]
         public virtual async Task<ActionResult> Index(Contact contact)
         {
             if (ModelState.IsValid)
