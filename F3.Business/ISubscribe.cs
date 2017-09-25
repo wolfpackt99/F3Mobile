@@ -11,5 +11,7 @@ namespace F3.Business
     {
         Task<bool> Add(Contact contact);
         Task<IEnumerable<Contact>> Latest();
+
+        Task<IEnumerable<Contact>> CheckName(string f3Name);
     }
 }

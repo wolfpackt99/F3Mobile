@@ -1,13 +1,12 @@
-﻿using System;
+﻿using MailChimp.Net;
+using MailChimp.Net.Core;
+using MailChimp.Net.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using F3.Business.Fng;
-using MailChimp;
-using MailChimp.Helper;
-using MailChimp.Lists;
+using F3.Infrastructure.Extensions;
 
 namespace F3.Business
 {
@@ -17,51 +16,72 @@ namespace F3.Business
         public async Task<bool> Add(ViewModels.Contact contact)
         {
             var mc = new MailChimpManager(ConfigurationManager.AppSettings.Get("MailChimpApiKey"));
-            var email = new EmailParameter
+            var newMember = new Member
             {
-                Email = contact.Email
+                EmailAddress = contact.Email,
+                StatusIfNew = Status.Subscribed,
+                Status = Status.Subscribed,
+                
             };
-            var name = new NameVar
+        
+            newMember.MergeFields.Add("FNAME", contact.FirstName);
+            newMember.MergeFields.Add("LNAME", contact.LastName);
+            newMember.MergeFields.Add("F3NAME", contact.F3Name);
+            newMember.MergeFields.Add("WORKOUT", contact.Workout);
+            newMember.MergeFields.Add("EH", contact.EH);
+            newMember.MergeFields.Add("TWITTER", contact.Twitter);
+            newMember.MergeFields.Add("NOTES", " ");
+            newMember.Interests.Add("eb2db7a8fd", true);
+   
+            
+            try
             {
-                FirstName = contact.FirstName,
-                LastName = contact.LastName,
-                F3Name = contact.F3Name,
-                Workout = contact.Workout,
-                EH = contact.EH,
-                Twitter = contact.Twitter,
-                Groupings = new List<Grouping>
-                {
-                    new Grouping
-                    {
-                        Id = 4293,
-                        GroupNames = new List<string>
-                        {
-                            "Newsletter"
-                        }
-                    }
-                }
-            };
-            var result = mc.Subscribe(ConfigurationManager.AppSettings.Get("F3List"), email, name, doubleOptIn: false,
-                sendWelcome: true);
+                var member = await mc.Members.AddOrUpdateAsync(ConfigurationManager.AppSettings["F3List"], newMember);
+                
+            }
+            catch (MailChimpException mexp)
+            {
+                System.Diagnostics.Debug.WriteLine(mexp);
+                throw;
+            }
             return true;
         }
 
         public async Task<IEnumerable<F3.ViewModels.Contact>> Latest()
         {
+            var date = DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd");
             var mc = new MailChimpManager(ConfigurationManager.AppSettings.Get("MailChimpApiKey"));
-            var x = mc.GetAllMembersForList(ConfigurationManager.AppSettings.Get("F3List"), limit: 10, sort_field: "optin_time", sort_dir: "DESC");
 
-            var contacts = x.Data.Select(FillDetails);
-            
-            return contacts;
+            var list = await mc.Members.GetAllAsync(ConfigurationManager.AppSettings["F3List"], new MemberRequest
+            {
+                
+                SinceTimestamp = date
+            }).ConfigureAwait(false);
+
+
+
+            return list.Select(x => new ViewModels.Contact
+            {
+                F3Name = x.MergeFields["F3NAME"].ToString(),
+                SignupDate = Convert.ToDateTime(x.TimestampOpt)
+            }).OrderByDescending(s => s.SignupDate);
         }
 
-        private F3.ViewModels.Contact FillDetails(MemberInfo arg)
+        public async Task<IEnumerable<ViewModels.Contact>> CheckName(string f3Name)
         {
-            return new F3.ViewModels.Contact
+            var mc = new MailChimpManager(ConfigurationManager.AppSettings.Get("MailChimpApiKey"));
+
+            var results = await mc.Members.SearchAsync(new MemberSearchRequest
             {
-                F3Name = (string)arg.MemberMergeInfo["F3NAME"]
-            };
+                ListId = ConfigurationManager.AppSettings.Get("F3List"),
+                Query = f3Name
+            });
+
+            return results.FullSearch.Members.EmptyIfNull().Select(a => new ViewModels.Contact {
+                F3Name = a.MergeFields["F3NAME"].ToString(),
+                FirstName = a.MergeFields["FNAME"].ToString(),
+                LastName = a.MergeFields["LNAME"].ToString()
+            });
         }
     }
 }

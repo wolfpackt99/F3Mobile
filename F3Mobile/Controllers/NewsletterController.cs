@@ -7,6 +7,7 @@ using Ninject;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Ninject.Activation.Caching;
+using System.Collections.Generic;
 
 namespace F3Mobile.Controllers
 {
@@ -59,6 +60,14 @@ namespace F3Mobile.Controllers
         {
             var latest = await Cache.GetOrSet(LatestAdds, async () => await ContactBiz.Latest());
             return Json(latest, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        [AllowCrossSiteJson]
+        public async Task<JsonResult> FindSimilar(string name)
+        {
+            var sims = await ContactBiz.CheckName(name);
+            return Json(sims, JsonRequestBehavior.AllowGet);
         }
     }
 }

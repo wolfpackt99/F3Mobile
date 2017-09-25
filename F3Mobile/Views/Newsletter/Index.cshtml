@@ -41,10 +41,11 @@
                 @Html.LabelFor(m => m.Email)
                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "Email" })
             </div>
-            <div class="col-xs-6 col-sm-12 col-no-padding">
+            <div class="col-xs-12 col-sm-12 col-no-padding">
                 <div class="form-group">
-                    @Html.LabelFor(m => m.F3Name)
+                    @Html.LabelFor(m => m.F3Name) (<a href="#" id="nameChecker">check availability</a>)
                     @Html.TextBoxFor(m => m.F3Name, new { @class = "form-control" })
+                    <div id="name-response"></div>
                 </div>
             </div>
             <div class="col-xs-6 col-sm-12 col-no-padding">
@@ -53,74 +54,76 @@
                     @Html.TextBoxFor(m => m.EH, new { @class = "form-control" })
                 </div>
             </div>
-            <div class="col-xs-6 col-sm-12 col-no-padding">
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Workout)
-                    <select id='Workout' name='Workout' class="form-control">
-                        <option value=''>Select a workout</option>
-                        <option value='Anvil'>Anvil</option>
-                        <option value='Area51'>Area51</option>
-                        <option value='Area51 Dads'>Area51 Dads</option>
-                        <option value='Ascent/Olympus'>Ascent/Olympus</option>
-                        <option value='Bagpipe'>Bagpipe</option>
-                        <option value='Base Camp'>Base Camp</option>
-                        <option value='Blackhawk'>Blackhawk</option>
-                        <option value='Centurion'>Centurion</option>
-                        <option value='Commitment'>Commitment</option>
-                        <option value='da Vinci'>da Vinci</option>
-                        <option value='Day Zero'>Day Zero</option>
-                        <option value='Death Valley'>Death Valley</option>
-                        <option value='DMZ'>DMZ</option>
-                        <option value='Donut Run'>Donut Run</option>
-                        <option value='Dromedary'>Dromedary</option>
-                        <option value='Fast Twitch'>Fast Twitch</option>
-                        <option value='Fat Camp'>Fat Camp</option>
-                        <option value='Fight Club'>Fight Club</option>
-                        <option value='Flash'>Flash</option>
-                        <option value='Foxhole'>Foxhole</option>
-                        <option value='Gumby'>Gumby</option>
-                        <option value='High T'>High T</option>
-                        <option value='Hydra'>Hydra</option>
-                        <option value='Impromptu'>Impromptu</option>
-                        <option value='Joust'>Joust</option>
-                        <option value='Kevlar'>Kevlar</option>
-                        <option value='McHorseArse'>McHorseArse</option>
-                        <option value='Meathead'>Meathead</option>
-                        <option value='Mountain Goat'>Mountain Goat</option>
-                        <option value='Olympus'>Olympus</option>
-                        <option value='Outland'>Outland</option>
-                        <option value='Overdrive'>Overdrive</option>
-                        <option value='Peak 51'>Peak 51</option>
-                        <option value='Rebel Yell'>Rebel Yell</option>
-                        <option value='Skunk Works'>Skunk Works</option>
-                        <option value='Stonehenge'>Stonehenge</option>
-                        <option value='SOB Dads'>SOB Dads</option>
-                        <option value='SOBLSD'>SOBLSD</option>
-                        <option value='SOFA WIB'>SOFA WIB</option>
-                        <option value='Swift'>Swift</option>
-                        <option value="SummersEveRun">SummersEveRun</option>
-                        <option value='The Arsenal'>The Arsenal</option>
-                        <option value='The Big House'>The Big House</option>
-                        <option value='The Brave'>The Brave</option>
-                        <option value='The Charge'>The Charge</option>
-                        <option value='The Devils Turn'>The Devil's Turn</option>
-                        <option value='The Matrix'>The Matrix</option>
-                        <option value='The Maul'>The Maul</option>
-                        <option value='The Reservation'>The Reservation</option>
-                        <option value='The Rock'>The Rock</option>
-                        <option value='The Tomahawk'>Tomahawk</option>
-                        <option value='Thrive'>Thrive</option>
-                        <option value='Watchtower'>Watchtower</option>
-                    </select>
+                <div class="col-xs-6 col-sm-12 col-no-padding">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Workout)
+                        <select id='Workout' name='Workout' class="form-control">
+                            <option value=''>Select a workout</option>
+                            <option value='Anvil'>Anvil</option>
+                            <option value='Area51'>Area51</option>
+                            <option value='Area51 Dads'>Area51 Dads</option>
+                            <option value='Ascent/Olympus'>Ascent/Olympus</option>
+                            <option value='Bagpipe'>Bagpipe</option>
+                            <option value='Base Camp'>Base Camp</option>
+                            <option value='Blackhawk'>Blackhawk</option>
+                            <option value='Centurion'>Centurion</option>
+                            <option value='Commitment'>Commitment</option>
+                            <option value='da Vinci'>da Vinci</option>
+                            <option value='Day Zero'>Day Zero</option>
+                            <option value='Death Valley'>Death Valley</option>
+                            <option value='DMZ'>DMZ</option>
+                            <option value='Donut Run'>Donut Run</option>
+                            <option value='Dromedary'>Dromedary</option>
+                            <option value='Fast Twitch'>Fast Twitch</option>
+                            <option value='Fat Camp'>Fat Camp</option>
+                            <option value='Fight Club'>Fight Club</option>
+                            <option value='Flash'>Flash</option>
+                            <option value='Foxhole'>Foxhole</option>
+                            <option value='Gumby'>Gumby</option>
+                            <option value='High T'>High T</option>
+                            <option value='Hydra'>Hydra</option>
+                            <option value='Impromptu'>Impromptu</option>
+                            <option value='Joust'>Joust</option>
+                            <option value='Kevlar'>Kevlar</option>
+                            <option value='McHorseArse'>McHorseArse</option>
+                            <option value='Meathead'>Meathead</option>
+                            <option value='Mountain Goat'>Mountain Goat</option>
+                            <option value='Olympus'>Olympus</option>
+                            <option value='Outland'>Outland</option>
+                            <option value='Overdrive'>Overdrive</option>
+                            <option value='Peak 51'>Peak 51</option>
+                            <option value='Rebel Yell'>Rebel Yell</option>
+                            <option value='Skunk Works'>Skunk Works</option>
+                            <option value='Stonehenge'>Stonehenge</option>
+                            <option value='SOB Dads'>SOB Dads</option>
+                            <option value='SOBLSD'>SOBLSD</option>
+                            <option value='SOFA WIB'>SOFA WIB</option>
+                            <option value='Swift'>Swift</option>
+                            <option value="SummersEveRun">SummersEveRun</option>
+                            <option value='The Arsenal'>The Arsenal</option>
+                            <option value='The Big House'>The Big House</option>
+                            <option value='The Brave'>The Brave</option>
+                            <option value='The Charge'>The Charge</option>
+                            <option value='The Devils Turn'>The Devil's Turn</option>
+                            <option value='The Matrix'>The Matrix</option>
+                            <option value='The Maul'>The Maul</option>
+                            <option value='The Reservation'>The Reservation</option>
+                            <option value='The Rock'>The Rock</option>
+                            <option value='The Tomahawk'>Tomahawk</option>
+                            <option value='Thrive'>Thrive</option>
+                            <option value='Watchtower'>Watchtower</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="col-xs-6 col-sm-12 col-no-padding">
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Twitter)
-                    @Html.TextBoxFor(m => m.Twitter, new { @class = "form-control" })
+                <div class="col-xs-6 col-sm-12 col-no-padding">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Twitter)
+                        @Html.TextBoxFor(m => m.Twitter, new { @class = "form-control" })
+                    </div>
                 </div>
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
+                <div class="col-xs-12 col-sm-12 col-no-padding">
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </div>
         }
     </div>
     <div class="col-sm-12 col-md-4 hidden-xs hidden-sm">
@@ -132,16 +135,20 @@
 
 @section scripts
 {
-    
+
     <script>
         $(function () {
-            require(['toastr', 'recent'], function (toastr, recent) {
+            require(['toastr', 'recent','checkName'], function (toastr, recent, checkName) {
                 var alert = "@alert";
                 if (alert.length > 0) {
                     toastr.success(alert);
                 }
                 recent.init({
                     url: '@Url.Action("getrecent", "newsletter")'
+                });
+
+                checkName.init({
+                    url: '@Url.Action("findsimilar","newsletter")'
                 });
             });
         });

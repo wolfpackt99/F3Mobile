@@ -1,0 +1,10 @@
+﻿<div class="alert alert-warning" style="margin-top:10px;">
+    <ul>
+        {{#users}}
+        <li>{{F3Name}} - {{FirstName}}</li>
+        {{/users}}
+        {{#isEmpty}}
+        <li>no similar names</li>
+        {{/isEmpty}}
+    </ul>
+</div>
