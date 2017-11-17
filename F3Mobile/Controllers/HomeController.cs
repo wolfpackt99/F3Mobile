@@ -7,6 +7,7 @@ using Ninject;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Ninject.Activation.Caching;
+using System.Net;
 
 namespace F3Mobile.Controllers
 {
@@ -25,9 +26,10 @@ namespace F3Mobile.Controllers
 
         public virtual async Task<ActionResult> Index()
         {
-            var news = await News.GetNews();
-            //var news = await Cache.GetOrSet("News", async () => await News.GetNews());
-            return View(news);
+            return RedirectPermanent("http://f3southcharlotte.com");
+            //var news = await News.GetNews();
+            ////var news = await Cache.GetOrSet("News", async () => await News.GetNews());
+            //return View(news);
         }
     }
 }
