@@ -281,7 +281,7 @@ namespace F3.Business.Calendar
                                 if (!exp.Message.Contains("Value cannot be null."))
                                 {
                                     System.Diagnostics.Debug.WriteLine("-----calitem------");
-                                    System.Diagnostics.Debug.WriteLine(ev.Summary + "::" + ev.Description);
+                                    System.Diagnostics.Debug.WriteLine(s.Summary + "::" + ev.Summary + "::" + ev.Description);
                                     System.Diagnostics.Debug.WriteLine(exp.Message);
                                     System.Diagnostics.Debug.WriteLine("-----endcalitem-----");
                                 }
