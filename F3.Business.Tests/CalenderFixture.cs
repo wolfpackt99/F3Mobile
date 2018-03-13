@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using F3.Business.Calendar;
+using F3.Business.Workout;
 using F3.Infrastructure.Cache;
 using F3.Infrastructure.Extensions;
 using F3.Infrastructure.GoogleAuth;
@@ -37,6 +38,9 @@ namespace F3.Business.Tests
         {
             var cb = new CalendarBusiness();
             var sut = await cb.GetCalendarList();
+            foreach (var x in sut.Items.OrderBy(o => o.Summary).ToList()) {
+                Console.WriteLine(x.Summary + ", " + x.Id);
+            }
             sut.Items.Should().HaveCount(c => c > 0);
         }
 
@@ -71,6 +75,8 @@ namespace F3.Business.Tests
         public async Task Publish2Test()
         {
             var cb = new CalendarBusiness();
+            cb.WorkoutBusiness = new WorkoutBusiness();
+            Maps.ModelMaps.InitMaps();
             var sut = await cb.Publish();
             sut.Should().BeTrue();
         }
