@@ -12,7 +12,7 @@ namespace F3Mobile.App_Start
 {
     using System;
     using System.Web;
-
+    using F3.Business.Workout;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;
@@ -68,6 +68,7 @@ namespace F3Mobile.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            F3.Business.Maps.ModelMaps.InitMaps();
             kernel.Bind<IFeed>().To<Feed>();
             kernel.Bind<IContactBusiness>().To<GoogleContactBusiness>();
             kernel.Bind<ICalendarBusiness>().To<CalendarBusiness>();
@@ -76,6 +77,7 @@ namespace F3Mobile.App_Start
             kernel.Bind<ICacheService>().To<CacheService>();
             kernel.Bind<INewsBusiness>().To<NewsBusiness>();
             kernel.Bind<IStravaBusiness>().To<StravaBusiness>();
+            kernel.Bind<IWorkoutBusiness>().To<WorkoutBusiness>();
         }        
     }
 }

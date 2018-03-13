@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "amazing-tiger-197820",
+  "private_key_id": "8b9b66adb6deeb61cbc4486f820d989d27850354",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDrQYEk2jfyQ4rh\nAH+eJsv1o8gmXkKnKuIJXY58fyO+rn0TU1nrJCYg3/RKdR11rKdFgeVzBclQ02+j\nvrGohEeqm0rRJEYmmjUDD96hK8XJxVvAf2CoORzorKzD4UoYQ5hTyX8VxYkVOmTm\npBA2+B2crcd92vLEzZWfIZUrG8K4O+9iq1iwpsjiO+Dg9DNWlDP4k8jUachSkw9x\nIRGZMHpuBdyQHMm4mtxaP/tleGEaE8kBALItQ0/FLaEJo29D7ao8UDUu+65nxdv6\nGgFxC7D/VIsP0C2YBLfuS7kli83WPgE7Qq7sS+IXHSItOfARGvnlKRMEkkj+ooB4\nqqDkjeYtAgMBAAECggEAIozvQ5NM7iafSeZB199Iyx2vsnrbfSOeKNP1rjEZ9dI4\nilMOfKtFckSR4zGKDxM5ScsHALqT02wKFFlYTDCJOfQuq8KRDvBM4tM81hzQoo56\nqC3M60fgCAf8I5R9xkx/HacVJARr2pNF6F2mB/yulKktCD3Us7Shycor1zXvhhD3\nRJFLPTNxaTMz7x8tPQEvIN9/4dwy7+WvW3BS56KWRRY9gR+QjyD+JFbu7r5fmnCW\nWF9rajwnO+zBlCMnobgV3XNw4lVZVvdXvp8Y3f8da6+EIe47bkyh32mO6Bv3x2/c\nvL9Yx5y3C4KmqkaBE5XO2lWvoCjLMqhguu4XQqBbYQKBgQD2j4BJp8Jfa+3xhkmz\nGldQ/D88jLnA/hseQCSbq5j3KNvExNEcqmRazIbL4EdSfaji/hZdvMAu3Yb4fg+m\nUWYkA/9eBTntHprkw0jqqLWtGV/VIvY9RRho3ZpuymklAJPEM/LdVLf7h/wr/an5\nFWlQRdhLImoPSMijMNs1GTuyFQKBgQD0QzVG+4WurZWIGCtosRh4pdGdjwvZJ4Cb\nLAwrq1MbVhEaLZ/WsEhmH3LUCKeKDfTx2SnnPWB8ekhiQEmBKhKBvMNA655+3Rxs\nsiBjsyNqdpFSLE2THMuyI6vvloEOgXeXoTO+k3f0s/KZBF0Z5zeRoK8tEGYbq31E\nvHig8X+huQKBgQDMy/1fML0+zUNjLovg/KwyVJOiE7HnICoeQmEl/K6d/Y4uLt0S\n1mVtFh2REsWrOz0g7rRdP/7R7qfBl9Qf7dTNbZSb3/Nxhc5a3eqfH2toUH9NZjDq\nS44u7ILuK6qSVZxniE7ekRQRFa7cS2L3xlUnnBxArGE0ONyO0HID9OWk0QKBgAYk\naoKOcJ4j3068zNqlGWhvQwYjQrkDNUixoty2QjC9yVBPNWXAqRFoWQrb7Nqb3zz1\nqQgXkwWOTaOq2i5VUIHSrVZEloe6J6zUDdxz9MAImz7lvk2ku7qPCxPLRROITemS\nNCrmqm2M2NzgLzcniU4wLDeF4gtwFIZV9vKVIBCBAoGAWYXUByElelrJPPJh/NcV\ny3tJ2IIys8pyb9R128+w3uMBiLYyutCqB/s24kRgDlqxsol/rUZcrevncPjhVxLY\nE31YQJEVc9LGCYOnoh6A+cVMe6xsYbBPewsiyJ8qWleo4su+l0d6JjhTQj+w0Ei8\nGN52/PK3B7LSgqbEokJSgfw=\n-----END PRIVATE KEY-----\n",
+  "client_email": "sheets-access-sclt@amazing-tiger-197820.iam.gserviceaccount.com",
+  "client_id": "106424302780554753361",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/sheets-access-sclt%40amazing-tiger-197820.iam.gserviceaccount.com"
+}

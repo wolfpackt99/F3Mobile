@@ -5,7 +5,9 @@ using System.Configuration;
 using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using AutoMapper;
 using F3.Business.Calendar;
+using F3.Business.Workout;
 using F3.Infrastructure;
 using F3.Infrastructure.Cache;
 using F3.Infrastructure.Extensions;
@@ -26,7 +28,8 @@ namespace F3.Business.Calendar
 {
     public class CalendarBusiness : ICalendarBusiness
     {
-
+        [Inject]
+        public IWorkoutBusiness WorkoutBusiness { get; set; }
 
         public async Task<Events> GetEvents(string id, bool all = true)
         {
@@ -212,10 +215,14 @@ namespace F3.Business.Calendar
             try
             {
                 var sites = (await GetCalendarList()).Items;
+                var aos = await WorkoutBusiness.GetMasterList();
                 var thisweek = new List<EventViewModel>();
                 var tasks = sites.Select(async s =>
                 {
+                    var currentAo = aos.FirstOrDefault(a => a.CalendarID == s.Id);
+
                     var events = await GetEvents(s.Id, false);
+                    System.Diagnostics.Debug.WriteLine(s.Summary + " " + ((currentAo != null) ? currentAo.Name : " NO MATCH"));
                     MetaDataViewModel meta = null;
                     try
                     {
@@ -239,59 +246,76 @@ namespace F3.Business.Calendar
                         Description = s.Description,
                         MetaData = meta,
                         Location = s.Location,
-                        Type = meta.type,
+                        Type = meta != null ? meta.type : "",
                         TimeZone = s.TimeZone,
-                        Items = events.Items.Select(ev =>
-                        {
-                            var evModel = new EventViewModel
-                            {
-                                CalendarId = s.Id,
-                                CalendarName = s.Summary,
-                                Start = ev.Start.DateTime ?? Convert.ToDateTime(ev.Start.Date),
-                                Title = ev.Summary,
-                                Description = ev.Description,
-                                Location = s.Location,
-                                Time = meta != null ? meta.Time : string.Empty,
-                                Region = meta.Region,
-                                Type = meta != null ? meta.type ?? string.Empty : string.Empty,
-                                TimeZone = s.TimeZone
-                            };
-                            try
-                            {
-                                var json = JsonConvert.DeserializeObject<Dictionary<string, string>>(ev.Description);
-                                evModel.Preblast = json.ContainsKey("preblast") ? json["preblast"] : null;
-                                evModel.Tag = json.ContainsKey("tag") ? json["tag"] : null;
-                                evModel.CustomDescription = json.ContainsKey("description") ? json["description"] : null;
-                                evModel.IsCustomDateTime = json.ContainsKey("custom");
-                                if (evModel.IsCustomDateTime)
-                                {
-                                    evModel.StartTime = ev.Start.DateTime;
-                                    evModel.EndTime = ev.End.DateTime;
-                                    if (!ev.Start.DateTime.HasValue && !ev.End.DateTime.HasValue)
-                                    {
-                                        evModel.IsAllDay = true;
-                                    }
-
-                                    evModel.Location = ev.Location ?? s.Location;
-
-                                }
-                            }
-                            catch (Exception exp)
-                            {
-                                if (!exp.Message.Contains("Value cannot be null."))
-                                {
-                                    System.Diagnostics.Debug.WriteLine("-----calitem------");
-                                    System.Diagnostics.Debug.WriteLine(s.Summary + "::" + ev.Summary + "::" + ev.Description);
-                                    System.Diagnostics.Debug.WriteLine(exp.Message);
-                                    System.Diagnostics.Debug.WriteLine("-----endcalitem-----");
-                                }
-                            }
-
-                            return evModel;
-                        }).AsEnumerable()
                     };
-                    thisweek.AddRange(isThisWeek(cal));
 
+                    if (currentAo != null)
+                    {
+                        cal = Mapper.Map(currentAo, cal);
+                    }
+
+                    cal.Items = events.Items.Select(ev =>
+                    {
+                        var evModel = new EventViewModel
+                        {
+                            CalendarId = s.Id,
+                            CalendarName = s.Summary,
+                            Start = ev.Start.DateTime ?? Convert.ToDateTime(ev.Start.Date),
+                            Title = ev.Summary,
+                            Description = ev.Description,
+                            Location = s.Location,
+                            TimeZone = s.TimeZone
+                        };
+
+                        if (meta != null)
+                        {
+                            evModel.Time = meta.Time;
+                            evModel.Region = meta.Region;
+                            evModel.Type = meta.type ?? string.Empty;
+                        }
+
+                        if (currentAo != null)
+                        {
+                            evModel.Time = currentAo.Time;
+                            evModel.Region = currentAo.Region;
+                            evModel.Type = currentAo.Type;
+                            evModel.Location = $"{currentAo.Address} {currentAo.City} {currentAo.State} { currentAo.Zipcode}";
+                        }
+                        try
+                        {
+                            var json = JsonConvert.DeserializeObject<Dictionary<string, string>>(ev.Description);
+                            evModel.Preblast = json.ContainsKey("preblast") ? json["preblast"] : null;
+                            evModel.Tag = json.ContainsKey("tag") ? json["tag"] : null;
+                            evModel.CustomDescription = json.ContainsKey("description") ? json["description"] : null;
+                            evModel.IsCustomDateTime = json.ContainsKey("custom");
+                            if (evModel.IsCustomDateTime)
+                            {
+                                evModel.StartTime = ev.Start.DateTime;
+                                evModel.EndTime = ev.End.DateTime;
+                                if (!ev.Start.DateTime.HasValue && !ev.End.DateTime.HasValue)
+                                {
+                                    evModel.IsAllDay = true;
+                                }
+
+                                evModel.Location = ev.Location ?? s.Location;
+
+                            }
+                        }
+                        catch (Exception exp)
+                        {
+                            if (!exp.Message.Contains("Value cannot be null."))
+                            {
+                                System.Diagnostics.Debug.WriteLine("-----calitem------");
+                                System.Diagnostics.Debug.WriteLine(s.Summary + "::" + ev.Summary + "::" + ev.Description + "::" + ev.Start.DateTime.ToString());
+                                System.Diagnostics.Debug.WriteLine(exp.Message);
+                                System.Diagnostics.Debug.WriteLine("-----endcalitem-----");
+                            }
+                        }
+
+                        return evModel;
+                    }).AsEnumerable();
+                    thisweek.AddRange(isThisWeek(cal));
                     return cal;
                 });
                 var x = await Task.WhenAll(tasks);
