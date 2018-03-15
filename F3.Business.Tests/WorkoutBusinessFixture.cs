@@ -1,9 +1,5 @@
-﻿using F3.Business.Workout;
+﻿using F3.Business.Service;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace F3.Business.Tests
@@ -14,8 +10,8 @@ namespace F3.Business.Tests
         [TestMethod, Ignore]
         public async Task TestRetrive()
         {
-            var wb = new WorkoutBusiness();
-            var list = wb.GetMasterList();
+            var wb = new SheetService();
+            var list = wb.GetWorkouts();
         }
     }
 }

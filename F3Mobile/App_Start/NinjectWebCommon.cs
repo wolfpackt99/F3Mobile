@@ -10,13 +10,12 @@ using F3Mobile.Code;
 
 namespace F3Mobile.App_Start
 {
-    using System;
-    using System.Web;
-    using F3.Business.Workout;
+    using F3.Business.Service;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
     using Ninject;
     using Ninject.Web.Common;
+    using System;
+    using System.Web;
 
     public static class NinjectWebCommon 
     {
@@ -77,7 +76,7 @@ namespace F3Mobile.App_Start
             kernel.Bind<ICacheService>().To<CacheService>();
             kernel.Bind<INewsBusiness>().To<NewsBusiness>();
             kernel.Bind<IStravaBusiness>().To<StravaBusiness>();
-            kernel.Bind<IWorkoutBusiness>().To<WorkoutBusiness>();
+            kernel.Bind<ISheetService>().To<SheetService>();
         }        
     }
 }

@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using F3.Business.Calendar;
-using F3.Business.Workout;
-using F3.Infrastructure.Cache;
+﻿using F3.Business.Calendar;
+using F3.Business.Service;
 using F3.Infrastructure.Extensions;
 using F3.Infrastructure.GoogleAuth;
 using FluentAssertions;
-using log4net.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace F3.Business.Tests
 {
@@ -75,9 +71,19 @@ namespace F3.Business.Tests
         public async Task Publish2Test()
         {
             var cb = new CalendarBusiness();
-            cb.WorkoutBusiness = new WorkoutBusiness();
+            cb.WorkoutBusiness = new SheetService();
             Maps.ModelMaps.InitMaps();
             var sut = await cb.Publish();
+            sut.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public async Task PublishNewTest()
+        {
+            var cb = new CalendarBusiness();
+            cb.WorkoutBusiness = new SheetService();
+            Maps.ModelMaps.InitMaps();
+            var sut = await cb.PublishNew();
             sut.Should().BeTrue();
         }
 
