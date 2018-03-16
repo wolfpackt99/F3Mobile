@@ -26,7 +26,7 @@ namespace F3.Business.Maps
                         new
                         {
                             SiteQ = d.Q,
-                            Meets = d.DayOfWeek,
+                            Meets = Enum.GetName(typeof(DayOfWeek), d.DayOfWeek),
                             d.LocationHint,
                             d.DisplayLocation,
                             d.Time,

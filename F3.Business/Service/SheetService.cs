@@ -29,7 +29,7 @@ namespace F3.Business.Service
             try
             {
 
-                var range = $"Sheet1!A:R";
+                var range = $"Sheet1!A:U";
                 IList<IList<object>> values = GetSheetData(range);
 
                 if (values != null && values.Count > 0)
@@ -54,7 +54,9 @@ namespace F3.Business.Service
                         Notes = row[14].ToString(),
                         DayOfWeek = Convert.ToInt32(row[15].ToString()),
                         Show = row[16].ToString() == "1" ? true : false,
-                        CalendarID = row[17].ToString()
+                        CalendarID = row[17].ToString(),
+                        DisplayLocation = row[18].ToString(),
+                        LocationHint = row.Count == 20 ? row[19].ToString() : string.Empty
 
                     }).ToList();
                     counter++;

@@ -50,14 +50,7 @@ namespace F3.Business.Tests
             sut.Any(s => s.Summary == "SOBLSD").ShouldBeEquivalentTo(true);
             sut.FirstOrDefault(s => s.Summary == "SOBLSD").Items.EmptyIfNull().Should().HaveCount(1);
         }
-        [TestMethod, Ignore]
-        public async Task GetAllEventsShouldntBreak()
-        {
-            var cb = new CalendarBusiness();
-            var sut = await cb.Publish();
-            sut.Should().BeTrue();
-        }
-
+        
         [TestMethod, Ignore]
         public async Task GetAllEventsForAll()
         {
@@ -68,16 +61,6 @@ namespace F3.Business.Tests
         }
 
         [TestMethod, Ignore]
-        public async Task Publish2Test()
-        {
-            var cb = new CalendarBusiness();
-            cb.WorkoutBusiness = new SheetService();
-            Maps.ModelMaps.InitMaps();
-            var sut = await cb.Publish();
-            sut.Should().BeTrue();
-        }
-
-        [TestMethod]
         public async Task PublishNewTest()
         {
             var cb = new CalendarBusiness();
