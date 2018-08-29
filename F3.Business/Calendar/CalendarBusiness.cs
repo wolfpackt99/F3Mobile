@@ -212,6 +212,10 @@ namespace F3.Business.Calendar
             return true;
         }
 
+        public async Task<bool> Publish() {
+            return await PublishNew();
+        }
+
         public async Task<bool> PublishNew()
         {
             //get workouts from sheets
