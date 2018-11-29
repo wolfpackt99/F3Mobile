@@ -75,7 +75,8 @@ namespace F3.Business.Leaderboard
             var athletes = new List<AthleteSummary>();
             while (moreResults)
             {
-                var pageResults = await GetClubMembersAsync(ConfigurationManager.AppSettings.Get("stravaClubId"), page, 200);
+                var clubId = ConfigurationManager.AppSettings["stravaClubId"];
+                var pageResults = await GetClubMembersAsync(clubId, page, 200);
                 if (!pageResults.Any())
                 {
                     moreResults = false;
@@ -85,23 +86,23 @@ namespace F3.Business.Leaderboard
             }
             var authedAthletes = await GetAuthedAthletes();
 
-            var auth_only = athletes.Where(s => authedAthletes.Any(a => a.Athlete.Id == s.Id));
+            //var auth_only = athletes.Where(s => authedAthletes.Any(a => a.Athlete.Id == s.Id));
 
-            var users = await auth_only.ForkJoin(async s => await DoTheNeedful(s, authedAthletes));
+            var users = await authedAthletes.ForkJoin(async s => await DoTheNeedful(s.Athlete, s.AccessToken));
             return users;
 
         }
 
-        private async Task<User> DoTheNeedful(AthleteSummary arg, IEnumerable<StravaAuth> authedAthletes)
+        private async Task<User> DoTheNeedful(AthleteSummary arg, string token)
         {
             var user = new User();
             try
             {
                 var activities = new List<ActivitySummary>();
-                var authToken = authedAthletes.ToList().FirstOrDefault(c => c.Athlete.Id == arg.Id);
+                var authToken = token;
                 if (authToken != null)
                 {
-                    var userActivities = await GetActivityByUser(arg.Id, authToken.AccessToken);
+                    var userActivities = await GetActivityByUser(arg.Id, authToken);
                     activities.AddRange(userActivities);
                 }
 
@@ -112,7 +113,7 @@ namespace F3.Business.Leaderboard
                     StravaId = arg.Id,
                     FirstName = arg.FirstName,
                     LastName = arg.LastName,
-                    ActivityCount = activities.Count()
+                    ActivityCount = activities.Count
                 };
                 user.TotalMiles = activities.Sum(e => Convert.ToDecimal(e.Distance * 0.000621371));
                 var stats = GetStatsForUser(activities.ToList()).ToList();
@@ -186,6 +187,7 @@ namespace F3.Business.Leaderboard
             }
             catch (Exception exp)
             {
+                System.Diagnostics.Debug.WriteLine(exp.Message);
                 throw;
             }
         }
