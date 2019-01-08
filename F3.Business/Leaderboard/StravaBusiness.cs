@@ -68,22 +68,22 @@ namespace F3.Business.Leaderboard
 
         public async Task<IEnumerable<User>> GetData()
         {
-            var moreResults = true;
-            var page = 1;
-            var client = new ClubClient(StaticAuthentication);
+            //var moreResults = true;
+            //var page = 1;
+            //var client = new ClubClient(StaticAuthentication);
 
-            var athletes = new List<AthleteSummary>();
-            while (moreResults)
-            {
-                var clubId = ConfigurationManager.AppSettings["stravaClubId"];
-                var pageResults = await GetClubMembersAsync(clubId, page, 200);
-                if (!pageResults.Any())
-                {
-                    moreResults = false;
-                }
-                athletes.AddRange(pageResults);
-                page++;
-            }
+            //var athletes = new List<AthleteSummary>();
+            //while (moreResults)
+            //{
+            //    var clubId = ConfigurationManager.AppSettings["stravaClubId"];
+            //    var pageResults = await GetClubMembersAsync(clubId, page, 200);
+            //    if (!pageResults.Any())
+            //    {
+            //        moreResults = false;
+            //    }
+            //    athletes.AddRange(pageResults);
+            //    page++;
+            //}
             var authedAthletes = await GetAuthedAthletes();
 
             //var auth_only = athletes.Where(s => authedAthletes.Any(a => a.Athlete.Id == s.Id));
@@ -153,7 +153,7 @@ namespace F3.Business.Leaderboard
             var activities = new List<ActivitySummary>();
             while (moreResults)
             {
-                var actPage = await actClient.GetActivitiesAfterAsync(new DateTime(2018, 1, 1, 0, 0, 0, DateTimeKind.Utc), page, 200);
+                var actPage = await actClient.GetActivitiesAfterAsync(new DateTime(2019, 1, 1, 0, 0, 0, DateTimeKind.Utc), page, 200);
                 if (!actPage.Any())
                 {
                     moreResults = false;
