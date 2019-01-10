@@ -238,9 +238,6 @@ namespace F3.Business.Leaderboard
             {
                 await StorageClient.Instance.Value.PushAsync("/athletes", authAthlete);
             }
-
-            //8cd6c2d011d724860bbdde4b491e312e63db9d32
-
         }
     }
 
