@@ -118,7 +118,7 @@ namespace F3.Business.Leaderboard
                 user.TotalMiles = activities.Sum(e => Convert.ToDecimal(e.Distance * 0.000621371));
                 var stats = GetStatsForUser(activities.ToList()).ToList();
                 user.Stats = stats;
-                user.Running = activities.ToList().Where(t => t.RawType.ToLower() == "run").Sum(e => Convert.ToDecimal(e.Distance * 0.000621371));
+                user.Running = activities.Where(t => t.RawType.ToLower() == "run").Sum(e => Convert.ToDecimal(e.Distance * 0.000621371));
                 
             }
             catch (Exception exp)
