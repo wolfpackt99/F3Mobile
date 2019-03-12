@@ -136,6 +136,7 @@ namespace Links
         public static readonly string calendar_min_js = Url("calendar.min.js");
         public static readonly string calendar_min_js_map = Url("calendar.min.js.map");
         public static readonly string calendarService_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/calendarService.min.js") ? Url("calendarService.min.js") : Url("calendarService.js");
+        public static readonly string checkName_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/checkName.min.js") ? Url("checkName.min.js") : Url("checkName.js");
         public static readonly string config_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/config.min.js") ? Url("config.min.js") : Url("config.js");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class controllers {
@@ -963,6 +964,7 @@ namespace Links
             public static readonly string map_html = Url("map.html");
             public static readonly string recentTemplate_html = Url("recentTemplate.html");
             public static readonly string schedule_html = Url("schedule.html");
+            public static readonly string similar_html = Url("similar.html");
             public static readonly string thisweek_html = Url("thisweek.html");
             public static readonly string week_html = Url("week.html");
         }
@@ -1834,6 +1836,7 @@ namespace Links
                 public const string bootstrap_min_js = "~/Scripts/bootstrap.min.js"; 
                 public const string calendar_js = "~/Scripts/calendar.js"; 
                 public const string calendarService_js = "~/Scripts/calendarService.js"; 
+                public const string checkName_js = "~/Scripts/checkName.js"; 
                 public const string config_js = "~/Scripts/config.js"; 
                 public const string custom_js = "~/Scripts/custom.js"; 
                 public const string firebase_debug_js = "~/Scripts/firebase-debug.js"; 

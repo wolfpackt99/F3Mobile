@@ -40,7 +40,7 @@ namespace F3.Business.Tests
             sut.Items.Should().HaveCount(c => c > 0);
         }
 
-        [TestMethod, Ignore]
+        [TestMethod]
         public async Task GetAllEventsForWeek()
         {
             var cb = new CalendarBusiness();
