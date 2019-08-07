@@ -24,7 +24,6 @@ namespace F3.Business.Service
 
         public async Task<List<WorkoutViewModel>> GetWorkouts()
         {
-            var counter = 0;
             List<WorkoutViewModel> aos = new List<WorkoutViewModel>();
             try
             {
@@ -37,29 +36,29 @@ namespace F3.Business.Service
                     values.RemoveAt(0);
                     aos = values.Select(row => new WorkoutViewModel
                     {
-                        Address = row[0].ToString(),
-                        Latitude = Convert.ToDecimal(row[1].ToString()),
-                        Longitude = Convert.ToDecimal(row[2].ToString()),
+
+                        Latitude = Convert.ToDecimal(row[0].ToString()),
+                        Longitude = Convert.ToDecimal(row[1].ToString()),
+                        Address = row[2].ToString(),
                         City = row[3].ToString(),
                         State = row[4].ToString(),
                         Zipcode = row[5].ToString(),
                         Name = row[6].ToString(),
                         Day = row[7].ToString(),
                         Time = row[8].ToString(),
-                        Group = row[9].ToString(),
-                        Url = row[10].ToString(),
-                        Type = row[11].ToString(),
-                        Q = row[12].ToString(),
-                        Region = row[13].ToString(),
-                        Notes = row[14].ToString(),
+                        Q = row[9].ToString(),
+                        Type = row[10].ToString(),
+                        Region = row[11].ToString(),
+                        Url = row[12].ToString(),
+                        Notes = row[13].ToString(),
+                        Group = row[14].ToString(),
                         DayOfWeek = Convert.ToInt32(row[15].ToString()),
-                        Show = row[16].ToString() == "1" ? true : false,
+                        Show = row[16].ToString() == "1",
                         CalendarID = row[17].ToString(),
                         DisplayLocation = row[18].ToString(),
                         LocationHint = row.Count == 20 ? row[19].ToString() : string.Empty
 
                     }).ToList();
-                    counter++;
                 }
                 else
                 {
@@ -89,7 +88,7 @@ namespace F3.Business.Service
                     {
                         Name = row[0].ToString(),
                         CalendarID = row[1].ToString(),
-                        Show = row[2].ToString() == "1" ? true : false,
+                        Show = row[2].ToString() == "1",
                     });
                 }
                 else
